@@ -12,4 +12,4 @@ func _process(delta: float) -> void:
 
 
 func _on_button_dummy_scene_pressed() -> void:
-	Global.scene_manager.switch_scene("res://dummy_scene.tscn", false);
+	Global.scene_manager.switch_scene("res://scenes/sandbox/dummy_scene.tscn", false);
