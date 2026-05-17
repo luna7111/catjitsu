@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://bre7bsl611ww0"]
-
-[ext_resource type="Script" uid="uid://7phle27j3ok3" path="res://scene_manager.gd" id="1_jo5df"]
-[ext_resource type="PackedScene" uid="uid://bbdi7skv4fq7k" path="res://sandbox_menu_0.tscn" id="2_a4gjy"]
-
-[node name="SceneManager" type="Node" unique_id=951934427]
-script = ExtResource("1_jo5df")
-startup_scene = ExtResource("2_a4gjy")
