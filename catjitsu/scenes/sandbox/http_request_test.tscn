@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b4b47syhdgugh"]
+
+[ext_resource type="Script" uid="uid://nt5jk50nqgvd" path="res://scenes/sandbox/http_request_test.gd" id="1_crvij"]
+
+[node name="HttpRequestTest" type="Control" unique_id=667799139]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_crvij")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1799130912]
+
+[node name="Button" type="Button" parent="." unique_id=1163667641]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Ditto"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
