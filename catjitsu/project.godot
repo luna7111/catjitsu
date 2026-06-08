@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="catjitsu"
+run/main_scene="uid://bre7bsl611ww0"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://bfaw8ae7rte40"
 
 [physics]
 
