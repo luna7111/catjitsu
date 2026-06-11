@@ -15,3 +15,12 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Python / Django
+*.log
+*.pot
+*.pyc
+api/.venv
+__pycache__
+db.sqlite3
+media
