@@ -1,3 +1,6 @@
+# IDE
+.vscode
+
 # Godot 4+ specific ignores
 .godot/
 .nomedia
@@ -20,7 +23,7 @@ mono_crash.*.json
 *.log
 *.pot
 *.pyc
-api/.venv
 __pycache__
 db.sqlite3
 media
+.venv

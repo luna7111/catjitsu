@@ -11,7 +11,7 @@ You need to have python3 installed
 2. create project :
 
 - `pip install -r requirements.txt` installs the needed packages into the virtual environment
-- `django-admin startproject drinks .` starts the project in the provided address
+- `django-admin startproject catjitsu_api .` starts the project in the provided address
 
 3. start project and create basic database :
 
@@ -20,7 +20,7 @@ You need to have python3 installed
 
 Done! You can access the server with the link provided in console at startup.
 
-## Key files
+## Some key files
 - `urls.py` shows the available exposed urls
-- `models.py` shows the existing classes
+- `models.py` shows the existing classes (or db tables?)
 - `views.py` contains the available endpoints and their behaviour
