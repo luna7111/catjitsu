@@ -11,7 +11,7 @@ You need to have python3 installed
 2. create project :
 
 - `pip install -r requirements.txt` installs the needed packages into the virtual environment
-- `django-admin startproject catjitsu_api .` starts the project in the provided address
+<!-- - `django-admin startproject catjitsu_api .` to create a new project (shouldn't be necessary) -->
 
 3. start project and create basic database :
 
