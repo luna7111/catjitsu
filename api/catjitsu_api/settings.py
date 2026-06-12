@@ -79,6 +79,15 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # TODO mariadb adapter, finish this tutorial https://medium.com/code-zen/django-mariadb-85cc9daeeef8
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'myproject',
+    #     'USER':'yourusername',
+    #     'PASSWORD':'yourpassword',
+    #     'HOST':'localhost',
+    #     'PORT':'',
+    # }
 }
 
 
