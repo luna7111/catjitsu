@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bhjy81h35lsj2"]
+
+[ext_resource type="Script" uid="uid://b13nurrjuaqon" path="res://scenes/main_menu/menu_settings.gd" id="1_rrw0a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsj1q"]
+bg_color = Color(0.9764706, 0.81960785, 0.91764706, 1)
+
+[node name="MenuSettings" type="Control" unique_id=1659217655]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rrw0a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1223279139]
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=882628615]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gsj1q")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1557828416]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer2" unique_id=2011244767]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.5
+offset_top = -60.5
+offset_right = 81.5
+offset_bottom = 60.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer2/VBoxContainer" unique_id=439523902]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer2/VBoxContainer/HBoxContainer" unique_id=1317108270]
+layout_mode = 2
+text = "Option"
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer2/VBoxContainer/HBoxContainer" unique_id=1685398900]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer2/VBoxContainer" unique_id=1466438467]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer2/VBoxContainer/HBoxContainer2" unique_id=507459899]
+layout_mode = 2
+text = "Volume"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer2/VBoxContainer/HBoxContainer2" unique_id=576469501]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Apply" type="Button" parent="CanvasLayer2/VBoxContainer" unique_id=2032344776]
+layout_mode = 2
+text = "Apply"
+
+[node name="Return to title" type="Button" parent="CanvasLayer2/VBoxContainer" unique_id=548553697]
+layout_mode = 2
+text = "Return to tittle"
+
+[connection signal="pressed" from="CanvasLayer2/VBoxContainer/Return to title" to="." method="_on_return_to_title_pressed"]

@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bmyu301bgvvd"]
+
+[ext_resource type="Texture2D" uid="uid://ce8spd0kerh6g" path="res://assets/720x321.png" id="1_4wht6"]
+[ext_resource type="Script" uid="uid://c1cr0uhrc8k8s" path="res://scenes/main_menu/menu_home.gd" id="1_h3gpi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sj7vc"]
+bg_color = Color(0.9764706, 0.81960785, 0.91764706, 1)
+
+[node name="MenuHome" type="Control" unique_id=1614818830]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_h3gpi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1366413010]
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1542513508]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sj7vc")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=1085431592]
+position = Vector2(291, 168)
+scale = Vector2(0.57, 0.57)
+texture = ExtResource("1_4wht6")
+
+[node name="Polygon2D" type="Polygon2D" parent="CanvasLayer" unique_id=1525655650]
+color = Color(0.9607843, 0.9254902, 0.9254902, 1)
+polygon = PackedVector2Array(672, 0, 613, 648, 1152, 648, 1152, 0)
+
+[node name="Polygon2D2" type="Polygon2D" parent="CanvasLayer" unique_id=2057282120]
+color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+polygon = PackedVector2Array(703, 0, 601, 648, 1152, 648, 1152, 0)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=890669387]
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer2" unique_id=825990545]
+offset_left = 852.0
+offset_top = 250.0
+offset_right = 955.0
+offset_bottom = 386.0
+metadata/_edit_group_ = true
+
+[node name="Multiplayer" type="Button" parent="CanvasLayer2/Buttons" unique_id=1157859482]
+layout_mode = 2
+text = "Singleplayer"
+
+[node name="Solo" type="Button" parent="CanvasLayer2/Buttons" unique_id=486681283]
+layout_mode = 2
+text = "Solo
+"
+
+[node name="Profile" type="Button" parent="CanvasLayer2/Buttons" unique_id=1124130583]
+layout_mode = 2
+text = "Profile
+"
+
+[node name="Settings" type="Button" parent="CanvasLayer2/Buttons" unique_id=779061087]
+layout_mode = 2
+text = "Settings"
+
+[connection signal="pressed" from="CanvasLayer2/Buttons/Settings" to="." method="_on_settings_pressed"]
