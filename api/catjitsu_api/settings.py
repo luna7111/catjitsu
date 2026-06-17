@@ -75,18 +75,17 @@ WSGI_APPLICATION = 'catjitsu_api.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+    # TODO get variables for MariaDB connector from my.cnf
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'catjitsu_db',
+        'USER':'api_rw',
+        'PASSWORD':'1234',
     }
-    # TODO mariadb adapter, finish this tutorial https://medium.com/code-zen/django-mariadb-85cc9daeeef8
+    # Temporary SQLite alternative for systems without MariaDB
     # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'myproject',
-    #     'USER':'yourusername',
-    #     'PASSWORD':'yourpassword',
-    #     'HOST':'localhost',
-    #     'PORT':'',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 }
 
