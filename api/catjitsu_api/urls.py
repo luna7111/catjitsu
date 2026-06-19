@@ -21,4 +21,6 @@ from catjitsu_api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('players/', views.player_list),
+    path('matches/', views.match_list),
+    path('match/<int:id>', views.match),
 ]
