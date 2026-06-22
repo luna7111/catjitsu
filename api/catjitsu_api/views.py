@@ -15,7 +15,7 @@ def player_list(request):
         serializer = PlayerSerializer(players, many=True)
         return JsonResponse({'players': serializer.data})
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
         serializer = PlayerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -29,7 +29,7 @@ def match_list(request):
         serializer = MatchSerializer(matches, many=True)
         return Response({'matches': serializer.data})
 
-    if request.method == 'POST':                            # TODO Broken
+    elif request.method == 'POST':
         serializer = MatchSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -47,4 +47,13 @@ def match(request, id):
         serializer = MatchSerializer(match)
         return Response(serializer.data)
 
-    # if request.method == 'PUT':    
+    elif request.method == 'PUT':
+        serializer = MatchSerializer(match, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        match.delete()
+        return Response() #TODO find appropriate error code and how to send it
