@@ -16,6 +16,9 @@ class Player(models.Model):
     #     return reverse("player_detail", kwargs={"pk": self.pk})
 
 class Match(models.Model):
+    def clean(self):
+        super().clean()
+        # TODO this seems to be the place for custom validation
 
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10)
