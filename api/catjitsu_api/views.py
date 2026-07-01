@@ -48,7 +48,9 @@ def match(request, id):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = MatchSerializer(match, data=request.data)
+        print("on est dans put")
+        data = request.data
+        serializer = MatchSerializer(match, data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

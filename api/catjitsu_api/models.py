@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 class Player(models.Model):
@@ -16,9 +17,6 @@ class Player(models.Model):
     #     return reverse("player_detail", kwargs={"pk": self.pk})
 
 class Match(models.Model):
-    def clean(self):
-        super().clean()
-        # TODO this seems to be the place for custom validation
 
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10)
@@ -28,7 +26,19 @@ class Match(models.Model):
 
     # class Meta:
     #     verbose_name = _("match")
-    #     verbose_name_plural = _("matchs")
+    #     verbose_name_plural = _("matches")
+
+    def clean(self):
+        super().clean()
+        print("cleaning")
+        
+        if self.player1 == self.player2:
+            raise ValidationError({'player2': "a player can not play against himself"})
+        if self.winner:
+            if not self.player2:
+                raise ValidationError({'winner': "winner can only be declared if two players are in the match"})
+            elif self.winner != self.player1 and self.winner != self.player2:
+                raise ValidationError({'winner': "the winner must be one of the match participants"})
 
     def __str__(self):
         return self.name
