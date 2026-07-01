@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from .models import Player
 from .models import Match
 from .serializers import PlayerSerializer
@@ -13,7 +12,7 @@ def player_list(request):
     if request.method == 'GET':
         players = Player.objects.all()
         serializer = PlayerSerializer(players, many=True)
-        return JsonResponse({'players': serializer.data})
+        return Response({'players': serializer.data})
 
     elif request.method == 'POST':
         serializer = PlayerSerializer(data=request.data)
@@ -41,7 +40,7 @@ def match(request, id):
     try:
         match = Match.objects.get(pk=id)
     except Match.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Match not found"}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = MatchSerializer(match)
@@ -58,4 +57,4 @@ def match(request, id):
 
     elif request.method == 'DELETE':
         match.delete()
-        return Response() #TODO find appropriate error code and how to send it
+        return Response(status=status.HTTP_204_NO_CONTENT) #TODO find appropriate error code and how to send it
