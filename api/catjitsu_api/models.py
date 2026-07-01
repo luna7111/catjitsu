@@ -30,8 +30,9 @@ class Match(models.Model):
 
     def clean(self):
         super().clean()
-        print("cleaning")
         
+        if self.code.__len__() != 10: # TODO find a better way to enforce code format, maybe external func, should be generated
+            raise ValidationError({'code': "the unique code must be 10 characters long"})
         if self.player1 == self.player2:
             raise ValidationError({'player2': "a player can not play against himself"})
         if self.winner:

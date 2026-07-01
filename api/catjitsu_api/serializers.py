@@ -13,7 +13,6 @@ class MatchSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'code', 'winner', 'player1', 'player2']
 
     def validate(self, attrs):
-        print("validating ?")
         instance = Match(**attrs)
         try:
             instance.clean()

@@ -47,7 +47,6 @@ def match(request, id):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        print("on est dans put")
         data = request.data
         serializer = MatchSerializer(match, data, partial=True)
         if serializer.is_valid():
@@ -57,4 +56,4 @@ def match(request, id):
 
     elif request.method == 'DELETE':
         match.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT) #TODO find appropriate error code and how to send it
+        return Response(status=status.HTTP_204_NO_CONTENT)
