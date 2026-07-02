@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
 
 
@@ -77,18 +78,27 @@ WSGI_APPLICATION = 'catjitsu_api.wsgi.application'
 
 DATABASES = {
     # TODO get variables for MariaDB connector from my.cnf
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'catjitsu_db',
-        'USER':'api_rw',
-        'PASSWORD':'1234',
-    }
-    # Temporary SQLite alternative for systems without MariaDB
     # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'catjitsu_db',
+    #     'USER':'api_rw',
+    #     'PASSWORD':'1234',
     # }
+    # Temporary SQLite alternative for systems without MariaDB
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+
+# Project-wide API Key restriction, to enforce auth across all project
+
+# REST_FRAMEWORK = {
+#     "DEFAULT_PERMISSION_CLASSES": [
+#         "rest_framework_api_key.permissions.HasAPIKey",
+#     ]
+# }
 
 
 # Password validation
