@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c5xb7lfet5tqk"]
+
+[ext_resource type="Script" uid="uid://bu2vc5u8qyuvk" path="res://scripts/singleplayer/input_manager.gd" id="1_umdoe"]
+
+[node name="InputManager" type="Node2D" unique_id=1781556233]
+script = ExtResource("1_umdoe")
