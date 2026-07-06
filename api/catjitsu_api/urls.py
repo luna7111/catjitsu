@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from catjitsu_api import views
+from .views import PlayerList, PlayerDetail, MatchList, MatchDetail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('players/', views.PlayerList),
-    path('player/<int:id>', views.PlayerDetail),
-    path('matches/', views.MatchList),
-    path('match/<int:id>', views.MatchDetail),
+    path('players/', PlayerList, name='PlayerList'),
+    path('player/<int:id>', PlayerDetail, name='PlayerDetail'),
+    path('matches/', MatchList, name='MatchList'),
+    path('match/<int:id>', MatchDetail, name='MatchDetail'),
 ]
