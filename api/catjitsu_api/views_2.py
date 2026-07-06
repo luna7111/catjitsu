@@ -8,79 +8,54 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_api_key.permissions import HasAPIKey
 
-from django import shortcuts
-
 @api_view(['GET', 'POST'])
-class PlayerList(APIView):
-    def get(self, request):
+def player_list(request):
+
+    if request.method == 'GET':
         players = Player.objects.all()
         serializer = PlayerSerializer(players, many=True)
         return Response({'players': serializer.data})
 
-    def post(self, request):
+    elif request.method == 'POST':
         serializer = PlayerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-class PlayerDetail(APIView):
-    def get_object(self, pk):
-        return shortcuts.aget_object_or_404(Player, pk=pk)
-
-    def get(self, request, pk):
-        player = self.get_object(pk)
-        serializer = PlayerSerializer(player)
-        return Response(serializer.data)
-    
-    def put(self, request, pk):
-        player = self.get_object(pk)
-        data = request.data
-        serializer = PlayerSerializer(player, data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk):
-        player = self.get_object(pk)
-        player.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 @api_view(['GET', 'POST'])
-class MatchList(APIView):
-    def get(self, request):
+def match_list(request):
+
+    if request.method == 'GET':
         matches = Match.objects.all()
         serializer = MatchSerializer(matches, many=True)
         return Response({'matches': serializer.data})
 
-    def post(self, request):
+    elif request.method == 'POST':
         serializer = MatchSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-class MatchDetail(APIView):
-    def get_object(self, pk):
-        return shortcuts.aget_object_or_404(Match, pk=pk)
+def match(request, id):
+    
+    try:
+        match = Match.objects.get(pk=id)
+    except Match.DoesNotExist:
+        return Response({"error": "Match not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    def get(self, request, pk):
-        match = self.get_object(pk)
+    if request.method == 'GET':
         serializer = MatchSerializer(match)
         return Response(serializer.data)
-    
-    def put(self, request, pk):
-        match = self.get_object(pk)
+
+    elif request.method == 'PUT':
         data = request.data
         serializer = MatchSerializer(match, data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk):
-        match = self.get_object(pk)
+
+    elif request.method == 'DELETE':
         match.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
