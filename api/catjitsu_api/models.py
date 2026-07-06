@@ -5,6 +5,7 @@ class Player(models.Model):
     
     name = models.CharField(max_length=200)
     nickname = models.CharField(max_length=50, default="")
+    deck = models.CharField() # TODO restrict this to carry x ints of x size to identify the cards
 
     # class Meta:
     #     verbose_name = _("player")
