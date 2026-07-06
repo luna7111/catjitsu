@@ -20,8 +20,8 @@ from .views import PlayerList, PlayerDetail, MatchList, MatchDetail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('players/', PlayerList, name='PlayerList'),
-    path('player/<int:id>', PlayerDetail, name='PlayerDetail'),
-    path('matches/', MatchList, name='MatchList'),
-    path('match/<int:id>', MatchDetail, name='MatchDetail'),
+    path('players/', PlayerList.as_view(), name='PlayerList'),
+    path('player/<int:id>', PlayerDetail.as_view(), name='PlayerDetail'),
+    path('matches/', MatchList.as_view(), name='MatchList'),
+    path('match/<int:id>', MatchDetail.as_view(), name='MatchDetail'),
 ]
