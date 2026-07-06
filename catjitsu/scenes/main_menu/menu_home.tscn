@@ -46,6 +46,7 @@ render_target_update_mode = 4
 [connection signal="multiplayer_pressed" from="Main" to="." method="_on_main_multiplayer_pressed"]
 [connection signal="profile_pressed" from="Main" to="." method="_on_main_profile_pressed"]
 [connection signal="settings_pressed" from="Main" to="." method="_on_main_settings_pressed"]
+[connection signal="singleplayer_pressed" from="Main" to="." method="_on_main_singleplayer_pressed"]
 [connection signal="back_pressed" from="Settings" to="." method="_on_settings_back_pressed"]
 [connection signal="cat_arrival" from="SubViewportContainer/SubViewport/MainMenuBackground" to="." method="_on_cat_arrival"]
 [connection signal="sofa_arrival" from="SubViewportContainer/SubViewport/MainMenuBackground" to="." method="_on_sofa_arrival"]

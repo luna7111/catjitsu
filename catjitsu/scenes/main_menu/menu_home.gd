@@ -49,3 +49,7 @@ func _on_settings_back_pressed() -> void:
 func _on_main_multiplayer_pressed() -> void:
 	$Main.hide()
 	$SubViewportContainer/SubViewport/MainMenuBackground.switch_to_tv()
+
+
+func _on_main_singleplayer_pressed() -> void:
+	Global.scene_manager.switch_scene("res://scenes/singleplayer/singleplayer_main.tscn", true)
