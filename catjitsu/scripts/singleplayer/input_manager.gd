@@ -38,6 +38,8 @@ func _input(event):
 				emit_signal("left_mouse_button_released")
 	elif event is InputEventKey:
 		set_input_mode(INPUTMODE.KEYBOARD)
+	elif event is InputEventJoypadButton:
+		set_input_mode(INPUTMODE.CONTROLLER)
 
 func set_input_mode(mode):
 	if input_mode == mode:
@@ -48,6 +50,8 @@ func set_input_mode(mode):
 			change_input_to_mouse()
 		INPUTMODE.KEYBOARD:
 			change_input_to_keyboard()
+		INPUTMODE.CONTROLLER:
+			change_input_to_controller()
 			
 func _process(_delta: float) -> void:
 	# Quit game
@@ -64,22 +68,31 @@ func _process(_delta: float) -> void:
 func play_card_keyboard():
 	if not card_manager_reference.selected_card:
 		return
-
 	var card = card_manager_reference.selected_card
-	await card_manager_reference.play_card(card, $"../PlayerCardSlot")
 	card_manager_reference.select_card(null)
+	await card_manager_reference.play_card(card, $"../PlayerCardSlot")
+
 #
 func change_input_to_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	card_manager_reference.select_card(null)
+	# Future feature, change icons
 	
 func change_input_to_keyboard():
+	if not card_manager_reference.selected_card:
+		var card = card_manager_reference.card_being_hovered
+		if card:
+			card_manager_reference.select_card(card)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Future feature, change icons
+
+func change_input_to_controller():
 	if not card_manager_reference.selected_card:
 		var card = card_manager_reference.raycast_check_for_card()
 		if card:
 			card_manager_reference.select_card(card)
-
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Future feature, change icons
 
 func iterate_left_player_hand():
 	var hand = player_hand_reference.player_hand
@@ -87,7 +100,7 @@ func iterate_left_player_hand():
 	if hand.is_empty():
 		return
 
-	var index = 0
+	var index = -1
 
 	if card_manager_reference.selected_card:
 		index = (card_manager_reference.selected_card.in_hand_index + 1) % hand.size()
@@ -100,11 +113,11 @@ func iterate_right_player_hand():
 	if hand.is_empty():
 		return
 
-	var index = 0
+	var index = -1
 
 	if card_manager_reference.selected_card:
 		index = (card_manager_reference.selected_card.in_hand_index - 1 + hand.size()) % hand.size()
-
+		
 	card_manager_reference.select_card(hand[index])
 
 func raycast_at_cursor():
