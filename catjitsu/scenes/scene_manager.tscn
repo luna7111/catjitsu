@@ -6,3 +6,10 @@
 [node name="SceneManager" type="Node" unique_id=951934427]
 script = ExtResource("1_jo5df")
 startup_scene = ExtResource("2_65mdo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=863468556]
+layer = 10
+
+[node name="Notifications" type="VBoxContainer" parent="CanvasLayer" unique_id=1602272929]
+offset_right = 40.0
+offset_bottom = 40.0
