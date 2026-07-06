@@ -297,5 +297,4 @@ func end_opponent_turn():
 	player_card_slot.card_in_slot = false
 	if $"../../Opponent/OpponentDeck".opponent_deck.size() != 0:
 		$"../../Opponent/OpponentDeck".draw_card()
-	$"../../Player/InputManager".select_card_index = -1
 	$"../../Player/PlayerDeck".draw_card()

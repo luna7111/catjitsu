@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dcwuxy832mqm0"]
 
 [ext_resource type="PackedScene" uid="uid://gswm1iltm4s0" path="res://scenes/singleplayer/card_manager.tscn" id="1_8gbba"]
+[ext_resource type="Script" uid="uid://dtlrt7bkemv3v" path="res://scenes/singleplayer/singleplayer_main.gd" id="1_lqc2a"]
 [ext_resource type="PackedScene" uid="uid://vmourylyrbm7" path="res://scenes/singleplayer/player_card_slot.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://b2dfwfbrnx2tb" path="res://scenes/singleplayer/player_hand.tscn" id="3_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bxe88x137lrsk" path="res://scenes/singleplayer/player_deck.tscn" id="4_jjvhh"]
@@ -13,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dthncrkf17knr" path="res://scenes/singleplayer/player_points.tscn" id="11_6iyac"]
 
 [node name="Main" type="Node2D" unique_id=2003189391]
+script = ExtResource("1_lqc2a")
 
 [node name="Player" type="Node2D" parent="." unique_id=651710715]
 
