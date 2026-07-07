@@ -23,7 +23,16 @@ Global="*uid://bfaw8ae7rte40"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
+window/stretch/mode="viewport"
+
+[gui]
+
+theme/custom="uid://bqxnag2rlymbi"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://translations.en.translation", "res://translations.es.translation", "res://translations.fr.translation")
+locale/fallback="ens"
 
 [physics]
 
@@ -34,3 +43,5 @@ window/size/mode=3
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/quality/msaa_2d=1
+environment/defaults/default_clear_color=Color(0.9764706, 0.81960785, 0.91764706, 1)
