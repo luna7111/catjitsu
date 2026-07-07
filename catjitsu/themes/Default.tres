@@ -1,0 +1,101 @@
+[gd_resource type="Theme" format=3 uid="uid://bqxnag2rlymbi"]
+
+[ext_resource type="FontFile" uid="uid://bp1vilqhd2vyn" path="res://fonts/Chi-Regular.otf" id="1_06w41"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06w41"]
+bg_color = Color(0.9486267, 0.872358, 0.8978954, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6oill"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.06666667)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xg63x"]
+bg_color = Color(0.9607843, 0.9254902, 0.9254902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgwqs"]
+bg_color = Color(0.98, 0.98, 0.98, 0.5019608)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gl82e"]
+bg_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njafm"]
+bg_color = Color(0.90359735, 0.9035986, 0.9035975, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olk7t"]
+bg_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbq78"]
+bg_color = Color(0.90359735, 0.9035986, 0.9035975, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[resource]
+Button/colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/font_hover_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+Button/colors/font_hover_pressed_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 35
+Button/fonts/font = ExtResource("1_06w41")
+Button/styles/hover = SubResource("StyleBoxFlat_06w41")
+Button/styles/normal = SubResource("StyleBoxFlat_6oill")
+Label/colors/font_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_06w41")
+LineEdit/colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
+LineEdit/colors/font_placeholder_color = Color(0.8, 0.35686275, 0.4862745, 0.2784314)
+LineEdit/font_sizes/font_size = 32
+LineEdit/fonts/font = ExtResource("1_06w41")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_xg63x")
+Panel/styles/panel = SubResource("StyleBoxFlat_kgwqs")
+TabContainer/colors/font_hovered_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+TabContainer/colors/font_selected_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+TabContainer/colors/font_unselected_color = Color(0.8, 0.35686275, 0.4862745, 1)
+TabContainer/constants/tab_separation = 2
+TabContainer/font_sizes/font_size = 20
+TabContainer/fonts/font = ExtResource("1_06w41")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_gl82e")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_njafm")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_olk7t")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_sbq78")

@@ -40,3 +40,8 @@ func switch_scene(path: String, persistence: bool):
 	var new_scene = load(path).instantiate()
 	add_child(new_scene)
 	_current_scene = new_scene
+
+func notify(text: String):
+	var notification = load("res://scenes/gui_elements/user_notification.tscn").instantiate()
+	notification.text = text
+	$CanvasLayer/Notifications.add_child(notification)
