@@ -11,8 +11,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-
-
 func _on_get_players_button_pressed() -> void:
 	print("get players button pressed")
 	$Node/HTTPRequest.request_completed.connect(_print_json)
@@ -37,4 +35,4 @@ func _on_post_player_button_pressed() -> void:
 
 
 func _on_back_pressed() -> void:
-	Global.scene_manager.switch_scene("res://scenes/sandbox/sandbox_menu.tscn", false)
+	Global.scene_manager.switch_scene("res://scenes/sandbox/sandbox_0.tscn", false)

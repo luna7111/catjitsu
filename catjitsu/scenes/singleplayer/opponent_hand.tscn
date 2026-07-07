@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bqgf1m55ifq3m"]
+
+[ext_resource type="Script" uid="uid://brd43g74prpqr" path="res://scripts/singleplayer/opponent_hand.gd" id="1_f8idb"]
+
+[node name="OpponentHand" type="Node2D" unique_id=1295232046]
+script = ExtResource("1_f8idb")

@@ -1,18 +1,18 @@
-[gd_scene format=3 uid="uid://da07rr6da4ca0"]
+[gd_scene format=3 uid="uid://c6xvmj14uuo4b"]
 
-[ext_resource type="Script" uid="uid://dqkdu2qlcw3mq" path="res://scenes/sandbox/sandbox_api.gd" id="1_r8kho"]
+[ext_resource type="Script" uid="uid://0h72mrfg8u8j" path="res://scenes/sandbox/sandbox_api.gd" id="1_doj6l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8kho"]
 bg_color = Color(0.9764706, 0.81960785, 0.91764706, 1)
 
-[node name="Sandbox0" type="Control" unique_id=1522810899]
+[node name="SandboxApi" type="Control" unique_id=1522810899]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_r8kho")
+script = ExtResource("1_doj6l")
 
 [node name="Panel" type="Panel" parent="." unique_id=1440806285]
 layout_mode = 1

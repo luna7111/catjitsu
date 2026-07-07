@@ -1,0 +1,39 @@
+extends Node3D
+
+signal cat_arrival
+signal sofa_arrival
+signal tv_arrival
+signal table_arrival
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	update_cat_texture()
+	$AnimationPlayer.play("camera_iddle")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+
+
+func switch_to_sofa():
+	$AnimationPlayer.play("to_sofa")
+
+
+func sofa_switch_to_cat():
+	Global.profile.avatar = "Apoloto"
+	update_cat_texture()
+	$AnimationPlayer.play("sofa_to_cat")
+
+
+func switch_to_tv():
+	$AnimationPlayer.play("to_tv")
+
+
+func switch_to_table():
+	$AnimationPlayer.play("to_table")
+
+func update_cat_texture():
+	var texture_path = "res://assets/3d/materials/" + Global.profile.avatar + ".tres"
+	$Cat.set_surface_override_material(0,load(texture_path))
