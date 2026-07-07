@@ -42,9 +42,9 @@ position = Vector2(0, 516)
 [node name="OpponentHand" parent="Opponent" unique_id=1295232046 instance=ExtResource("8_hptm8")]
 position = Vector2(821.3297, 18.315948)
 
-[node name="BattleLogic" type="Node" parent="." unique_id=1097962097]
+[node name="BattleLogic" type="Node2D" parent="." unique_id=2119492398]
 
-[node name="BattleManager" type="Node" parent="BattleLogic" unique_id=1753808552]
+[node name="BattleManager" type="Node2D" parent="BattleLogic" unique_id=63930871]
 script = ExtResource("8_344ge")
 
 [node name="EndTurnButton" type="Button" parent="BattleLogic" unique_id=1876943587]

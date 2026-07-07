@@ -28,8 +28,8 @@ func _ready() -> void:
 		draw_card()
 
 func animate_deck_to_position():
-	quarter_screen_x = get_viewport().size.x / 10 
-	top_screen_y = get_viewport().size.y / 6
+	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10 
+	top_screen_y = get_viewport().get_visible_rect().size.y / 6
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", Vector2(quarter_screen_x, top_screen_y), INITIAL_DECK_SPEED)
 	await tween.finished

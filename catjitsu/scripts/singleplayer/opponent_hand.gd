@@ -14,8 +14,8 @@ var top_screen_y
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	center_screen_x = get_viewport().size.x / 2
-	top_screen_y = get_viewport().size.y / 6
+	center_screen_x = get_viewport().get_visible_rect().size.x / 2
+	top_screen_y = get_viewport().get_visible_rect().size.y / 6
 	#var card_scene = preload(CARD_SCENE_PATH)
 	#for i in range(HAND_COUNT):
 		#var new_card = card_scene.instantiate()
@@ -33,9 +33,9 @@ func add_card_to_hand(card, speed):
 
 func update_hand_positions():
 	if center_screen_x == null:
-		center_screen_x = get_viewport().size.x / 2
+		center_screen_x = get_viewport().get_visible_rect().size.x / 2
 	if top_screen_y == null:
-		top_screen_y = get_viewport().size.y / 6
+		top_screen_y = get_viewport().get_visible_rect().size.y / 6
 	for i in range(opponent_hand.size()):
 		#var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var new_position = Vector2(calculate_card_position(i), top_screen_y)
@@ -45,7 +45,7 @@ func update_hand_positions():
 
 func calculate_card_position(index):
 	if center_screen_x == null:
-		center_screen_x = get_viewport().size.x / 2
+		center_screen_x = get_viewport().get_visible_rect().size.x / 2
 	var total_width = (opponent_hand.size() - 1) * CARD_WIDTH
 	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2.0
 	return x_offset

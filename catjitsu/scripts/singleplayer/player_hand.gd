@@ -14,10 +14,10 @@ var bottom_screen_y
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	center_screen_x = get_viewport().size.x / 2
-	bottom_screen_y = get_viewport().size.y / 6 * 5
-	print(get_viewport().size.x)
-	print(get_viewport().size.y)
+	center_screen_x = get_viewport().get_visible_rect().size.x / 2
+	bottom_screen_y = get_viewport().get_visible_rect().size.y / 6 * 5
+	print(get_viewport().get_visible_rect().size.x)
+	print(get_viewport().get_visible_rect().size.y)
 
 func add_card_to_hand(card, speed):
 	if card not in player_hand:

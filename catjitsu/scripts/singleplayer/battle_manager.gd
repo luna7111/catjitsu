@@ -33,7 +33,7 @@ func _ready() -> void:
 	battle_timer.wait_time = 1.0
 	opponent_card_slot = $"../../Opponent/OpponentCardSlot"
 	player_card_slot = $"../../Player/PlayerCardSlot"
-	center_screen_x = get_viewport().size.x / 2
+	center_screen_x = get_viewport().get_visible_rect().size.x / 2
 
 func _on_end_turn_button_pressed() -> void:
 	opponent_turn()

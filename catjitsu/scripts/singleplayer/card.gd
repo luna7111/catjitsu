@@ -20,8 +20,8 @@ var type
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Must be set as same position as player_deck
-	quarter_screen_x = get_viewport().size.x / 10 * 9
-	bottom_screen_y = get_viewport().size.y / 6 * 5
+	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10 * 9
+	bottom_screen_y = get_viewport().get_visible_rect().size.y / 6 * 5
 	position = Vector2(quarter_screen_x, bottom_screen_y)
 	get_parent().connect_card_signals(self)
 
