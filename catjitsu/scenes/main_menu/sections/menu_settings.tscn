@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bhjy81h35lsj2"]
+
+[ext_resource type="Script" uid="uid://bfg0jlwfdcbqy" path="res://scenes/main_menu/sections/menu_settings.gd" id="1_2k5y2"]
+[ext_resource type="Theme" uid="uid://bqxnag2rlymbi" path="res://themes/Default.tres" id="1_rrw0a"]
+
+[node name="Settings" type="CanvasLayer" unique_id=181492464]
+script = ExtResource("1_2k5y2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1882656402]
+anchors_preset = -1
+anchor_right = 0.1265625
+anchor_bottom = 1.0
+offset_right = 509.0
+grow_vertical = 2
+size_flags_horizontal = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer" unique_id=681898656]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_rrw0a")
+theme_override_constants/separation = 18
+metadata/_edit_group_ = true
+
+[node name="LanguageMenu" type="HBoxContainer" parent="MarginContainer/Buttons" unique_id=450078070]
+layout_mode = 2
+
+[node name="LanguageTag" type="Label" parent="MarginContainer/Buttons/LanguageMenu" unique_id=1028751344]
+layout_mode = 2
+text = "LANGUAGE_TAG"
+
+[node name="LanguageOptions" type="OptionButton" parent="MarginContainer/Buttons/LanguageMenu" unique_id=393612963]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "LANGUAGE_ENGLISH"
+popup/item_0/id = 0
+popup/item_1/text = "LANGUAGE_SPANISH"
+popup/item_1/id = 1
+popup/item_2/text = "LANGUAGE_FRENCH"
+popup/item_2/id = 2
+
+[node name="ApplyButton" type="Button" parent="MarginContainer/Buttons" unique_id=1282936486]
+layout_mode = 2
+text = "APPLY_BUTTON"
+
+[node name="BackButton" type="Button" parent="MarginContainer/Buttons" unique_id=758640745]
+layout_mode = 2
+text = "BACK_BUTTON"
+
+[connection signal="pressed" from="MarginContainer/Buttons/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Buttons/BackButton" to="." method="_on_back_button_pressed"]

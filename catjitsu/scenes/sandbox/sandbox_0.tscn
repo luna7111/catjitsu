@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://da07rr6da4ca0"]
+[gd_scene format=3 uid="uid://bsie0qoe34cfb"]
 
 [ext_resource type="Script" uid="uid://dqkdu2qlcw3mq" path="res://scenes/sandbox/sandbox_0.gd" id="1_r8kho"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8kho"]
+bg_color = Color(0.9764706, 0.81960785, 0.91764706, 1)
 
 [node name="Sandbox0" type="Control" unique_id=1522810899]
 layout_mode = 3
@@ -11,12 +14,43 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r8kho")
 
-[node name="ButtonDummyScene" type="Button" parent="." unique_id=784515611]
-layout_mode = 0
-offset_left = 538.0
-offset_top = 311.0
-offset_right = 656.0
-offset_bottom = 342.0
-text = "Dummy scene"
+[node name="Panel" type="Panel" parent="." unique_id=63222535]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r8kho")
 
-[connection signal="pressed" from="ButtonDummyScene" to="." method="_on_button_dummy_scene_pressed"]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=171263234]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer" unique_id=205377249]
+layout_mode = 2
+alignment = 1
+
+[node name="MainMenu" type="Button" parent="MarginContainer/HFlowContainer" unique_id=1139956403]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="GuiSandbox" type="Button" parent="MarginContainer/HFlowContainer" unique_id=784515611]
+layout_mode = 2
+text = "GUI Sandbox"
+
+[node name="ApiSandbox" type="Button" parent="MarginContainer/HFlowContainer" unique_id=1876626798]
+layout_mode = 2
+text = "API Sandbox"
+
+[connection signal="pressed" from="MarginContainer/HFlowContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MarginContainer/HFlowContainer/GuiSandbox" to="." method="_on_gui_sandbox_pressed"]
+[connection signal="pressed" from="MarginContainer/HFlowContainer/ApiSandbox" to="." method="_on_api_sandbox_pressed"]

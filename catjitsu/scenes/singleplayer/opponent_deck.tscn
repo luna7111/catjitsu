@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dkg6jnh2vgkuq"]
+
+[ext_resource type="Script" uid="uid://bs5d2grxldb7w" path="res://scripts/singleplayer/opponent_deck.gd" id="1_ic4ki"]
+[ext_resource type="Texture2D" uid="uid://cnqk78xkmcm07" path="res://assets/singleplayer/cards_images/BackCard.png" id="2_nqor4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_io7pv"]
+size = Vector2(201, 347)
+
+[node name="OpponentDeck" type="Node2D" unique_id=64516707]
+script = ExtResource("1_ic4ki")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1007279516]
+z_index = -2
+texture = ExtResource("2_nqor4")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=970831304]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=23323604]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_io7pv")

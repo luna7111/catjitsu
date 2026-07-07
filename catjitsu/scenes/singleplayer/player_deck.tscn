@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bxe88x137lrsk"]
+
+[ext_resource type="Script" uid="uid://co53g312prgg6" path="res://scripts/singleplayer/player_deck.gd" id="1_io7pv"]
+[ext_resource type="Texture2D" uid="uid://cnqk78xkmcm07" path="res://assets/singleplayer/cards_images/BackCard.png" id="2_io7pv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_io7pv"]
+size = Vector2(201, 347)
+
+[node name="Deck" type="Node2D" unique_id=64516707]
+script = ExtResource("1_io7pv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1007279516]
+z_index = -2
+texture = ExtResource("2_io7pv")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=970831304]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=23323604]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_io7pv")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1966387210]
+z_index = -2
+offset_left = -9.0
+offset_top = -23.0
+offset_right = 31.0
+offset_bottom = 17.0
+scale = Vector2(2, 2)
+text = "0"
