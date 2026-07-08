@@ -1,0 +1,181 @@
+[gd_scene format=3 uid="uid://bauxsp1vnipap"]
+
+[ext_resource type="Script" uid="uid://c64ldfruhi1re" path="res://scenes/main_menu/sections/menu_main.gd" id="1_dd4t8"]
+[ext_resource type="FontFile" uid="uid://bp1vilqhd2vyn" path="res://fonts/Chi-Regular.otf" id="2_dd4t8"]
+[ext_resource type="Texture2D" uid="uid://ce8spd0kerh6g" path="res://assets/720x321.png" id="2_iwikj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06w41"]
+bg_color = Color(0.9486267, 0.872358, 0.8978954, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6oill"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.06666667)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xg63x"]
+bg_color = Color(0.9607843, 0.9254902, 0.9254902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgwqs"]
+bg_color = Color(0.98, 0.98, 0.98, 0.5019608)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bd5dx"]
+bg_color = Color(0.98039216, 0.98039216, 0.98039216, 0.627451)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gl82e"]
+bg_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njafm"]
+bg_color = Color(0.90359735, 0.9035986, 0.9035975, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olk7t"]
+bg_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbq78"]
+bg_color = Color(0.90359735, 0.9035986, 0.9035975, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="Theme" id="Theme_ef1go"]
+Button/colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/font_hover_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+Button/colors/font_hover_pressed_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 35
+Button/fonts/font = ExtResource("2_dd4t8")
+Button/styles/hover = SubResource("StyleBoxFlat_06w41")
+Button/styles/normal = SubResource("StyleBoxFlat_6oill")
+Label/colors/font_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("2_dd4t8")
+LineEdit/colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
+LineEdit/colors/font_placeholder_color = Color(0.8, 0.35686275, 0.4862745, 0.2784314)
+LineEdit/font_sizes/font_size = 32
+LineEdit/fonts/font = ExtResource("2_dd4t8")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_xg63x")
+Panel/styles/panel = SubResource("StyleBoxFlat_kgwqs")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_bd5dx")
+TabContainer/colors/font_hovered_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+TabContainer/colors/font_selected_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+TabContainer/colors/font_unselected_color = Color(0.8, 0.35686275, 0.4862745, 1)
+TabContainer/constants/tab_separation = 2
+TabContainer/font_sizes/font_size = 20
+TabContainer/fonts/font = ExtResource("2_dd4t8")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_gl82e")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_njafm")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_olk7t")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_sbq78")
+
+[node name="Main" type="CanvasLayer" unique_id=1512384649]
+script = ExtResource("1_dd4t8")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=39398610]
+anchors_preset = -1
+anchor_left = 0.13
+anchor_top = 0.248
+anchor_right = 0.187
+anchor_bottom = 0.263
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ef1go")
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2001627640]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ef1go")
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=27860259]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ef1go")
+theme_override_constants/separation = 18
+metadata/_edit_group_ = true
+
+[node name="Singleplayer" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=2087781110]
+layout_mode = 2
+text = "SINGLEPLAYER_BUTTON"
+
+[node name="Multiplayer" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=2028501444]
+layout_mode = 2
+size_flags_vertical = 4
+text = "MULTIPLAYER_BUTTON"
+
+[node name="Profile" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=1025831049]
+layout_mode = 2
+text = "PROFILE_BUTTON"
+
+[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=488260968]
+layout_mode = 2
+text = "SETTINGS_BUTTON"
+
+[node name="Sandbox" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=376774297]
+visible = false
+layout_mode = 2
+text = "SANDBOX_BUTTON"
+
+[node name="Exit" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=575201167]
+visible = false
+layout_mode = 2
+text = "EXIT_BUTTON"
+
+[node name="Logo" type="Sprite2D" parent="." unique_id=1838098992]
+position = Vector2(1500, 215)
+texture = ExtResource("2_iwikj")
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Singleplayer" to="." method="_on_singleplayer_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Multiplayer" to="." method="_on_multiplayer_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Profile" to="." method="_on_profile_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Settings" to="." method="_on_settings_pressed"]

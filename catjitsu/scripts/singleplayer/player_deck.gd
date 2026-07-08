@@ -34,8 +34,8 @@ func _ready() -> void:
 	drawn_card_this_turn = true
 
 func animate_deck_to_position():
-	quarter_screen_x = get_viewport().size.x / 10 * 9
-	bottom_screen_y = get_viewport().size.y / 6 * 5
+	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10 * 9
+	bottom_screen_y = get_viewport().get_visible_rect().size.y / 6 * 5
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		self, 
