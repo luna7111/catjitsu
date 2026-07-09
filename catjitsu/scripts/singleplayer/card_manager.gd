@@ -45,6 +45,7 @@ func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(DEFAULT_CARD_SCALE_SMALL, DEFAULT_CARD_SCALE_SMALL)
 	player_slot_reference.visible = true
+	player_slot_reference.get_node("Border/AnimationPlayer").play("pulse")
 
 func finish_drag():
 	if card_being_dragged:

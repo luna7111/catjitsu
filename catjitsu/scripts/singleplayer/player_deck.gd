@@ -35,7 +35,7 @@ func _ready() -> void:
 
 func animate_deck_to_position():
 	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10 * 9
-	bottom_screen_y = get_viewport().get_visible_rect().size.y / 6 * 5
+	bottom_screen_y = get_viewport().get_visible_rect().size.y / 10 * 9
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		self, 
@@ -54,7 +54,7 @@ func draw_card():
 	
 	if player_deck.size() == 0:
 		$Area2D/CollisionShape2D.disabled = true
-		$Sprite2D.visible = false
+		$CardBack.visible = false
 		$RichTextLabel.visible = false
 	
 	$RichTextLabel.text = str(player_deck.size())
@@ -82,11 +82,30 @@ func load_card_data(new_card, card_drawn):
 	var card_data = json_object.data
 	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + "Card.png")
 	print(card_image_path)
-	new_card.get_node("CardImage").texture = load(card_image_path)
 	new_card.points = int(card_data["value"])
 	new_card.get_node("Points").text = str(new_card.points)
-	new_card.type = card_data["type"]
+	set_card_data_type(new_card, card_data["type"])
+	new_card.get_node("CardFront/CardCatSprite").texture = load(card_image_path)
 	new_card.get_node("Type").texture = load("res://assets/singleplayer/elements_icons/" + new_card.type + ".png")
+
+func set_card_data_type(drawn_card, type):
+	var panel = drawn_card.get_node("CardFront")
+	var style = panel.get_theme_stylebox("panel").duplicate()
+	panel.add_theme_stylebox_override("panel", style)
+
+	drawn_card.type = type
+
+	# Change color of cards. Must be identical that opponent_deck
+	match type:
+		"Fire":
+			style.bg_color = Color(0.9, 0.8, 0.6)
+			style.border_color = Color(0.9, 0.7, 0.3)
+		"Water":
+			style.bg_color = Color(0.8, 0.8, 0.9)
+			style.border_color = Color(0.3, 0.5, 0.6)
+		"Ice":
+			style.bg_color = Color(0.9, 0.9, 0.9)
+			style.border_color = Color(0.3, 0.8, 0.8)
 
 func reset_draw():
 	drawn_card_this_turn = false

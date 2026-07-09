@@ -14,6 +14,9 @@ enum INPUTMODE {
 }
 
 var input_mode = INPUTMODE.MOUSE
+signal input_mode_changed(mode)
+
+@onready var input_ui_reference = $"../InputUI"
 
 var card_manager_reference
 var deck_reference
@@ -45,6 +48,7 @@ func set_input_mode(mode):
 	if input_mode == mode:
 		return
 	input_mode = mode
+	input_mode_changed.emit(mode)
 	match  mode:
 		INPUTMODE.MOUSE:
 			change_input_to_mouse()
@@ -52,7 +56,7 @@ func set_input_mode(mode):
 			change_input_to_keyboard()
 		INPUTMODE.CONTROLLER:
 			change_input_to_controller()
-			
+
 func _process(_delta: float) -> void:
 	# Quit game
 	if Input.is_action_just_pressed("ui_cancel"):

@@ -27,9 +27,11 @@ func _ready() -> void:
 	for i in range(STARTING_HAND_SIZE):
 		draw_card()
 
+
 func animate_deck_to_position():
-	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10 
-	top_screen_y = get_viewport().get_visible_rect().size.y / 6
+	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10
+	# Same as opponent_hand
+	top_screen_y = get_viewport().get_visible_rect().size.y / 10
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", Vector2(quarter_screen_x, top_screen_y), INITIAL_DECK_SPEED)
 	await tween.finished
@@ -39,7 +41,7 @@ func draw_card():
 	opponent_deck.erase(card_drawn)
 	
 	if opponent_deck.size() == 0:
-		$Sprite2D.visible = false
+		$CardBack.visible = false
 	
 	#$RichTextLabel.text = str(opponent_deck.size())
 	var card_scene = preload(CARD_SCENE_PATH)
@@ -66,8 +68,27 @@ func load_card_data(new_card, card_drawn):
 	var card_data = json_object.data
 	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + "Card.png")
 	print(card_image_path)
-	new_card.get_node("CardImage").texture = load(card_image_path)
 	new_card.points = int(card_data["value"])
 	new_card.get_node("Points").text = str(new_card.points)
-	new_card.type = card_data["type"]
+	set_card_data_type(new_card, card_data["type"])
+	new_card.get_node("CardFront/CardCatSprite").texture = load(card_image_path)
 	new_card.get_node("Type").texture = load("res://assets/singleplayer/elements_icons/" + new_card.type + ".png")
+
+func set_card_data_type(drawn_card, type):
+	var panel = drawn_card.get_node("CardFront")
+	var style = panel.get_theme_stylebox("panel").duplicate()
+	panel.add_theme_stylebox_override("panel", style)
+
+	drawn_card.type = type
+
+	# Change color of cards. Must be identical that player_deck
+	match type:
+		"Fire":
+			style.bg_color = Color(0.9, 0.8, 0.6)
+			style.border_color = Color(0.9, 0.7, 0.3)
+		"Water":
+			style.bg_color = Color(0.8, 0.8, 0.9)
+			style.border_color = Color(0.3, 0.5, 0.6)
+		"Ice":
+			style.bg_color = Color(0.9, 0.9, 0.9)
+			style.border_color = Color(0.3, 0.8, 0.8)

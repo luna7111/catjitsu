@@ -2,7 +2,9 @@ extends Node2D
 
 #const HAND_COUNT = 5
 #const CARD_SCENE_PATH = "res://scenes/card.tscn"
-const CARD_WIDTH = 210
+
+# Desired distance beewten cards. Must be card_width + wished padding
+const CARD_WIDTH = 160
 const HAND_Y_POSITION = 200
 
 # Speed to draw a card
@@ -15,7 +17,7 @@ var top_screen_y
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	center_screen_x = get_viewport().get_visible_rect().size.x / 2
-	top_screen_y = get_viewport().get_visible_rect().size.y / 6
+	top_screen_y = get_viewport().get_visible_rect().size.y / 10
 	#var card_scene = preload(CARD_SCENE_PATH)
 	#for i in range(HAND_COUNT):
 		#var new_card = card_scene.instantiate()
