@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import PlayerList, PlayerDetail, MatchList, MatchDetail
+from .views import PlayerList, PlayerDetail, MatchList, MatchDetail, OAuth42Login, OAuth42Callback, IdentifyClient, auth_completed
 
 urlpatterns = [
+    path('identify-client/', IdentifyClient().as_view()),
+    path('auth/42/login/', OAuth42Login.as_view()),
+    path('auth/42/callback/', OAuth42Callback.as_view()),
+    path('auth/completed/', auth_completed, name='auth_completed'),
     path('admin/', admin.site.urls),
     path('players/', PlayerList.as_view(), name='PlayerList'),
     path('player/<int:id>', PlayerDetail.as_view(), name='PlayerDetail'),
