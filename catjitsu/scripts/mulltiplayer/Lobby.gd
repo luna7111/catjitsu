@@ -2,11 +2,6 @@ extends Node
 
 # Autoload named Lobby / Investigate what's this from GDBDocs
 
-# Button Signals
-@onready var host_button_reference = $"../MarginContainer/HBoxContainer/Button"
-@onready var client_button_reference = $"../MarginContainer/HBoxContainer/VBoxContainer/Button"
-@onready var play_button_reference = $"../MarginContainer/HBoxContainer/PlayGameButton"
-
 # These signals can be connected to by a UI lobby scene or the game scene.
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
@@ -42,11 +37,6 @@ func _ready():
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
-	
-	# Buttons signals
-	client_button_reference.pressed.connect(join_game)
-	host_button_reference.pressed.connect(create_game)
-	play_button_reference.pressed.connect(_on_start_game_pressed)
 
 
 # Call this function from a button signal to join a game
@@ -81,7 +71,7 @@ func remove_multiplayer_peer():
 
 func _on_start_game_pressed():
 	if multiplayer.is_server():
-		load_game.rpc("res://scenes/singleplayer/singleplayer_main.tscn")
+		load_game.rpc("res://scenes/mulltiplayer/mulltiplayer_main.tscn")
 
 # When the server decides to start the game from a UI scene,
 # do Lobby.load_game.rpc(filepath)

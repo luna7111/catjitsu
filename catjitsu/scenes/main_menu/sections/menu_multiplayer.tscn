@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://bomqlibrf3tmg"]
 
-[ext_resource type="Script" uid="uid://ducmnemk43ck6" path="res://scripts/mulltiplayer/lobby_websockets.gd" id="1_h8mg7"]
+[ext_resource type="Script" uid="uid://c1iyikh53ydyp" path="res://scenes/main_menu/sections/menu_multiplayer.gd" id="1_h8mg7"]
 
 [node name="Multiplayer" type="CanvasLayer" unique_id=537712535]
+script = ExtResource("1_h8mg7")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=450085754]
 anchors_preset = 10
@@ -38,9 +39,6 @@ placeholder_text = "ROOM_CODE_TAG"
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=348251182]
 layout_mode = 2
 text = "JOIN_ROOM_BUTTON"
-
-[node name="Multiplayer_Connect" type="Node2D" parent="." unique_id=1041588464]
-script = ExtResource("1_h8mg7")
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/PlayGameButton" to="." method="_on_button_pressed"]

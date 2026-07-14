@@ -1,13 +1,11 @@
 [gd_scene format=3 uid="uid://6qwwdu7j8ljs"]
 
-[ext_resource type="Script" uid="uid://c55teqql4h3d4" path="res://scripts/mulltiplayer/mulltiplayer_main.gd" id="1_4fkwg"]
 [ext_resource type="PackedScene" uid="uid://b1g4q1b4icl6v" path="res://scenes/singleplayer/player.tscn" id="2_tmeu2"]
 [ext_resource type="PackedScene" uid="uid://b16xeb2isvk2c" path="res://scenes/singleplayer/opponent.tscn" id="3_upxth"]
 [ext_resource type="PackedScene" uid="uid://bdkhpgq45ciss" path="res://scenes/singleplayer/battle_logic.tscn" id="4_5fkdg"]
 [ext_resource type="PackedScene" uid="uid://gswm1iltm4s0" path="res://scenes/singleplayer/card_manager.tscn" id="5_xi1ky"]
 
 [node name="Main" type="Node2D" unique_id=2003189391]
-script = ExtResource("1_4fkwg")
 
 [node name="Player" parent="." unique_id=512885062 instance=ExtResource("2_tmeu2")]
 
