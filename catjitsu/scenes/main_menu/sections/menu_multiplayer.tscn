@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bomqlibrf3tmg"]
 
-[ext_resource type="Script" uid="uid://c55teqql4h3d4" path="res://scripts/mulltiplayer/mulltiplayer_main.gd" id="2_m1udk"]
-[ext_resource type="PackedScene" uid="uid://b1g4q1b4icl6v" path="res://scenes/singleplayer/player.tscn" id="2_oc3lg"]
+[ext_resource type="Script" uid="uid://ducmnemk43ck6" path="res://scripts/mulltiplayer/lobby_websockets.gd" id="1_h8mg7"]
 
 [node name="Multiplayer" type="CanvasLayer" unique_id=537712535]
 
@@ -22,6 +21,11 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "CREATE_ROOM_BUTTON"
 
+[node name="PlayGameButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=905386324]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Play Game"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=612135203]
 layout_mode = 2
 theme_override_constants/separation = 32
@@ -36,8 +40,8 @@ layout_mode = 2
 text = "JOIN_ROOM_BUTTON"
 
 [node name="Multiplayer_Connect" type="Node2D" parent="." unique_id=1041588464]
-script = ExtResource("2_m1udk")
-player_field_scene = ExtResource("2_oc3lg")
+script = ExtResource("1_h8mg7")
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/PlayGameButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

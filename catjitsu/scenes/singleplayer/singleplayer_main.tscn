@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dcwuxy832mqm0"]
 
 [ext_resource type="PackedScene" uid="uid://gswm1iltm4s0" path="res://scenes/singleplayer/card_manager.tscn" id="1_8gbba"]
-[ext_resource type="Script" uid="uid://dtlrt7bkemv3v" path="res://scripts/singleplayer/singleplayer_main.gd" id="1_lqc2a"]
+[ext_resource type="Script" uid="uid://3lorvdgrxsmh" path="res://scripts/singleplayer/singleplayer_main.gd" id="1_lqc2a"]
 [ext_resource type="PackedScene" uid="uid://b1g4q1b4icl6v" path="res://scenes/singleplayer/player.tscn" id="2_cmyeb"]
 [ext_resource type="PackedScene" uid="uid://b16xeb2isvk2c" path="res://scenes/singleplayer/opponent.tscn" id="3_6a78d"]
 [ext_resource type="PackedScene" uid="uid://bdkhpgq45ciss" path="res://scenes/singleplayer/battle_logic.tscn" id="4_cigkr"]
