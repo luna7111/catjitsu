@@ -1,16 +1,11 @@
 extends Node
 
-# Autoload named Lobby / Investigate what's this from GDBDocs
+# Autoload Lobby.gd
 
 # These signals can be connected to by a UI lobby scene or the game scene.
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
-
-# Old
-#const PORT = 7000
-#const DEFAULT_SERVER_IP = "127.0.0.1" # IPv4 localhost
-#const MAX_CONNECTIONS = 20
 
 # New
 const SERVER_URL = "ws://localhost:8080"
