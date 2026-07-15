@@ -13,11 +13,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_061kd")
 
-[node name="Logo" type="Sprite2D" parent="." unique_id=1593965926]
-position = Vector2(960, 384)
-texture = ExtResource("1_5w227")
-
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1013145333]
+[node name="LoginOptions" type="MarginContainer" parent="." unique_id=1013145333]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,20 +23,24 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_top = 384
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1339197336]
+[node name="Logo" type="Sprite2D" parent="LoginOptions" unique_id=1593965926]
+position = Vector2(960, 384)
+texture = ExtResource("1_5w227")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoginOptions" unique_id=1339197336]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 32
 
-[node name="LoginIntra" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1582211784]
+[node name="LoginIntra" type="Button" parent="LoginOptions/VBoxContainer" unique_id=1582211784]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_061kd")
 text = "Login with 42 Intra"
 
-[node name="SkipLogin" type="Button" parent="MarginContainer/VBoxContainer" unique_id=688413602]
+[node name="SkipLogin" type="Button" parent="LoginOptions/VBoxContainer" unique_id=688413602]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -48,5 +49,46 @@ text = "Skip login"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=877939769]
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]
+[node name="Login42Panel" type="MarginContainer" parent="." unique_id=2098489762]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 600
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 600
+theme_override_constants/margin_bottom = 300
+
+[node name="Panel" type="Panel" parent="Login42Panel" unique_id=825370181]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Login42Panel" unique_id=395174741]
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Login42Panel/MarginContainer" unique_id=248374083]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=699160970]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Waiting for 42 Intra Login..."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=1081544966]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Please check your browser"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=1408721116]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]
+[connection signal="pressed" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]

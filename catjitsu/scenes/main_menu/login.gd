@@ -5,6 +5,8 @@ var client_authorised = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$LoginOptions.show()
+	$Login42Panel.hide()
 	set_process(false)
 
 
@@ -45,13 +47,17 @@ func _on_login_intra_pressed() -> void:
 	var query_param = "?exchange_uuid=" + exchange_uuid
 	print(exchange_uuid)
 	OS.shell_open("http://localhost:8000/auth/42/login/" + query_param)
+	$LoginOptions.hide()
+	$Login42Panel.show()
 	request_tokens(query_param)
+
 
 func request_tokens(query_param):
 	$HTTPRequest.request_completed.connect(_uuid_sent)
 	while (client_authorised == false):
 		$HTTPRequest.request("http://localhost:8000/identify-client/" + query_param)
 		await get_tree().create_timer(2.0).timeout
+
 
 func _uuid_sent(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
@@ -67,6 +73,7 @@ func _uuid_sent(result, response_code, headers, body):
 		Global.api.refresh_token = refresh_token
 		var nickname = json["nickname"]
 		_request_player_data(nickname)
+		Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 
 
 func _request_player_data(nickname: String):

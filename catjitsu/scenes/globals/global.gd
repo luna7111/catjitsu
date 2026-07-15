@@ -4,7 +4,7 @@ var scene_manager : SceneManager
 
 var profile = {
 	name = "Guest123",
-	avatar = "Rodolfo"
+	avatar = "Apoloto"
 }
 
 
