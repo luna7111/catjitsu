@@ -23,6 +23,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from django import shortcuts
 
+class TestGame(APIView):
+    def get(self, request):
+        return shortcuts.render(request, 'game/catjitsu.html', {})
+
 #TODO: maybe this sould be a POST or something idk
 #TODO: cleanly manage timeout (this is a Godot thing but maybe there is a response code or something idk)
 class IdentifyClient(APIView):
