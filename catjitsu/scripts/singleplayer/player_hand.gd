@@ -18,8 +18,6 @@ var bottom_screen_y
 func _ready() -> void:
 	center_screen_x = get_viewport().get_visible_rect().size.x / 2
 	bottom_screen_y = get_viewport().get_visible_rect().size.y / 10 * 9
-	print(get_viewport().get_visible_rect().size.x)
-	print(get_viewport().get_visible_rect().size.y)
 
 func add_card_to_hand(card, speed):
 	if card not in player_hand:

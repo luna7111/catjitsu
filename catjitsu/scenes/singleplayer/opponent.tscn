@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dgi32vgukgk8c" path="res://scenes/singleplayer/opponent_card_slot.tscn" id="1_p7kbq"]
 [ext_resource type="PackedScene" uid="uid://dkg6jnh2vgkuq" path="res://scenes/singleplayer/opponent_deck.tscn" id="2_ocpkl"]
 [ext_resource type="PackedScene" uid="uid://bqgf1m55ifq3m" path="res://scenes/singleplayer/opponent_hand.tscn" id="3_frjr2"]
+[ext_resource type="Script" uid="uid://ct8kqj6iw6v3v" path="res://scripts/singleplayer/opponent_ai.gd" id="4_ocpkl"]
 
 [node name="Opponent" type="Node2D" unique_id=1536269255]
 
@@ -15,3 +16,6 @@ position = Vector2(0, 516)
 
 [node name="OpponentHand" parent="." unique_id=1295232046 instance=ExtResource("3_frjr2")]
 position = Vector2(821.3297, 18.315948)
+
+[node name="OpponentAI" type="Node2D" parent="." unique_id=2081968094]
+script = ExtResource("4_ocpkl")

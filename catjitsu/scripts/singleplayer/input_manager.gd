@@ -76,19 +76,16 @@ func play_card_keyboard():
 	card_manager_reference.select_card(null)
 	await card_manager_reference.play_card(card, $"../PlayerCardSlot")
 
-#
 func change_input_to_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	card_manager_reference.select_card(null)
-	# Future feature, change icons
-	
+
 func change_input_to_keyboard():
 	if not card_manager_reference.selected_card:
 		var card = card_manager_reference.card_being_hovered
 		if card:
 			card_manager_reference.select_card(card)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	# Future feature, change icons
 
 func change_input_to_controller():
 	if not card_manager_reference.selected_card:
@@ -100,15 +97,11 @@ func change_input_to_controller():
 
 func iterate_left_player_hand():
 	var hand = player_hand_reference.player_hand
-
 	if hand.is_empty():
 		return
-
 	var index = -1
-
 	if card_manager_reference.selected_card:
 		index = (card_manager_reference.selected_card.in_hand_index + 1) % hand.size()
-
 	card_manager_reference.select_card(hand[index])
 
 func iterate_right_player_hand():
