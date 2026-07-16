@@ -1,31 +1,35 @@
 extends Node
 
-var battle_timer
+# Opponent Data
 var opponent_card_slot
-var player_card_slot
 var opponent_card_on_slot
+
+# Player Data
+var player_card_slot
 var player_card_on_slot
+var opponent_hand 
 
-var	player_points = {
+# Battle Logic
+var battle_timer
+var player_points = {
 		"Fire" = 0,
 		"Ice" = 0,
 		"Water" = 0,
 		"None" = 0
 	}
-var	opponent_points = {
+var opponent_points = {
 		"Fire" = 0,
 		"Ice" = 0,
 		"Water" = 0,
 		"None" = 0
 	}
-
 enum BATTLE_RESULT {
 	PLAYER,
 	OPPONENT,
-	DRAW,
+	TIE,
 }
 
-var center_screen_x
+@onready var battle_animation_manager = $"../BattleAnimationManager"
 
 func _ready() -> void:
 	battle_timer = $"../BattleTimer"
@@ -33,61 +37,31 @@ func _ready() -> void:
 	battle_timer.wait_time = 1.0
 	opponent_card_slot = $"../../Opponent/OpponentCardSlot"
 	player_card_slot = $"../../Player/PlayerCardSlot"
-	center_screen_x = get_viewport().get_visible_rect().size.x / 2
+	# If Multiplayer, may we shoul not call this reference
+	opponent_hand = $"../../Opponent/OpponentHand".opponent_hand
 
 func _on_end_turn_button_pressed() -> void:
 	opponent_turn()
 
+# Logic and animatios for opponent turn. 
+# Picks card with hightest attack and play its
+# Then calculates battle result
 func opponent_turn():
 	$"../EndTurnButton".disabled = true
 	$"../EndTurnButton".visible = false
-
-	battle_timer.start()
-	await battle_timer.timeout
-
-	await try_play_card_highest_attack()
-	await battle_phase()
-	end_opponent_turn()
-
-func try_play_card_highest_attack():
-	var opponent_hand = $"../../Opponent/OpponentHand".opponent_hand
-
-	if opponent_hand.size() == 0:
-		end_opponent_turn()
-		return
-
-	var card_with_highest_attack = opponent_hand[0]
 	
-	# Enemy AI
-	for card in opponent_hand:
-		if card.points > card_with_highest_attack.points:
-			card_with_highest_attack = card
-
-	var tween = get_tree().create_tween()
-	tween.tween_property(
-		card_with_highest_attack,
-		"position",
-		Vector2(opponent_card_slot.position.x, opponent_card_slot.position.y),
-		0.2
-	)
-	var tween2 = get_tree().create_tween()
-	tween2.tween_property(
-		card_with_highest_attack,
-		"scale",
-		Vector2(1, 1),
-		0.2
-	)
-	card_with_highest_attack.get_node("AnimationPlayer").play("card_flip")
-
-	$"../../Opponent/OpponentHand".remove_card_from_hand(card_with_highest_attack)
-
-	opponent_card_on_slot = card_with_highest_attack
-
 	battle_timer.start()
 	await battle_timer.timeout
+
+	# Enemy AI
+	await try_play_card_highest_attack()
+	# Calculate card points
+	await battle_phase()
+	# Adds points to players and ends turn / game
+	end_turn()
 
 func battle_phase():
-	await animate_cards_battle_phase()
+	await battle_animation_manager.animate_cards_battle_phase(player_card_on_slot, opponent_card_on_slot)
 	var battle_result
 	battle_result = calculate_battle_result()
 	
@@ -95,32 +69,32 @@ func battle_phase():
 	match battle_result[0]:
 		BATTLE_RESULT.OPPONENT:
 			opponent_points[battle_result[1]] += 1
-			show_point(battle_result[1], opponent_points[battle_result[1]], "Opponent")
-			await opponent_win_animation()
+			battle_animation_manager.show_point(
+				battle_result[1], 
+				opponent_points[battle_result[1]], 
+				"Opponent")
+			await battle_animation_manager.opponent_win_animation(player_card_on_slot, opponent_card_on_slot)
+			destroy_card(opponent_card_on_slot)
+			destroy_card(player_card_on_slot)
 		BATTLE_RESULT.PLAYER:
 			player_points[battle_result[1]] += 1
-			show_point(battle_result[1], player_points[battle_result[1]], "Player")
-			await player_win_animation()
-		BATTLE_RESULT.DRAW:
-			print ("Draw")
-			await draw_animation()
-
-func show_point(element, score, player):
-	var target_points
-	if player == "Player":
-		target_points = $"../PlayerPoints"
-	else:
-		target_points = $"../OpponentPoints"
-	var sprite_folder = target_points.get_node("%s" % [element])
-	sprite_folder.visible = true
-	var sprite = target_points.get_node("%s/%s%d" % [element, element, score])
-	sprite.visible = true
+			battle_animation_manager.show_point(
+				battle_result[1],
+				player_points[battle_result[1]], 
+				"Player")
+			await battle_animation_manager.player_win_animation(player_card_on_slot, opponent_card_on_slot)
+			destroy_card(opponent_card_on_slot)
+			destroy_card(player_card_on_slot)
+		BATTLE_RESULT.TIE:
+			await battle_animation_manager.tie_animation(player_card_on_slot, opponent_card_on_slot)
+			destroy_card(opponent_card_on_slot)
+			destroy_card(player_card_on_slot)
 
 func calculate_battle_result():
-	var result = [BATTLE_RESULT.DRAW, "None"]
+	var result = [BATTLE_RESULT.TIE, "None"]
 	if opponent_card_on_slot.type == player_card_on_slot.type:
 		if opponent_card_on_slot.points == player_card_on_slot.points:
-			result = [BATTLE_RESULT.DRAW, "None"]
+			result = [BATTLE_RESULT.TIE, "None"]
 		else:
 			result[0] = opponent_card_on_slot.points > player_card_on_slot.points
 			result[1] = opponent_card_on_slot.type
@@ -132,146 +106,8 @@ func calculate_battle_result():
 		result = [BATTLE_RESULT.PLAYER, player_card_on_slot.type]
 	return result
 
-func opponent_win_animation():
-		var tween = get_tree().create_tween()
-		tween.tween_property(
-			opponent_card_on_slot, 
-			"position", 
-			Vector2(center_screen_x, opponent_card_on_slot.position.y), 
-			0.09)
-		await tween.finished
-		
-		# Animate player out and destroy card
-		var anim = player_card_on_slot.get_node("AnimationPlayer")
-		anim.play("card_flip_reverse")
-		var tween2 = get_tree().create_tween()
-		tween2.tween_property(
-			player_card_on_slot, 
-			"position", 
-			Vector2(center_screen_x * 2 + 210, player_card_on_slot.position.y),
-			0.09)
-		await anim.animation_finished
-		destroy_card(player_card_on_slot)
-		
-		# Highlight opponent and destroy card
-		battle_timer.start()
-		await battle_timer.timeout
-		var anim2 = opponent_card_on_slot.get_node("AnimationPlayer")
-		anim2.play("card_flip_reverse")
-		var tween3 = get_tree().create_tween()
-		tween3.tween_property(
-			opponent_card_on_slot, 
-			"position", 
-			Vector2(-210, opponent_card_on_slot.position.y),
-			0.2)
-		await anim2.animation_finished
-		destroy_card(opponent_card_on_slot)
-
-func player_win_animation():
-		var tween = get_tree().create_tween()
-		tween.tween_property(
-			player_card_on_slot, 
-			"position", 
-			Vector2(center_screen_x, player_card_on_slot.position.y),
-			0.1)
-		await tween.finished
-		
-		# Animate Opponent out and destroy card
-		var anim = opponent_card_on_slot.get_node("AnimationPlayer")
-		anim.play("card_flip_reverse")
-		var tween2 = get_tree().create_tween()
-		tween2.tween_property(
-			opponent_card_on_slot, 
-			"position", 
-			Vector2(-210, opponent_card_on_slot.position.y),
-			0.2)
-		await anim.animation_finished
-		destroy_card(opponent_card_on_slot)
-		
-		# Highlight Player and destroy card
-		battle_timer.start()
-		await battle_timer.timeout
-		var anim2 = player_card_on_slot.get_node("AnimationPlayer")
-		anim2.play("card_flip_reverse")
-		var tween3 = get_tree().create_tween()
-		tween3.tween_property(
-			player_card_on_slot, 
-			"position", 
-			Vector2(center_screen_x * 2 + 210, player_card_on_slot.position.y),
-			0.2)
-		await anim2.animation_finished
-		destroy_card(player_card_on_slot)
-
-func draw_animation():
-	var anim = opponent_card_on_slot.get_node("AnimationPlayer")
-	anim.play("card_flip_reverse")
-	var tween = create_tween()
-	tween.parallel().tween_property(
-		opponent_card_on_slot,
-		"position",
-		Vector2(-210, opponent_card_on_slot.position.y),
-		0.2
-		)
-	#await anim.animation_finished
-
-	var anim2 = player_card_on_slot.get_node("AnimationPlayer")
-	anim2.play("card_flip_reverse")
-	tween.parallel().tween_property(
-		player_card_on_slot,
-		"position",
-		Vector2(center_screen_x * 2 + 210, player_card_on_slot.position.y),
-		0.2
-	)
-	#await anim2.animation_finished
-	await tween.finished
-	destroy_card(opponent_card_on_slot)
-	destroy_card(player_card_on_slot)
-
-func animate_cards_battle_phase():
-	var opponent_original_position = opponent_card_on_slot.position
-	var player_original_position = player_card_on_slot.position
-
-	for i in range(3):
-		var tween = create_tween()
-
-		tween.parallel().tween_property(
-			opponent_card_on_slot,
-			"position",
-			opponent_original_position - Vector2(210, 0),
-			0.2
-		)
-
-		tween.parallel().tween_property(
-			player_card_on_slot,
-			"position",
-			player_original_position + Vector2(210, 0),
-			0.2
-		)
-
-		await tween.finished
-
-		tween = create_tween()
-
-		tween.parallel().tween_property(
-			opponent_card_on_slot,
-			"position",
-			opponent_original_position + Vector2(105, 0),
-			0.2
-		)
-
-		tween.parallel().tween_property(
-			player_card_on_slot,
-			"position",
-			player_original_position - Vector2(105, 0),
-			0.2
-		)
-
-		await tween.finished
-
-func destroy_card(selected_card):
-	selected_card.queue_free()
-
-func end_opponent_turn():
+# Logic for ending turn
+func end_turn():
 	var player_elements = 0
 	var opponent_elements = 0
 	for key in player_points:
@@ -298,3 +134,29 @@ func end_opponent_turn():
 	if $"../../Opponent/OpponentDeck".opponent_deck.size() != 0:
 		$"../../Opponent/OpponentDeck".draw_card()
 	$"../../Player/PlayerDeck".draw_card()
+
+# Cleanup
+func destroy_card(selected_card):
+	selected_card.queue_free()
+
+# Enemy AI
+func try_play_card_highest_attack():
+	# This call maybe its not correct. Check when implemented multiplayer
+	if opponent_hand.size() == 0:
+		end_turn()
+		return
+
+	# Pick highest card
+	var card_with_highest_attack = opponent_hand[0]
+	for card in opponent_hand:
+		if card.points > card_with_highest_attack.points:
+			card_with_highest_attack = card
+	
+	# Animation and transfer of ownership
+	battle_animation_manager.play_card_from_opponent_hand_animation(
+		card_with_highest_attack, 
+		opponent_card_slot)
+	$"../../Opponent/OpponentHand".remove_card_from_hand(card_with_highest_attack)
+	opponent_card_on_slot = card_with_highest_attack
+	battle_timer.start()
+	await battle_timer.timeout
