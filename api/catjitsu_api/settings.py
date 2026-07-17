@@ -67,6 +67,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'catjitsu_api.urls'
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
