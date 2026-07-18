@@ -7,11 +7,6 @@ func _ready() -> void:
 	$Multiplayer.hide()
 	$Profile.hide()
 	$Main.show()
-	pass #$CanvasLayer/AnimationPlayer.play("CardsIn")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
 	pass
 
 
@@ -51,5 +46,16 @@ func _on_main_multiplayer_pressed() -> void:
 	$SubViewportContainer/SubViewport/MainMenuBackground.switch_to_tv()
 
 
+
 func _on_main_singleplayer_pressed() -> void:
 	Global.scene_manager.switch_scene("res://scenes/singleplayer/singleplayer_main.tscn", true)
+
+
+func _on_profile_back_pressed() -> void:
+	$Profile.hide()
+	$SubViewportContainer/SubViewport/MainMenuBackground.table_switch_to_cat()
+
+
+func _on_multiplayer_back_pressed() -> void:
+	$Multiplayer.hide()
+	$SubViewportContainer/SubViewport/MainMenuBackground.tv_switch_to_cat()

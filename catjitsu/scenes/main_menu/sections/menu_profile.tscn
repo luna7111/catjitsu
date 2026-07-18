@@ -32,3 +32,5 @@ popup/item_1/id = 1
 layout_mode = 2
 size_flags_horizontal = 4
 text = "BACK_BUTTON"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -6,17 +6,6 @@ signal singleplayer_pressed
 signal profile_pressed
 signal settings_pressed
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-
 
 func _on_multiplayer_pressed() -> void:
 	emit_signal("multiplayer_pressed")
@@ -26,9 +15,9 @@ func _on_singleplayer_pressed() -> void:
 	emit_signal("singleplayer_pressed")
 
 
-func _on_profile_pressed() -> void:
-	emit_signal("profile_pressed")
-
-
 func _on_settings_pressed() -> void:
 	emit_signal("settings_pressed")
+
+
+func _on_profile_pressed() -> void:
+	emit_signal("profile_pressed")

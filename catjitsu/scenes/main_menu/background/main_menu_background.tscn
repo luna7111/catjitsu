@@ -80,8 +80,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, -0.23279728, 0.6886469, 1.6322305)
 
-[sub_resource type="Animation" id="Animation_efrye"]
-resource_name = "radio_to_cat"
+[sub_resource type="Animation" id="Animation_e2i53"]
+resource_name = "sofa_to_cat"
 tracks/0/type = "rotation_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -111,22 +111,22 @@ tracks/2/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_e2i53"]
-resource_name = "sofa_to_cat"
+[sub_resource type="Animation" id="Animation_efrye"]
+resource_name = "table_to_cat"
 tracks/0/type = "rotation_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Camera3D")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.0071096136, 0.69594455, 0.02333495, 0.717681, 0.5, 1, -0.056537855, 0.23998298, 0.0061904, 0.9691094)
+tracks/0/keys = PackedFloat32Array(0, 1, -0.020939834, -0.015703876, -0.00032894925, 0.9996574, 0.5, 1, -0.056537855, 0.23998298, 0.0061904, 0.9691094)
 tracks/1/type = "position_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Camera3D")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.20082186, 0.70157367, 1.7475069, 0.6, 1, -0.23279728, 0.6886469, 1.6322305)
+tracks/1/keys = PackedFloat32Array(0, 1, -0.1730706, 0.75706583, 1.2356794, 0.6, 1, -0.23279728, 0.6886469, 1.6322305)
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -244,14 +244,14 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Camera3D")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.0071096136, 0.69594455, 0.02333495, 0.717681, 0.5, 1, -0.056537855, 0.23998298, 0.0061904, 0.9691094)
+tracks/0/keys = PackedFloat32Array(0, 1, -0.045528155, -0.70185137, -0.04601627, 0.70937604, 0.5, 1, -0.056537855, 0.23998298, 0.0061904, 0.9691094)
 tracks/1/type = "position_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Camera3D")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.20082186, 0.70157367, 1.7475069, 0.6, 1, -0.23279728, 0.6886469, 1.6322305)
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.672, 1.309, 0.6, 1, -0.23279728, 0.6886469, 1.6322305)
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -271,8 +271,8 @@ tracks/2/keys = {
 _data = {
 &"RESET": SubResource("Animation_jvv3q"),
 &"camera_iddle": SubResource("Animation_00yck"),
-&"radio_to_cat": SubResource("Animation_efrye"),
 &"sofa_to_cat": SubResource("Animation_e2i53"),
+&"table_to_cat": SubResource("Animation_efrye"),
 &"to_sofa": SubResource("Animation_iieak"),
 &"to_table": SubResource("Animation_g6xg5"),
 &"to_tv": SubResource("Animation_6udjv"),
@@ -457,7 +457,7 @@ transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -1.2
 mesh = ExtResource("6_08itd")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=628876882]
-transform = Transform3D(0.88473976, -0.039134607, 0.46443963, -0.015137896, 0.9935303, 0.11255395, -0.4658396, -0.10661159, 0.8784233, 0, 0, 0)
+transform = Transform3D(0.88473976, -0.039134603, 0.46443963, -0.015137896, 0.9935302, 0.11255395, -0.4658396, -0.10661158, 0.8784233, 0, 0, 0)
 fov = 45.0
 
 [node name="SideTableDrawers" type="MeshInstance3D" parent="." unique_id=1995289256]
