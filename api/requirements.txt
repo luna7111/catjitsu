@@ -19,3 +19,5 @@ sqlparse==0.5.5
 types-PyYAML==6.0.12.20260518
 typing_extensions==4.15.0
 urllib3==2.7.0
+# TEMPORARY: required for local dev CORS handling from Godot HTML5 export. Remove when frontend and API share the same origin.
+django-cors-headers==4.9.0

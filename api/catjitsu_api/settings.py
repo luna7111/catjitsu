@@ -44,6 +44,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',  # TEMPORARY: allow the Godot web build at http://localhost to access the API during local dev. Remove when frontend and API are served from the same origin.
     'rest_framework',
     'rest_framework_api_key',
     'catjitsu_api',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # TEMPORARY: short-circuits CORS for local development (remove when same-origin deployment is used)
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,3 +155,13 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS settings (TEMPORARY)
+# Allow the Godot HTML5 export during local development at http://localhost to access this API.
+# Remove these settings when the frontend is served from the same origin as the API.
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+]
+
+# If more permissive behavior is needed during dev, uncomment the following instead and remove before production:
+# CORS_ALLOW_ALL_ORIGINS = True
