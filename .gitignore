@@ -1,3 +1,7 @@
+# IDE
+.vscode
+.idea
+
 # Godot 4+ specific ignores
 .godot/
 .nomedia
@@ -15,3 +19,12 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Python / Django
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+.venv
