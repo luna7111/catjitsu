@@ -62,7 +62,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0.033333335, 1, -0.23279728, 0.6886469, 1.6322305)
 
 [sub_resource type="Animation" id="Animation_00yck"]
-resource_name = "camera_iddle"
+resource_name = "camera_idle"
 length = 24.0
 loop_mode = 1
 tracks/0/type = "rotation_3d"
@@ -270,7 +270,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v8iea"]
 _data = {
 &"RESET": SubResource("Animation_jvv3q"),
-&"camera_iddle": SubResource("Animation_00yck"),
+&"camera_idle": SubResource("Animation_00yck"),
 &"sofa_to_cat": SubResource("Animation_e2i53"),
 &"table_to_cat": SubResource("Animation_efrye"),
 &"to_sofa": SubResource("Animation_iieak"),

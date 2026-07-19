@@ -9,7 +9,7 @@ signal table_arrival
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	update_cat_texture()
-	$AnimationPlayer.play("camera_iddle")
+	$AnimationPlayer.play("camera_idle")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -46,3 +46,7 @@ func switch_to_table():
 func update_cat_texture():
 	var texture_path = "res://assets/3d/materials/" + Global.profile.avatar + ".tres"
 	$Cat.set_surface_override_material(0, load(texture_path))
+
+func play_idle():
+	$AnimationPlayer.play("camera_idle")
+	

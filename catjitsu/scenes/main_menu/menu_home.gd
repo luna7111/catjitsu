@@ -16,6 +16,7 @@ func _on_sofa_arrival() -> void:
 
 func _on_cat_arrival() -> void:
 	$Main.show()
+	$SubViewportContainer/SubViewport/MainMenuBackground.play_idle()
 
 
 func _on_tv_arrival() -> void:
