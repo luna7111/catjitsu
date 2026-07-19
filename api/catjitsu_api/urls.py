@@ -25,7 +25,7 @@ urlpatterns = [
     path('auth/completed/', auth_completed, name='auth_completed'),
     path('admin/', admin.site.urls),
     path('players/', PlayerList.as_view(), name='PlayerList'),
-    path('player/<int:id>', PlayerDetail.as_view(), name='PlayerDetail'),
+    path('player/<int:pk>', PlayerDetail.as_view(), name='PlayerDetail'),
     path('matches/', MatchList.as_view(), name='MatchList'),
-    path('match/<int:id>', MatchDetail.as_view(), name='MatchDetail'),
+    path('match/<int:pk>', MatchDetail.as_view(), name='MatchDetail'),
 ]
