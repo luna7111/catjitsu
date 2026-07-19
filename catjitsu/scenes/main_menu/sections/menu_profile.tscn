@@ -22,6 +22,7 @@ text = "Profile name"
 [node name="ProfileOptions" type="OptionButton" parent="MarginContainer/VBoxContainer" unique_id=560748768]
 layout_mode = 2
 size_flags_horizontal = 4
+alignment = 1
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=348898086]
 layout_mode = 2

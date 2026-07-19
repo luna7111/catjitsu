@@ -32,6 +32,7 @@ text = "LANGUAGE_TAG"
 
 [node name="LanguageOptions" type="OptionButton" parent="MarginContainer/Buttons/LanguageMenu" unique_id=393612963]
 layout_mode = 2
+alignment = 1
 item_count = 3
 popup/item_0/text = "LANGUAGE_ENGLISH"
 popup/item_0/id = 0
