@@ -22,6 +22,13 @@ corner_radius_bottom_left = 16
 shadow_color = Color(0, 0, 0, 0.06666667)
 shadow_size = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyc3a"]
+bg_color = Color(0.56, 0.4648, 0.49177334, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xg63x"]
 bg_color = Color(0.9607843, 0.9254902, 0.9254902, 1)
 corner_radius_top_left = 8
@@ -61,11 +68,11 @@ corner_radius_top_right = 8
 [resource]
 Button/colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
-Button/colors/font_focus_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 Button/colors/font_hover_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
-Button/colors/font_hover_pressed_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.8, 0.35686275, 0.4862745, 1)
+Button/colors/font_pressed_color = Color(0.98465055, 0.9691698, 0.97340125, 1)
 Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
 Button/colors/icon_focus_color = Color(1, 1, 1, 1)
 Button/colors/icon_hover_color = Color(1, 1, 1, 1)
@@ -80,6 +87,7 @@ Button/font_sizes/font_size = 35
 Button/fonts/font = ExtResource("1_06w41")
 Button/styles/hover = SubResource("StyleBoxFlat_06w41")
 Button/styles/normal = SubResource("StyleBoxFlat_6oill")
+Button/styles/pressed = SubResource("StyleBoxFlat_wyc3a")
 Label/colors/font_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
 Label/font_sizes/font_size = 32
 Label/fonts/font = ExtResource("1_06w41")
