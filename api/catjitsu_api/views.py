@@ -188,7 +188,7 @@ class PlayerList(APIView):
 
 class PlayerDetail(APIView):
     def get_object(self, pk):
-        return shortcuts.aget_object_or_404(Player, pk=pk)
+        return shortcuts.get_object_or_404(Player, pk=pk)
 
     def get(self, request, pk):
         player = self.get_object(pk)
@@ -223,7 +223,7 @@ class MatchList(APIView):
 
 class MatchDetail(APIView):
     def get_object(self, pk):
-        return shortcuts.aget_object_or_404(Match, pk=pk)
+        return shortcuts.get_object_or_404(Match, pk=pk)
 
     def get(self, request, pk):
         match = self.get_object(pk)
