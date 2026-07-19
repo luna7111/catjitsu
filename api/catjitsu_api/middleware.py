@@ -8,4 +8,5 @@ class GodotWasmHeaderMiddleware:
         # These two headers allow Godot 4's Wasm threads to initialize
         response["Cross-Origin-Opener-Policy"] = "same-origin"
         response["Cross-Origin-Embedder-Policy"] = "require-corp"
+        response["Permissions-Policy"] = "cross-origin-isolated=(self)"
         return response
