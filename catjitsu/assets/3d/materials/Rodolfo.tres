@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dc8xb3tm0kkgp"]
 
-[ext_resource type="Texture2D" uid="uid://dlen2jugjmq44" path="res://assets/3d/pelaje_rodolfo.png" id="1_by3e6"]
+[ext_resource type="Texture2D" uid="uid://dlen2jugjmq44" path="res://assets/3d/texture_rodolfo.png" id="1_by3e6"]
 
 [resource]
 resource_name = "pelaje"

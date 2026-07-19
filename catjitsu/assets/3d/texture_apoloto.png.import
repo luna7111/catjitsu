@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwndg7e0yyq0e"
-path.s3tc="res://.godot/imported/pattern_22.png-871d663b037282478fd094b063ce4aca.s3tc.ctex"
+uid="uid://cfdbfutmceogg"
+path.s3tc="res://.godot/imported/texture_apoloto.png-11e1c2a66d9c6d35a862083989725db1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/3d/pattern_22.png"
-dest_files=["res://.godot/imported/pattern_22.png-871d663b037282478fd094b063ce4aca.s3tc.ctex"]
+source_file="res://assets/3d/texture_apoloto.png"
+dest_files=["res://.godot/imported/texture_apoloto.png-11e1c2a66d9c6d35a862083989725db1.s3tc.ctex"]
 
 [params]
 

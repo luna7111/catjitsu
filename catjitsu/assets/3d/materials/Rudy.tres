@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://86r2c77x3s5t"]
+
+[ext_resource type="Texture2D" uid="uid://dd7v0dsvd6k7t" path="res://assets/3d/texture_rudy.png" id="1_gtjhd"]
+
+[resource]
+resource_name = "pelaje"
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_gtjhd")
+metallic = 0.5
+roughness = 0.0

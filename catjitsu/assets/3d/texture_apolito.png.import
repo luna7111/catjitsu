@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlen2jugjmq44"
-path.s3tc="res://.godot/imported/pelaje_rodolfo.png-68502814682b49baf12a0ccd4cc59e1d.s3tc.ctex"
+uid="uid://b8bgsfloksn6u"
+path.s3tc="res://.godot/imported/texture_apolito.png-3d0fe6dff221a95c1ca24d6b80f154d9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/3d/pelaje_rodolfo.png"
-dest_files=["res://.godot/imported/pelaje_rodolfo.png-68502814682b49baf12a0ccd4cc59e1d.s3tc.ctex"]
+source_file="res://assets/3d/texture_apolito.png"
+dest_files=["res://.godot/imported/texture_apolito.png-3d0fe6dff221a95c1ca24d6b80f154d9.s3tc.ctex"]
 
 [params]
 
