@@ -2,9 +2,18 @@ extends Node
 
 var scene_manager : SceneManager
 
+var avatar_list = [
+		"Apolito",
+		"Apoloto",
+		"Rudy",
+		"Rodolfo",
+		"Kimi",
+		"Riku"
+]
+
 var profile = {
 	name = "Guest123",
-	avatar = "Rodolfo"
+	avatar = "Apolito"
 }
 
 

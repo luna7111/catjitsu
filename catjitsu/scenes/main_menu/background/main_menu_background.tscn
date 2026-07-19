@@ -457,7 +457,7 @@ transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -1.2
 mesh = ExtResource("6_08itd")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=628876882]
-transform = Transform3D(0.88473976, -0.039134603, 0.46443963, -0.015137896, 0.9935302, 0.11255395, -0.4658396, -0.10661158, 0.8784233, 0, 0, 0)
+transform = Transform3D(0.88473976, -0.039134603, 0.46443963, -0.015137896, 0.99353015, 0.11255395, -0.4658396, -0.10661157, 0.8784233, 0, 0, 0)
 fov = 45.0
 
 [node name="SideTableDrawers" type="MeshInstance3D" parent="." unique_id=1995289256]
@@ -576,7 +576,7 @@ transform = Transform3D(-0.00967491, 0, -0.09953088, 0, 0.1, 0, 0.09953088, 0, -
 mesh = SubResource("ArrayMesh_e2i53")
 
 [node name="FotoFrame" type="MeshInstance3D" parent="." unique_id=92953292]
-transform = Transform3D(0.1, 0, 0, 0, 0.09816272, -0.0190809, 0, 0.0190809, 0.09816272, 0.44651777, 0.7563616, 0.13336584)
+transform = Transform3D(0.15264393, -0.0022443659, 0.00023105617, 0.0022800204, 0.15025692, -0.015468862, -2.1185965e-18, 0.02611745, 0.08901412, 0.30788732, 0.7563616, 0.13336584)
 mesh = SubResource("ArrayMesh_6sxpn")
 
 [node name="LampRoundFloor" type="MeshInstance3D" parent="." unique_id=804204620]
