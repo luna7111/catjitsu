@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://b3quwdoacw473"]
+
+[ext_resource type="Script" uid="uid://o62m614c2o1d" path="res://scenes/gui_elements/option_navigator.gd" id="1_b7qkb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gwi64"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7qkb"]
+bg_color = Color(0.56, 0.4648, 0.49177334, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clbcp"]
+bg_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8v62"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0, 0, 0, 0.06666667)
+shadow_size = 8
+
+[node name="OptionNavigator" type="HBoxContainer" unique_id=2096494793]
+offset_right = 91.0
+offset_bottom = 83.0
+script = ExtResource("1_b7qkb")
+
+[node name="Previous" type="Button" parent="." unique_id=1480619504]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gwi64")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_b7qkb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clbcp")
+text = "<"
+
+[node name="Display" type="Button" parent="." unique_id=1580288277]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
+theme_override_colors/font_focus_color = Color(0.8, 0.35686275, 0.4862745, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.35686275, 0.4862745, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.35686275, 0.4862745, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.8, 0.35686275, 0.4862745, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_h8v62")
+theme_override_styles/focus = SubResource("StyleBoxFlat_h8v62")
+text = "Text"
+
+[node name="Next" type="Button" parent="." unique_id=1739517654]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gwi64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_clbcp")
+text = ">"
+
+[connection signal="pressed" from="Previous" to="." method="_on_previous_pressed"]
+[connection signal="pressed" from="Next" to="." method="_on_next_pressed"]
