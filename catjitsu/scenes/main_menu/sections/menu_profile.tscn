@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cbs3weofwphv1"]
 
 [ext_resource type="Script" uid="uid://c4xhpd4xtym2e" path="res://scenes/main_menu/sections/menu_profile.gd" id="1_dq60w"]
+[ext_resource type="PackedScene" uid="uid://b3quwdoacw473" path="res://scenes/gui_elements/option_navigator.tscn" id="2_gspjh"]
 
 [node name="Profile" type="CanvasLayer" unique_id=971024284]
 script = ExtResource("1_dq60w")
@@ -22,6 +23,10 @@ text = "Profile name"
 [node name="ProfileOptions" type="OptionButton" parent="MarginContainer/VBoxContainer" unique_id=560748768]
 layout_mode = 2
 size_flags_horizontal = 4
+alignment = 1
+
+[node name="OptionNavigator" parent="MarginContainer/VBoxContainer" unique_id=2096494793 instance=ExtResource("2_gspjh")]
+layout_mode = 2
 alignment = 1
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=348898086]

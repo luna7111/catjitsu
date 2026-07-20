@@ -3,13 +3,19 @@ extends CanvasLayer
 
 signal back_pressed
 
+
+var profile_selection
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	profile_selection = $MarginContainer/VBoxContainer/OptionNavigator
+	
 	for av in Global.avatar_list:
-		$MarginContainer/VBoxContainer/ProfileOptions.add_item(av)
-	for n in $MarginContainer/VBoxContainer/ProfileOptions.item_count:
-		if $MarginContainer/VBoxContainer/ProfileOptions.get_item_text(n) == Global.profile.avatar:
-			$MarginContainer/VBoxContainer/ProfileOptions.select(n)
+		profile_selection.add_item(av)
+	for n in profile_selection.item_count:
+		if profile_selection.get_item_text(n) == Global.profile.avatar:
+			profile_selection.select(n)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,6 +24,6 @@ func _process(delta: float) -> void:
 
 
 func _on_back_button_pressed() -> void:
-	var item_id = $MarginContainer/VBoxContainer/ProfileOptions.get_selected_id()
-	Global.profile.avatar = $MarginContainer/VBoxContainer/ProfileOptions.get_item_text(item_id)
+	var item_id = profile_selection.selected
+	Global.profile.avatar = profile_selection.get_item_text(item_id)
 	emit_signal("back_pressed")
