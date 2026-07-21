@@ -18,17 +18,13 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://bfaw8ae7rte40"
-Lobby="*uid://ducmnemk43ck6"
+LobbyWithServer="*uid://d2w3g7h0v02w6"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
-
-[gui]
-
-theme/custom="uid://bqxnag2rlymbi"
 
 [internationalization]
 

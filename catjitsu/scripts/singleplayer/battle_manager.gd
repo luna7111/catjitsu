@@ -63,7 +63,6 @@ func opponent_turn():
 	await battle_phase()
 	# Adds points to players and ends turn / game
 	end_turn()
-
 func battle_phase():
 	# Funny crash animation
 	await battle_animation_manager.animate_cards_battle_phase(

@@ -9,6 +9,7 @@ signal server_disconnected
 
 # New
 const SERVER_URL = "ws://localhost:8080"
+#const SERVER_URL = "wss://localhost:8060/tmp_js_export.html"
 const MAX_CONNECTIONS = 2
 const PORT = 8080
 

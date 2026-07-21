@@ -98,14 +98,14 @@ func set_card_data_type(drawn_card, type):
 	# Change color of cards. Must be identical that opponent_deck
 	match type:
 		"Fire":
-			style.bg_color = Color(0.9, 0.8, 0.6)
-			style.border_color = Color(0.9, 0.7, 0.3)
+			style.bg_color = Color("f4dbc2")
+			style.border_color = Color("dcc197")
 		"Water":
-			style.bg_color = Color(0.8, 0.8, 0.9)
-			style.border_color = Color(0.3, 0.5, 0.6)
+			style.bg_color = Color("d0d0f6")
+			style.border_color = Color("a897dc")
 		"Ice":
-			style.bg_color = Color(0.9, 0.9, 0.9)
-			style.border_color = Color(0.3, 0.8, 0.8)
+			style.bg_color = Color("e7f2f9")
+			style.border_color = Color("c1daec")
 
 func reset_draw():
 	drawn_card_this_turn = false
