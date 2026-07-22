@@ -19,9 +19,17 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework_simplejwt.tokens import RefreshToken
-
-
 from django import shortcuts
+
+from django.contrib.auth.forms import UserCreationForm
+
+class RegisterUser(APIView):
+    def post(self, request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return Response(form, status.HTTP_200_OK)
+        return Response({}, status.HTTP_400_BAD_REQUEST)
 
 #TODO: maybe this sould be a POST or something idk
 #TODO: cleanly manage timeout (this is a Godot thing but maybe there is a response code or something idk)
