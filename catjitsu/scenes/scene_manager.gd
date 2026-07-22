@@ -7,6 +7,7 @@ extends Node
 ## Use Global.scene_manager.switch_scenes() to switch scenes
 
 @export var startup_scene: PackedScene
+@export var server_scene: PackedScene
 var _current_scene: Node
 
 

@@ -12,11 +12,6 @@ func _ready() -> void:
 	$AnimationPlayer.play("camera_idle")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
-
 func switch_to_sofa():
 	$AnimationPlayer.play("to_sofa")
 

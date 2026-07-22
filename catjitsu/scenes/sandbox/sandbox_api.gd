@@ -6,11 +6,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_get_players_button_pressed() -> void:
 	print("get players button pressed")
 	$Node/HTTPRequest.request_completed.connect(_print_json)
