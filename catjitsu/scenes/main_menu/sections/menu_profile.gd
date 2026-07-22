@@ -18,11 +18,6 @@ func _ready() -> void:
 			profile_selection.select(n)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_back_button_pressed() -> void:
 	var item_id = profile_selection.selected
 	Global.profile.avatar = profile_selection.get_item_text(item_id)
