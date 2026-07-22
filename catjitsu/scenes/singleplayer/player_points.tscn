@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://dthncrkf17knr"]
 
-[ext_resource type="Texture2D" uid="uid://dhw4t7hhk11df" path="res://assets/singleplayer/elements_icons/Fire.png" id="1_8cmb4"]
-[ext_resource type="Texture2D" uid="uid://di7r04t3c06ge" path="res://assets/singleplayer/elements_icons/Water.png" id="2_wsjv1"]
-[ext_resource type="Texture2D" uid="uid://3uvsdlgtgpnk" path="res://assets/singleplayer/elements_icons/Ice.png" id="3_aohqk"]
+[ext_resource type="Texture2D" uid="uid://bhope6g1vn1a1" path="res://assets/singleplayer/elements_icons/Fire.png" id="1_8cmb4"]
+[ext_resource type="Texture2D" uid="uid://b20713i8psb6f" path="res://assets/singleplayer/elements_icons/Water.png" id="2_wsjv1"]
+[ext_resource type="Texture2D" uid="uid://cx85vpc885rxx" path="res://assets/singleplayer/elements_icons/Ice.png" id="3_aohqk"]
 
 [node name="PlayerPoints" type="Control" unique_id=50117329]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,28 +18,34 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Fire1" type="TextureRect" parent="Fire" unique_id=515186955]
+[node name="Fire1" type="TextureRect" parent="Fire" unique_id=1864484512]
 visible = false
 layout_mode = 0
-offset_top = 30.0
-offset_right = 40.0
-offset_bottom = 70.000015
+offset_left = 1.0
+offset_top = 29.0
+offset_right = 41.0
+offset_bottom = 69.0
 texture = ExtResource("1_8cmb4")
+stretch_mode = 5
 
 [node name="Fire2" type="TextureRect" parent="Fire" unique_id=127889602]
 visible = false
 layout_mode = 0
-offset_top = 15.0
-offset_right = 40.0
-offset_bottom = 55.000023
+offset_left = 1.0
+offset_top = 16.0
+offset_right = 41.0
+offset_bottom = 56.000023
 texture = ExtResource("1_8cmb4")
+stretch_mode = 5
 
-[node name="Fire3" type="TextureRect" parent="Fire" unique_id=1864484512]
+[node name="Fire3" type="TextureRect" parent="Fire" unique_id=515186955]
 visible = false
 layout_mode = 0
+offset_top = 1.0
 offset_right = 40.0
-offset_bottom = 40.000004
+offset_bottom = 41.000015
 texture = ExtResource("1_8cmb4")
+stretch_mode = 5
 
 [node name="Water" type="Control" parent="." unique_id=114082905]
 visible = false
@@ -56,6 +61,7 @@ offset_top = 30.0
 offset_right = 40.0
 offset_bottom = 70.000015
 texture = ExtResource("2_wsjv1")
+stretch_mode = 5
 
 [node name="Water2" type="TextureRect" parent="Water" unique_id=321353771]
 visible = false
@@ -64,6 +70,7 @@ offset_top = 15.0
 offset_right = 40.0
 offset_bottom = 55.000023
 texture = ExtResource("2_wsjv1")
+stretch_mode = 5
 
 [node name="Water3" type="TextureRect" parent="Water" unique_id=965242713]
 visible = false
@@ -71,6 +78,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.000004
 texture = ExtResource("2_wsjv1")
+stretch_mode = 5
 
 [node name="Ice" type="Control" parent="." unique_id=335530595]
 visible = false
@@ -82,22 +90,29 @@ offset_bottom = 40.0
 [node name="Ice1" type="TextureRect" parent="Ice" unique_id=914794241]
 visible = false
 layout_mode = 0
+offset_left = -6.0
 offset_top = 30.0
 offset_right = 40.0
-offset_bottom = 70.000015
+offset_bottom = 73.0
 texture = ExtResource("3_aohqk")
+stretch_mode = 5
 
 [node name="Ice2" type="TextureRect" parent="Ice" unique_id=1893984794]
 visible = false
 layout_mode = 0
+offset_left = -4.0
 offset_top = 15.0
-offset_right = 40.0
+offset_right = 36.0
 offset_bottom = 55.000023
 texture = ExtResource("3_aohqk")
+stretch_mode = 5
 
 [node name="Ice3" type="TextureRect" parent="Ice" unique_id=1293595447]
 visible = false
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.000004
+offset_left = -4.0
+offset_top = -2.0
+offset_right = 36.0
+offset_bottom = 38.000004
 texture = ExtResource("3_aohqk")
+stretch_mode = 5

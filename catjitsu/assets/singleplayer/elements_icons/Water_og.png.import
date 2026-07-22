@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brorc7eqaigdy"
-path="res://.godot/imported/Slot_200px.png-fbb1e2676fda2c0190cae1dc41e48876.ctex"
+uid="uid://cgusovjv72kmf"
+path="res://.godot/imported/Water_og.png-0901a337630d2ee5219acb6a2f00c5e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/singleplayer/other_assets/Slot_200px.png"
-dest_files=["res://.godot/imported/Slot_200px.png-fbb1e2676fda2c0190cae1dc41e48876.ctex"]
+source_file="res://assets/singleplayer/elements_icons/Water_og.png"
+dest_files=["res://.godot/imported/Water_og.png-0901a337630d2ee5219acb6a2f00c5e4.ctex"]
 
 [params]
 
