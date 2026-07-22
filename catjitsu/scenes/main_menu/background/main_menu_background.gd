@@ -22,7 +22,6 @@ func switch_to_sofa():
 
 
 func sofa_switch_to_cat():
-	Global.profile.avatar = "Apoloto"
 	update_cat_texture()
 	$AnimationPlayer.play("sofa_to_cat")
 

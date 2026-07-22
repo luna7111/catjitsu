@@ -12,6 +12,8 @@ var _current_scene: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	preload("res://scenes/main_menu/menu_home.tscn")
+	preload("res://scenes/main_menu/background/main_menu_background.tscn")
 	Global.scene_manager = self
 	_set_startup_scene(startup_scene)
 
