@@ -2,6 +2,10 @@ extends Node
 
 var scene_manager : SceneManager
 
+enum InputMode {MOUSE, KEYBOARD, CONTOLLER}
+var current_input_mode = InputMode.MOUSE
+
+
 var avatar_list = [
 		"Apolito",
 		"Apoloto",

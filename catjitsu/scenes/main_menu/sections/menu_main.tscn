@@ -147,22 +147,43 @@ metadata/_edit_group_ = true
 
 [node name="Singleplayer" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=2087781110]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Settings")
+focus_neighbor_bottom = NodePath("../Multiplayer")
+focus_next = NodePath("../Multiplayer")
+focus_previous = NodePath("../Settings")
+accessibility_name = "Singleplayer Button"
 theme = ExtResource("3_bd5dx")
 text = "SINGLEPLAYER_BUTTON"
 
 [node name="Multiplayer" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=2028501444]
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Singleplayer")
+focus_neighbor_bottom = NodePath("../Profile")
+focus_next = NodePath("../Profile")
+focus_previous = NodePath("../Singleplayer")
+accessibility_name = "Multiplayer Button"
 theme = ExtResource("3_bd5dx")
 text = "MULTIPLAYER_BUTTON"
 
 [node name="Profile" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=1025831049]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Multiplayer")
+focus_neighbor_bottom = NodePath("../Settings")
+focus_next = NodePath("../Settings")
+focus_previous = NodePath("../Multiplayer")
+accessibility_name = "Profile Button"
+accessibility_description = "Profile menu lets you configure your profile"
 theme = ExtResource("3_bd5dx")
 text = "PROFILE_BUTTON"
 
 [node name="Settings" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=488260968]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Profile")
+focus_neighbor_bottom = NodePath("../Singleplayer")
+focus_next = NodePath("../Singleplayer")
+focus_previous = NodePath("../Profile")
+accessibility_name = "Settings button"
 theme = ExtResource("3_bd5dx")
 text = "SETTINGS_BUTTON"
 

@@ -1,6 +1,11 @@
 extends Control
 
 
+signal change_to_controller
+signal change_to_keyboard
+signal change_to_mouse
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Settings.hide()
