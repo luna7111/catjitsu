@@ -14,12 +14,13 @@ enum INPUTMODE {
 }
 
 var input_mode = INPUTMODE.MOUSE
+signal input_mode_changed(mode)
+
+@onready var input_ui_reference = $"../InputUI"
 
 var card_manager_reference
 var deck_reference
 var player_hand_reference
-var select_card_index = -1
-var select_card_object
 
 func _ready() -> void:
 	card_manager_reference = $"../../CardManager"
@@ -28,17 +29,33 @@ func _ready() -> void:
 
 func _input(event):	
 	# Checks for left mouse input, and if it happens on a card, it selects it
-	if event is InputEventMouseMotion and input_mode != INPUTMODE.MOUSE:
-		change_input_to_mouse()
-	if event is InputEventMouseButton:
+	if event is InputEventMouseMotion and event.relative.length_squared() > 1:
+		set_input_mode(INPUTMODE.MOUSE)
+	elif event is InputEventMouseButton:
+		set_input_mode(INPUTMODE.MOUSE)
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				emit_signal("left_mouse_button_clicked")
 				raycast_at_cursor()
 			else:
 				emit_signal("left_mouse_button_released")
-	if event is InputEventKey and input_mode != INPUTMODE.KEYBOARD:
-		change_input_to_keyboard()
+	elif event is InputEventKey:
+		set_input_mode(INPUTMODE.KEYBOARD)
+	elif event is InputEventJoypadButton:
+		set_input_mode(INPUTMODE.CONTROLLER)
+
+func set_input_mode(mode):
+	if input_mode == mode:
+		return
+	input_mode = mode
+	input_mode_changed.emit(mode)
+	match  mode:
+		INPUTMODE.MOUSE:
+			change_input_to_mouse()
+		INPUTMODE.KEYBOARD:
+			change_input_to_keyboard()
+		INPUTMODE.CONTROLLER:
+			change_input_to_controller()
 
 func _process(_delta: float) -> void:
 	# Quit game
@@ -53,56 +70,59 @@ func _process(_delta: float) -> void:
 		play_card_keyboard()
 
 func play_card_keyboard():
-	card_manager_reference.on_hovered_off_card(select_card_object)
-	await card_manager_reference.play_card (
-		select_card_object,
-		$"../PlayerCardSlot")
+	if not card_manager_reference.selected_card:
+		return
+	var card = card_manager_reference.selected_card
+	card_manager_reference.select_card(null)
+	await card_manager_reference.play_card(card, $"../PlayerCardSlot")
 
+#
 func change_input_to_mouse():
-	input_mode = INPUTMODE.MOUSE
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	if select_card_index != -1:
-		card_manager_reference.on_hovered_off_card(select_card_object)
-		select_card_index = -1
+	card_manager_reference.select_card(null)
+	# Future feature, change icons
 	
 func change_input_to_keyboard():
-	input_mode = INPUTMODE.KEYBOARD
-	if card_manager_reference.card_being_hovered:
-		select_card_object = card_manager_reference.card_being_hovered
-		select_card_index = card_manager_reference.card_being_hovered.in_hand_index
-	else:
-		select_card_object = null
-		select_card_index = -1
+	if not card_manager_reference.selected_card:
+		var card = card_manager_reference.card_being_hovered
+		if card:
+			card_manager_reference.select_card(card)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Future feature, change icons
+
+func change_input_to_controller():
+	if not card_manager_reference.selected_card:
+		var card = card_manager_reference.raycast_check_for_card()
+		if card:
+			card_manager_reference.select_card(card)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Future feature, change icons
 
 func iterate_left_player_hand():
-		if select_card_index == -1:
-			select_card_index = player_hand_reference.player_hand.size() - 1
-			select_card_object = player_hand_reference.player_hand[select_card_index]
-			card_manager_reference.on_hovered_over_card(select_card_object)
-			select_card_index = select_card_object.in_hand_index
-		else:
-			card_manager_reference.on_hovered_off_card(select_card_object)
-			if select_card_index < player_hand_reference.player_hand.size() - 1:
-				select_card_index += 1
-			else:
-				select_card_index = 0
-		select_card_object = player_hand_reference.player_hand[select_card_index]
-		card_manager_reference.on_hovered_over_card(select_card_object)
+	var hand = player_hand_reference.player_hand
+
+	if hand.is_empty():
+		return
+
+	var index = -1
+
+	if card_manager_reference.selected_card:
+		index = (card_manager_reference.selected_card.in_hand_index + 1) % hand.size()
+
+	card_manager_reference.select_card(hand[index])
 
 func iterate_right_player_hand():
-	if select_card_index == -1:
-			select_card_index = player_hand_reference.player_hand.size() - 1
-			card_manager_reference.on_hovered_over_card(player_hand_reference.player_hand[select_card_index])
-			select_card_object = player_hand_reference.player_hand[select_card_index]
-	else:
-		card_manager_reference.on_hovered_off_card(select_card_object)
-		if select_card_index > 0:
-			select_card_index -= 1
-		else:
-			select_card_index = player_hand_reference.player_hand.size() - 1
-		select_card_object = player_hand_reference.player_hand[select_card_index]
-		card_manager_reference.on_hovered_over_card(select_card_object)
+	var hand = player_hand_reference.player_hand
+
+	if hand.is_empty():
+		return
+
+	var index = -1
+
+	if card_manager_reference.selected_card:
+		index = (card_manager_reference.selected_card.in_hand_index - 1 + hand.size()) % hand.size()
+		
+	card_manager_reference.select_card(hand[index])
 
 func raycast_at_cursor():
 	var space_state = get_world_2d().direct_space_state
@@ -115,6 +135,7 @@ func raycast_at_cursor():
 		if result_collision_mask == COLLISION_MASK_CARD: # Card clicked
 			var card_found = result[0].collider.get_parent()
 			if card_found:
+				card_manager_reference.select_card(card_found)
 				card_manager_reference.start_drag(card_found)
 		elif result_collision_mask == COLLISION_MASK_DECK: # Deck clicked
 			deck_reference.draw_card()

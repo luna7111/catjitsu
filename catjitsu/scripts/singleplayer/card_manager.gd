@@ -17,6 +17,9 @@ const DEFAULT_CARD_SCALE_BIG = DEFAULT_CARD_SCALE * 1.05
 # Get Screen size for clamp function
 var screen_size
 
+# The card selected via mouse or keyboard
+var selected_card
+
 # Selects a card being dragged
 var card_being_dragged
 
@@ -42,6 +45,7 @@ func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(DEFAULT_CARD_SCALE_SMALL, DEFAULT_CARD_SCALE_SMALL)
 	player_slot_reference.visible = true
+	player_slot_reference.get_node("Border/AnimationPlayer").play("pulse")
 
 func finish_drag():
 	if card_being_dragged:
@@ -54,20 +58,20 @@ func finish_drag():
 		card_being_dragged = null
 		player_slot_reference.visible = false
 
-func play_card(selected_card, card_slot):
+func play_card(card, card_slot):
 	if !player_monster_card_this_turn:
-		player_hand_reference.remove_card_from_hand(selected_card)
+		player_hand_reference.remove_card_from_hand(card)
 		player_hand_reference.animate_card_to_position(
-			selected_card, 
+			card, 
 			card_slot.position, 
 			DEFAULT_MOVE_CARD_SPEED)
 		#card_being_dragged.position = card_slot_found.position
-		selected_card.get_node("Area2D/CollisionShape2D").disabled = true
+		card.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot.card_in_slot = true
 		player_monster_card_this_turn = true
 		$"../BattleLogic/EndTurnButton".disabled = false
 		$"../BattleLogic/EndTurnButton".visible = true
-		$"../BattleLogic/BattleManager".player_card_on_slot = selected_card
+		$"../BattleLogic/BattleManager".player_card_on_slot = card
 		$"../BattleLogic/BattleManager"._on_end_turn_button_pressed()
 
 # Traces a ray in the 2D plane and checks for an Anrea2D of a CardSlot
@@ -154,3 +158,12 @@ func on_left_click_released():
 
 func reset_played_monster():
 	player_monster_card_this_turn = false
+
+func select_card(card):
+	if selected_card == card:
+		return
+	if selected_card:
+		highlight_card(selected_card, false)
+	selected_card = card
+	if selected_card:
+		highlight_card(selected_card, true)
