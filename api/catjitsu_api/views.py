@@ -7,6 +7,7 @@ from django.core.cache import cache
 from django.utils import timezone
 from .models import Player, AuthIdentity
 from .models import Match
+from .serializers import UserSerializer
 from .serializers import PlayerSerializer
 from .serializers import MatchSerializer
 from django.http import HttpResponse
@@ -15,6 +16,7 @@ from django.shortcuts import redirect
 from urllib.parse import urlencode
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_api_key.permissions import HasAPIKey
@@ -23,13 +25,16 @@ from django import shortcuts
 
 from django.contrib.auth.forms import UserCreationForm
 
-class RegisterUser(APIView):
-    def post(self, request):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return Response(form, status.HTTP_200_OK)
-        return Response({}, status.HTTP_400_BAD_REQUEST)
+class RegisterUser(generics.CreateAPIView):
+    serializer_class = UserSerializer
+
+# class RegisterUser(APIView):
+#     def post(self, request):
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return Response(form, status.HTTP_200_OK)
+#         return Response({}, status.HTTP_400_BAD_REQUEST)
 
 #TODO: maybe this sould be a POST or something idk
 #TODO: cleanly manage timeout (this is a Godot thing but maybe there is a response code or something idk)
