@@ -27,7 +27,6 @@ func _ready() -> void:
 	for i in range(STARTING_HAND_SIZE):
 		draw_card()
 
-
 func animate_deck_to_position():
 	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10
 	# Same as opponent_hand
@@ -52,6 +51,9 @@ func draw_card():
 	new_card.name = "CARD"
 	opponent_hand_reference.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 	#new_card.get_node("AnimationPlayer").play("card_flip")
+	
+func has_cards():
+	return opponent_deck.size() > 0
 
 func load_card_data(new_card, card_drawn):
 	# Open the file and check if it exists

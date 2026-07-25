@@ -1,14 +1,12 @@
 extends Node
 
 # Opponent Data
-var opponent_controller
-var opponent_card_slot
+var opponent
 var opponent_card_on_slot
 
 # Player Data
-var player_card_slot
+var player
 var player_card_on_slot
-var opponent_hand 
 
 # Battle Logic
 var battle_timer
@@ -36,18 +34,14 @@ func _ready() -> void:
 	battle_timer = $"../BattleTimer"
 	battle_timer.one_shot = true
 	battle_timer.wait_time = 1.0
-	opponent_card_slot = $"../../Opponent/OpponentCardSlot"
-	player_card_slot = $"../../Player/PlayerCardSlot"
-	# If Multiplayer, may we shoul not call this reference
-	opponent_hand = $"../../Opponent/OpponentHand".opponent_hand
 
 func _on_end_turn_button_pressed() -> void:
-	opponent_turn()
+	await play_turn()
 
 # Logic and animatios for opponent turn. 
 # Picks card with hightest attack and play its
 # Then calculates battle result
-func opponent_turn():
+func play_turn():
 	# Activate to implement EndTurnButton
 	#$"../EndTurnButton".disabled = true
 	#$"../EndTurnButton".visible = false
@@ -57,12 +51,26 @@ func opponent_turn():
 	await battle_timer.timeout
 
 	# Selects opponent card, either from OpponentAI or OpponentNetwork
-	opponent_card_on_slot = await opponent_controller.choose_card()
-	await play_opponent_card(opponent_card_on_slot)
+	opponent_card_on_slot = await opponent.choose_card()
+	await play_card(opponent_card_on_slot, opponent)
 	# Calculate card points
 	await battle_phase()
 	# Adds points to players and ends turn / game
 	end_turn()
+
+#func play_card(card, participant):
+	#match participant:
+		#case opponent:
+			#
+
+func play_card(card, participant):
+	battle_animation_manager.play_card_animation(
+		card, 
+		participant.slot)
+	participant.hand.remove_card_from_hand(opponent_card_on_slot)
+	battle_timer.start()
+	await battle_timer.timeout
+
 func battle_phase():
 	# Funny crash animation
 	await battle_animation_manager.animate_cards_battle_phase(
@@ -128,52 +136,22 @@ func end_turn():
 		or opponent_points[key] == 3 or opponent_elements == 3) :
 			print("Game Over!")
 			get_tree().quit()
-		elif $"../../Player/PlayerHand".player_hand.size() == 0:
+		elif !player.hand.has_cards():
 			print("!")
 			get_tree().quit()
 
 	#$"../EndTurnButton".disabled = false
 	#$"../EndTurnButton".visible = true
-	$"../../Player/PlayerDeck".reset_draw()
+	player.deck.reset_draw()
 	$"../../CardManager".reset_played_monster()
 	opponent_card_on_slot = null
 	player_card_on_slot = null
-	opponent_card_slot.card_in_slot = false
-	player_card_slot.card_in_slot = false
-	if $"../../Opponent/OpponentDeck".opponent_deck.size() != 0:
-		$"../../Opponent/OpponentDeck".draw_card()
-	$"../../Player/PlayerDeck".draw_card()
+	opponent.slot.card_in_slot = false
+	player.slot.card_in_slot = false
+	if opponent.deck.has_cards() and player.deck.has_cards():
+		opponent.deck.draw_card()
+		player.deck.draw_card()
 
 # Cleanup
 func destroy_card(selected_card):
 	selected_card.queue_free()
-
-# Enemy AI
-func try_play_card_highest_attack():
-	# This call maybe its not correct. Check when implemented multiplayer
-	if opponent_hand.size() == 0:
-		end_turn()
-		return
-
-	# Pick highest card
-	var card_with_highest_attack = opponent_hand[0]
-	for card in opponent_hand:
-		if card.points > card_with_highest_attack.points:
-			card_with_highest_attack = card
-	
-	# Animation and transfer of ownership
-	battle_animation_manager.play_card_from_opponent_hand_animation(
-		card_with_highest_attack, 
-		opponent_card_slot)
-	$"../../Opponent/OpponentHand".remove_card_from_hand(card_with_highest_attack)
-	opponent_card_on_slot = card_with_highest_attack
-	battle_timer.start()
-	await battle_timer.timeout
-
-func play_opponent_card(opponent_card_on_slot):
-	battle_animation_manager.play_card_from_opponent_hand_animation(
-		opponent_card_on_slot, 
-		opponent_card_slot)
-	$"../../Opponent/OpponentHand".remove_card_from_hand(opponent_card_on_slot)
-	battle_timer.start()
-	await battle_timer.timeout

@@ -69,8 +69,8 @@ func play_card(card, card_slot):
 		card.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot.card_in_slot = true
 		player_monster_card_this_turn = true
-		$"../BattleLogic/EndTurnButton".disabled = false
-		$"../BattleLogic/EndTurnButton".visible = true
+		#$"../BattleLogic/EndTurnButton".disabled = false
+		#$"../BattleLogic/EndTurnButton".visible = true
 		$"../BattleLogic/BattleManager".player_card_on_slot = card
 		$"../BattleLogic/BattleManager"._on_end_turn_button_pressed()
 

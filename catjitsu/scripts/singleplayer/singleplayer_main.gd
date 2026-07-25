@@ -1,5 +1,10 @@
 extends Node
 
+@onready var opponent = $Opponent
+@onready var player = $Player
+@onready var battle_manager = $BattleLogic/BattleManager
+
 func _ready():
-	var battle_manager = $BattleLogic/BattleManager
-	battle_manager.opponent_controller = $Opponent/OpponentAI
+	battle_manager.opponent = opponent
+	opponent.controller = opponent.controller_ai
+	battle_manager.player = player

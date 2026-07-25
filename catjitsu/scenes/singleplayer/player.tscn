@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b1g4q1b4icl6v"]
 
+[ext_resource type="Script" uid="uid://cvmoahha4d7hm" path="res://scripts/singleplayer/player.gd" id="1_bucpb"]
 [ext_resource type="PackedScene" uid="uid://vmourylyrbm7" path="res://scenes/singleplayer/player_card_slot.tscn" id="1_smfpo"]
 [ext_resource type="PackedScene" uid="uid://b2dfwfbrnx2tb" path="res://scenes/singleplayer/player_hand.tscn" id="2_bucpb"]
 [ext_resource type="PackedScene" uid="uid://bxe88x137lrsk" path="res://scenes/singleplayer/player_deck.tscn" id="3_f8j6y"]
@@ -8,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cqfmjushv1prh" path="res://scripts/singleplayer/input_ui.gd" id="6_p4to6"]
 
 [node name="Player" type="Node2D" unique_id=512885062]
+script = ExtResource("1_bucpb")
 
 [node name="PlayerCardSlot" parent="." unique_id=1332720918 instance=ExtResource("1_smfpo")]
 visible = false

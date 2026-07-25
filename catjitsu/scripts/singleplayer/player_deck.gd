@@ -67,6 +67,9 @@ func draw_card():
 	player_hand_reference.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 	new_card.get_node("AnimationPlayer").play("card_flip")	
 
+func has_cards():
+	return player_deck.size() > 0
+
 func load_card_data(new_card, card_drawn):
 	# Open the file and check if it exists
 	var file_path = JSON_PATH_FOLDER + card_drawn + ".json"

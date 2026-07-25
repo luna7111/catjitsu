@@ -33,6 +33,9 @@ func add_card_to_hand(card, speed):
 	else:
 		animate_card_to_position(card, card.in_hand_position, speed)
 
+func has_cards():
+	return opponent_hand.size() > 0
+
 func update_hand_positions():
 	if center_screen_x == null:
 		center_screen_x = get_viewport().get_visible_rect().size.x / 2

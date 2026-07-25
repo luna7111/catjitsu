@@ -27,6 +27,10 @@ func add_card_to_hand(card, speed):
 	else:
 		animate_card_to_position(card, card.in_hand_position, speed)
 
+	
+func has_cards():
+	return player_hand.size() > 0
+
 func update_hand_positions():
 	for i in range(player_hand.size()):
 		var new_position = Vector2(calculate_card_position(i), bottom_screen_y)
