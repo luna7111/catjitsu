@@ -44,31 +44,36 @@ func animate_deck_to_position():
 		INITIAL_DECK_SPEED)
 	await tween.finished
 
+# Main function. Draws a card from the deck and add it to the player_hand
 func draw_card():
+	# logic check
 	if drawn_card_this_turn or player_deck.size() == 0:
 		return
-		
+	
+	# Erase card from the deck
 	drawn_card_this_turn = true
 	var card_drawn = player_deck[0]
 	player_deck.erase(card_drawn)
 	
+	# If the deck is empty, hide deck. Else update deck count
 	if player_deck.size() == 0:
 		$Area2D/CollisionShape2D.disabled = true
 		$CardBack.visible = false
 		$RichTextLabel.visible = false
-	
 	$RichTextLabel.text = str(player_deck.size())
+	
+	# Instantiate a card scene
 	var card_scene = preload(CARD_SCENE_PATH)
 	var new_card = card_scene.instantiate() 
+	
 	#Load JSON DATA
 	load_card_data(new_card, card_drawn)
 	$"../../CardManager".add_child(new_card)
 	new_card.name = "CARD"
+	
+	# Add card to the hand of the player
 	player_hand_reference.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 	new_card.get_node("AnimationPlayer").play("card_flip")	
-
-func has_cards():
-	return player_deck.size() > 0
 
 func load_card_data(new_card, card_drawn):
 	# Open the file and check if it exists
@@ -112,3 +117,6 @@ func set_card_data_type(drawn_card, type):
 
 func reset_draw():
 	drawn_card_this_turn = false
+
+func has_cards():
+	return player_deck.size() > 0

@@ -7,25 +7,39 @@ const COLLISION_MASK_CARD = 1
 #Albeith Deck Collision mask is set to 3, it shows 4 in _ready()
 const COLLISION_MASK_DECK = 4 
 
+# Input mode enum / signal
 enum INPUTMODE {
 	MOUSE,
 	KEYBOARD,
 	CONTROLLER
 }
-
 var input_mode = INPUTMODE.MOUSE
 signal input_mode_changed(mode)
 
-@onready var input_ui_reference = $"../InputUI"
 
+var input_ui_reference
 var card_manager_reference
-var deck_reference
+var player_deck_reference
 var player_hand_reference
 
 func _ready() -> void:
 	card_manager_reference = $"../../CardManager"
-	deck_reference = $"../PlayerDeck"
+	player_deck_reference = $"../PlayerDeck"
 	player_hand_reference = $"../PlayerHand"
+	input_ui_reference = $"../InputUI"
+
+# Input selection logic
+func _process(_delta: float) -> void:
+	# Quit game
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
+	# Iterate player hand
+	if Input.is_action_just_pressed("ui_right"):
+		iterate_right_player_hand()
+	if Input.is_action_just_pressed("ui_left"):
+		iterate_left_player_hand()
+	if Input.is_action_just_pressed("ui_select"):
+		play_card_keyboard()
 
 func _input(event):	
 	# Checks for left mouse input, and if it happens on a card, it selects it
@@ -41,7 +55,7 @@ func _input(event):
 				emit_signal("left_mouse_button_released")
 	elif event is InputEventKey:
 		set_input_mode(INPUTMODE.KEYBOARD)
-	elif event is InputEventJoypadButton:
+	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		set_input_mode(INPUTMODE.CONTROLLER)
 
 func set_input_mode(mode):
@@ -57,29 +71,7 @@ func set_input_mode(mode):
 		INPUTMODE.CONTROLLER:
 			change_input_to_controller()
 
-func _process(_delta: float) -> void:
-	# Quit game
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
-	# Iterate player hand
-	if Input.is_action_just_pressed("ui_right"):
-		iterate_right_player_hand()
-	if Input.is_action_just_pressed("ui_left"):
-		iterate_left_player_hand()
-	if Input.is_action_just_pressed("ui_select"):
-		play_card_keyboard()
-
-func play_card_keyboard():
-	if not card_manager_reference.selected_card:
-		return
-	var card = card_manager_reference.selected_card
-	card_manager_reference.select_card(null)
-	await card_manager_reference.play_card(card, $"../PlayerCardSlot")
-
-func change_input_to_mouse():
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	card_manager_reference.select_card(null)
-
+# Controller / keyboard logic 
 func change_input_to_keyboard():
 	if not card_manager_reference.selected_card:
 		var card = card_manager_reference.card_being_hovered
@@ -93,7 +85,6 @@ func change_input_to_controller():
 		if card:
 			card_manager_reference.select_card(card)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	# Future feature, change icons
 
 func iterate_left_player_hand():
 	var hand = player_hand_reference.player_hand
@@ -114,21 +105,42 @@ func iterate_right_player_hand():
 
 	if card_manager_reference.selected_card:
 		index = (card_manager_reference.selected_card.in_hand_index - 1 + hand.size()) % hand.size()
-		
 	card_manager_reference.select_card(hand[index])
 
+func play_card_keyboard():
+	if not card_manager_reference.selected_card:
+		return
+	var card = card_manager_reference.selected_card
+	card_manager_reference.select_card(null)
+	await card_manager_reference.play_card(card, $"../PlayerCardSlot")
+
+# Mouse logic
+func change_input_to_mouse():
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	card_manager_reference.select_card(null)
+
+# Throws a raycast and determines if there's a card or deck under cursor
+# In case of card, calls to card_manager_reference.select_card() / play_card()
 func raycast_at_cursor():
+	
+	# Cast a ray in the 2D plane and checks for a collision mask
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
 	var result = space_state.intersect_point(parameters)
+	
+	# If there's a collision mask, check if it was a card or a deck
 	if result.size() > 0:
 		var result_collision_mask = result[0].collider.collision_mask
-		if result_collision_mask == COLLISION_MASK_CARD: # Card clicked
+
+		# Card clicked
+		if result_collision_mask == COLLISION_MASK_CARD: 
 			var card_found = result[0].collider.get_parent()
 			if card_found:
-				card_manager_reference.select_card(card_found)
+				pass
 				card_manager_reference.start_drag(card_found)
-		elif result_collision_mask == COLLISION_MASK_DECK: # Deck clicked
-			deck_reference.draw_card()
+
+		 # Deck clicked, right now not at use
+		elif result_collision_mask == COLLISION_MASK_DECK:
+			player_deck_reference.draw_card()

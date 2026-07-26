@@ -27,7 +27,6 @@ func add_card_to_hand(card, speed):
 	else:
 		animate_card_to_position(card, card.in_hand_position, speed)
 
-	
 func has_cards():
 	return player_hand.size() > 0
 

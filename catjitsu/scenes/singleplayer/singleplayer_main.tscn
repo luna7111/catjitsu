@@ -15,6 +15,4 @@ script = ExtResource("1_lqc2a")
 
 [node name="BattleLogic" parent="." unique_id=28084403 instance=ExtResource("4_cigkr")]
 
-[node name="CardManager" parent="." unique_id=547672876 instance=ExtResource("1_8gbba")]
-position = Vector2(3.0517578e-05, 3.0517578e-05)
-scale = Vector2(0.99999994, 0.99999994)
+[node name="CardManager" parent="." unique_id=473152497 instance=ExtResource("1_8gbba")]
