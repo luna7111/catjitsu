@@ -11,6 +11,9 @@
 [node name="BattleManager" type="Node2D" parent="." unique_id=2123913732]
 script = ExtResource("1_pkl67")
 
+[node name="BattleAnimationManager" type="Node2D" parent="." unique_id=1827145699]
+script = ExtResource("5_womm7")
+
 [node name="EndTurnButton" type="Button" parent="." unique_id=1826184620]
 visible = false
 anchors_preset = 8
@@ -60,8 +63,5 @@ offset_bottom = 27.0
 grow_horizontal = 0
 grow_vertical = 1
 scale = Vector2(2, 2)
-
-[node name="BattleAnimationManager" type="Node2D" parent="." unique_id=1827145699]
-script = ExtResource("5_womm7")
 
 [connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]

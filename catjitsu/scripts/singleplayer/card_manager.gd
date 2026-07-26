@@ -12,11 +12,13 @@ const DEFAULT_CARD_SCALE = 1 # Set as same scale that card
 const DEFAULT_CARD_SCALE_SMALL = DEFAULT_CARD_SCALE * 0.8
 const DEFAULT_CARD_SCALE_BIG = DEFAULT_CARD_SCALE * 1.05
 
-@onready var player = $"../Player"
-@onready var battle_manager = $"../BattleLogic/BattleManager"
+@onready var player = $".."
+@onready var input_manager = $"../InputManager"
 
 # Get Screen size for clamp function
 var screen_size
+
+# Card Logic #
 
 # The card selected via mouse or keyboard
 var selected_card
@@ -30,16 +32,12 @@ var card_being_hovered
 # Check if we are already hovering
 var is_hovering_on_card
 
-
-# Tells if a monster has been played this turn
-var player_monster_card_this_turn = false
-
-# Called when the node enters the scene tree for the first time.
+# Connect left_mouse signal from player.input_manager
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	player.input_manager.connect("left_mouse_button_released", on_left_click_released)
+	input_manager.connect("left_mouse_button_released", on_left_click_released)
 
-# If there's a card being dragged, it updates it's position to mouse position
+# Updates the position of the dragged card to the mouse
 func _process(_delta: float) -> void:
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -47,7 +45,7 @@ func _process(_delta: float) -> void:
 			clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 
-# Drag and drop logic
+# Drag and drop logic #
 
 # Responsable for drag animation and show the player_slot
 func start_drag(card):
@@ -62,26 +60,11 @@ func finish_drag():
 		card_being_dragged.scale = Vector2(DEFAULT_CARD_SCALE_BIG, DEFAULT_CARD_SCALE_BIG)
 		var card_slot_found = raycast_check_for_card_slot()
 		if card_slot_found and not card_slot_found.card_in_slot:
-			play_card(card_being_dragged, card_slot_found)
+			player.play_card(card_being_dragged, card_slot_found)
 		else:
 			player.hand.add_card_to_hand(card_being_dragged, DEFAULT_MOVE_CARD_SPEED)
 		card_being_dragged = null
 		player.slot.visible = false
-
-# Main function to refactor
-# Removes the card from the player, put its in the slot and servers to the battle manager
-func play_card(card, card_slot):
-	if !player_monster_card_this_turn:
-		player.hand.remove_card_from_hand(card)
-		player.hand.animate_card_to_position(
-			card, 
-			card_slot.position, 
-			DEFAULT_MOVE_CARD_SPEED)
-		card.get_node("Area2D/CollisionShape2D").disabled = true
-		card_slot.card_in_slot = true
-		player_monster_card_this_turn = true
-		battle_manager.player_card_on_slot = card
-		await battle_manager.play_turn()
 
 # Traces a ray in the 2D plane and checks for an Anrea2D of a CardSlot
 func raycast_check_for_card_slot():
@@ -119,7 +102,7 @@ func get_card_with_highest_z_index(cards):
 				highest_z_index = highest_z_card.z_index
 	return highest_z_card
 
-# Connects the signals for Collision2D in Card
+# Connects the signals for Collision2D in Card. Called from player_card (external)
 func connect_card_signals(card):
 	card.connect("hovered", on_hovered_over_card)
 	card.connect("hovered_off", on_hovered_off_card)
@@ -156,14 +139,14 @@ func highlight_card(card, hovered):
 func on_left_click_released():
 	finish_drag()
 
-func reset_played_monster():
-	player_monster_card_this_turn = false
-
 func select_card(card):
+	# Check if we are already on the same selected card
 	if selected_card == card:
 		return
+	# If there's already a selected card, stops highliting it
 	if selected_card:
 		highlight_card(selected_card, false)
+	# Higlight the new card
 	selected_card = card
 	if selected_card:
 		highlight_card(selected_card, true)

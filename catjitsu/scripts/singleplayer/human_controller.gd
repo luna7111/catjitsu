@@ -2,7 +2,7 @@ extends Node2D
 
 signal card_chosen(card)
 
-@onready var card_manager = $"../../CardManager"
+@onready var card_manager = $"../CardManager"
 
 func _ready() -> void:
 	card_manager.card_selected.connect(_on_card_selected)

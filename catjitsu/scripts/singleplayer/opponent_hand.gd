@@ -18,12 +18,6 @@ var top_screen_y
 func _ready() -> void:
 	center_screen_x = get_viewport().get_visible_rect().size.x / 2
 	top_screen_y = get_viewport().get_visible_rect().size.y / 10
-	#var card_scene = preload(CARD_SCENE_PATH)
-	#for i in range(HAND_COUNT):
-		#var new_card = card_scene.instantiate()
-		#$"../CardManager".add_child(new_card)
-		#new_card.name = "CARD"
-		#add_card_to_hand(new_card)
 
 func add_card_to_hand(card, speed):
 	if card not in opponent_hand:

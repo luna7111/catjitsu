@@ -16,17 +16,18 @@ enum INPUTMODE {
 var input_mode = INPUTMODE.MOUSE
 signal input_mode_changed(mode)
 
-
 var input_ui_reference
 var card_manager_reference
 var player_deck_reference
 var player_hand_reference
+var player
 
 func _ready() -> void:
-	card_manager_reference = $"../../CardManager"
+	card_manager_reference = $"../CardManager"
 	player_deck_reference = $"../PlayerDeck"
 	player_hand_reference = $"../PlayerHand"
 	input_ui_reference = $"../InputUI"
+	player = $".."
 
 # Input selection logic
 func _process(_delta: float) -> void:
@@ -112,7 +113,7 @@ func play_card_keyboard():
 		return
 	var card = card_manager_reference.selected_card
 	card_manager_reference.select_card(null)
-	await card_manager_reference.play_card(card, $"../PlayerCardSlot")
+	await player.play_card(card, player.slot)
 
 # Mouse logic
 func change_input_to_mouse():

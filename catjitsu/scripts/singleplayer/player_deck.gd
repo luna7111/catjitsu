@@ -68,7 +68,7 @@ func draw_card():
 	
 	#Load JSON DATA
 	load_card_data(new_card, card_drawn)
-	$"../../CardManager".add_child(new_card)
+	$"../CardManager".add_child(new_card)
 	new_card.name = "CARD"
 	
 	# Add card to the hand of the player

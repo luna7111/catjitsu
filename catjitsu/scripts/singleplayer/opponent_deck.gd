@@ -47,7 +47,7 @@ func draw_card():
 	var new_card = card_scene.instantiate() 
 	#Load JSON DATA
 	load_card_data(new_card, card_drawn)
-	$"../../CardManager".add_child(new_card)
+	get_tree().current_scene.add_child(new_card)
 	new_card.name = "CARD"
 	opponent_hand_reference.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 	#new_card.get_node("AnimationPlayer").play("card_flip")

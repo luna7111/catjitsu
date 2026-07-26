@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxe88x137lrsk" path="res://scenes/singleplayer/player_deck.tscn" id="3_f8j6y"]
 [ext_resource type="PackedScene" uid="uid://c5xb7lfet5tqk" path="res://scenes/singleplayer/input_manager.tscn" id="4_tmrnm"]
 [ext_resource type="PackedScene" uid="uid://cmykdfw4xceoq" path="res://scenes/singleplayer/input_ui.tscn" id="5_5xbg1"]
+[ext_resource type="PackedScene" uid="uid://gswm1iltm4s0" path="res://scenes/singleplayer/card_manager.tscn" id="6_f8j6y"]
 [ext_resource type="Script" uid="uid://cqfmjushv1prh" path="res://scripts/singleplayer/input_ui.gd" id="6_p4to6"]
 
 [node name="Player" type="Node2D" unique_id=512885062]
@@ -22,6 +23,8 @@ position = Vector2(1919, 498)
 position = Vector2(1920, 1080)
 
 [node name="InputManager" parent="." unique_id=1781556233 instance=ExtResource("4_tmrnm")]
+
+[node name="CardManager" parent="." unique_id=473152497 instance=ExtResource("6_f8j6y")]
 
 [node name="InputUI" parent="." unique_id=1127288923 instance=ExtResource("5_5xbg1")]
 offset_left = 859.0
