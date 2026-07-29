@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://bfaw8ae7rte40"
-LobbyWithServer="*uid://d2w3g7h0v02w6"
+NetworkAPI="*uid://b6hy6pvr8c3h"
 
 [display]
 

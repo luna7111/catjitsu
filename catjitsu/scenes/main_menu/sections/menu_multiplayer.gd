@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var host_button = $MarginContainer/HBoxContainer/Button
 @onready var join_button = $MarginContainer/HBoxContainer/VBoxContainer/Button
 @onready var play_button = $MarginContainer/HBoxContainer/PlayGameButton
+@onready var Lobby = $Lobby
 
 # Lobby version
 #func _ready():
@@ -19,7 +20,7 @@ extends CanvasLayer
 
 func _ready():
 	#host_button.pressed.connect(LobbyWithServer.create_game)
-	join_button.pressed.connect(LobbyWithServer.join_game)
+	join_button.pressed.connect(Lobby.join_game)
 	play_button.disabled = true
 	#play_button.pressed.connect(LobbyWithServer._on_start_game_pressed)
 	#LobbyWithServer.player_connected.connect(_on_player_connected)

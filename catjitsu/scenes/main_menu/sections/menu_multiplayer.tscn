@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bomqlibrf3tmg"]
 
 [ext_resource type="Script" uid="uid://c1iyikh53ydyp" path="res://scenes/main_menu/sections/menu_multiplayer.gd" id="1_h8mg7"]
+[ext_resource type="Script" uid="uid://d2w3g7h0v02w6" path="res://scripts/mulltiplayer/Lobby.gd" id="2_m1udk"]
 
 [node name="Multiplayer" type="CanvasLayer" unique_id=537712535]
 script = ExtResource("1_h8mg7")
@@ -39,6 +40,9 @@ placeholder_text = "ROOM_CODE_TAG"
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=348251182]
 layout_mode = 2
 text = "JOIN_ROOM_BUTTON"
+
+[node name="Lobby" type="Node" parent="." unique_id=1488233270]
+script = ExtResource("2_m1udk")
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/PlayGameButton" to="." method="_on_button_pressed"]
