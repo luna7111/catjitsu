@@ -15,16 +15,22 @@ var opponent_hand_reference
 # Setup Deck
 const CARD_SCENE_PATH = "res://scenes/singleplayer/opponent_card.tscn"
 const STARTING_HAND_SIZE = 5
-var opponent_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+#var opponent_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+var opponent_deck
 var quarter_screen_x
 var top_screen_y
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	opponent_deck.shuffle()
 	opponent_hand_reference = $"../OpponentHand"
+
+func setup(deck_data):
 	await animate_deck_to_position()
-	for i in range(STARTING_HAND_SIZE):
+	opponent_deck = deck_data.duplicate()
+	await initialize()
+
+func initialize():
+	for i in STARTING_HAND_SIZE:
 		draw_card()
 
 func animate_deck_to_position():
@@ -36,6 +42,8 @@ func animate_deck_to_position():
 	await tween.finished
 
 func draw_card():
+	if opponent_deck.is_empty():
+		return
 	var card_drawn = opponent_deck[0]
 	opponent_deck.erase(card_drawn)
 	

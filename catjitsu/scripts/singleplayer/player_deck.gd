@@ -15,7 +15,8 @@ var player_hand_reference
 # Setup Deck
 const CARD_SCENE_PATH = "res://scenes/singleplayer/player_card.tscn"
 const STARTING_HAND_SIZE = 5
-var player_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+#var player_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+var player_deck
 var quarter_screen_x
 var bottom_screen_y
 
@@ -24,11 +25,16 @@ var drawn_card_this_turn = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player_deck.shuffle()
 	player_hand_reference = $"../PlayerHand"
-	$RichTextLabel.text = str(player_deck.size())
+
+func setup(deck_data):
 	await animate_deck_to_position()
-	for i in range(STARTING_HAND_SIZE):
+	player_deck = deck_data.duplicate()
+	$RichTextLabel.text = str(player_deck.size())
+	await initialize()
+
+func initialize():
+	for i in STARTING_HAND_SIZE:
 		draw_card()
 		drawn_card_this_turn = false
 	drawn_card_this_turn = true

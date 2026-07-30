@@ -78,14 +78,14 @@ func change_input_to_keyboard():
 		var card = card_manager_reference.card_being_hovered
 		if card:
 			card_manager_reference.select_card(card)
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func change_input_to_controller():
 	if not card_manager_reference.selected_card:
 		var card = card_manager_reference.raycast_check_for_card()
 		if card:
 			card_manager_reference.select_card(card)
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func iterate_left_player_hand():
 	var hand = player_hand_reference.player_hand

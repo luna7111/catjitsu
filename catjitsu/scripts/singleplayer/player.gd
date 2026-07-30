@@ -1,6 +1,7 @@
 extends Node2D
 
 var controller
+#var deck_data
 @onready var hand = $PlayerHand
 @onready var deck = $PlayerDeck
 @onready var slot = $PlayerCardSlot
@@ -11,6 +12,9 @@ var controller
 signal card_played(card)
 
 var monster_played_this_turn = false
+
+func setup(deck_data):
+	deck.setup(deck_data)
 
 func choose_card():
 	return await controller.choose_card()

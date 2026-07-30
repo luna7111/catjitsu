@@ -12,6 +12,8 @@ var controller
 @onready var controller_ai = $OpponentAI
 @onready var controller_network = $OpponentNetwork
 
+func setup(deck_data):
+	deck.setup(deck_data)
 
 func choose_card():
 	return await controller.choose_card()

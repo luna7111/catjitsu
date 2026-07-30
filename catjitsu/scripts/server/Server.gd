@@ -5,7 +5,14 @@ const MAX_CONNECTIONS = 2
 
 # Shared with Client via NetworkAPI
 var players = {}
+var player_decks = {}
 var submitted_cards = {}
+
+const DEFAULT_DECK = [
+	"World", "World", "World",
+	"Priestess", "Priestess", "Priestess",
+	"Fool", "Fool", "Fool"
+]
 
 func _ready():
 	print("Starting server. Instance:", get_instance_id())
@@ -31,6 +38,31 @@ func _on_player_registered(id, info):
 	if players.size() == MAX_CONNECTIONS:
 		for peer in players:
 			NetworkAPI.begin_game.rpc_id(peer)
+		prepare_decks()
+
+func prepare_decks():
+	print("Preparing decks")
+	var ids = players.keys()
+	var deck1 = DEFAULT_DECK.duplicate()
+	deck1.shuffle()
+	var deck2 = DEFAULT_DECK.duplicate()
+	deck2.shuffle()
+	player_decks[ids[0]] = deck1
+	player_decks[ids[1]] = deck2
+	
+	# Send deck data to player 1
+	NetworkAPI.receive_decks.rpc_id(
+		ids[0],
+		player_decks[ids[0]],
+		player_decks[ids[1]]
+	)
+	
+	# Send deck data to player 2
+	NetworkAPI.receive_decks.rpc_id(
+		ids[1],
+		player_decks[ids[1]],
+		player_decks[ids[0]]
+)
 
 # Basic debug
 func _on_player_connected(id):
