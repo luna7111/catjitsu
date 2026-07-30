@@ -2,8 +2,8 @@ extends Node
 
 const DEFAULT_DECK = [
 	"World", "World", "World",
-	#"Priestess", "Priestess", "Priestess",
-	#"Fool", "Fool", "Fool"
+	"Priestess", "Priestess", "Priestess",
+	"Fool", "Fool", "Fool"
 ]
 @onready var opponent = $Opponent
 @onready var player = $Player
