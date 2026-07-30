@@ -5,6 +5,7 @@ const MAX_CONNECTIONS = 2
 
 # Shared with Client via NetworkAPI
 var players = {}
+var submitted_cards = {}
 
 func _ready():
 	print("Starting server. Instance:", get_instance_id())
@@ -13,6 +14,7 @@ func _ready():
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	# NetworkAPI signals
 	NetworkAPI.player_registered.connect(_on_player_registered)
+	NetworkAPI.card_submitted.connect(_on_card_submitted)
 	# Start the server
 	var peer = WebSocketMultiplayerPeer.new()
 	var error = peer.create_server(PORT)
@@ -37,4 +39,18 @@ func _on_player_connected(id):
 func _on_player_disconnected(id):
 	print("Player disconnected:", id)
 	players.erase(id)
+	submitted_cards.erase(id)
 	NetworkAPI.update_players.rpc(players)
+
+# Receives player_card
+func _on_card_submitted(peer_id, card_name):
+	submitted_cards[peer_id] = card_name
+	if submitted_cards.size() == MAX_CONNECTIONS:
+		var ids = submitted_cards.keys()
+		var player1 = ids[0]
+		var player2 = ids[1]
+		var card1 = submitted_cards[player1]
+		var card2 = submitted_cards[player2]
+		NetworkAPI.receive_opponent_card.rpc_id(player1, card2)
+		NetworkAPI.receive_opponent_card.rpc_id(player2, card1)
+		submitted_cards.clear()

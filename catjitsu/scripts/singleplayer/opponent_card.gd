@@ -13,6 +13,7 @@ var quarter_screen_x
 var top_screen_y
 
 # Card Data, read from JSON
+var id
 var points
 var type
 

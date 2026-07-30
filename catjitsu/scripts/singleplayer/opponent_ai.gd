@@ -14,7 +14,6 @@ func try_play_card_highest_attack():
 	# Check in bounds
 	if opponent_hand.is_empty():
 		return null
-
 	# Pick highest card
 	var card_with_highest_attack = opponent_hand[0]
 	for card in opponent_hand:

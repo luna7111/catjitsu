@@ -10,7 +10,7 @@ var controller
 
 # Just to expose in case, not really used
 @onready var controller_ai = $OpponentAI
-#@onready var controller_network = $OpponentNetwork
+@onready var controller_network = $OpponentNetwork
 
 
 func choose_card():

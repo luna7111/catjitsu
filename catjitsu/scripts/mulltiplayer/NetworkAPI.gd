@@ -6,6 +6,8 @@ extends Node
 # Signals
 signal player_registered(peer_id, info)
 signal players_updated(players)
+signal card_submitted(peer_id, card_id)
+signal opponent_card_received(card_id)
 signal game_started
 
 func _ready():
@@ -21,6 +23,11 @@ func register_player(info):
 	var id = multiplayer.get_remote_sender_id()
 	player_registered.emit(id, info)
 
+@rpc("any_peer", "reliable")
+func submit_card(card_id):
+	var peer_id = multiplayer.get_remote_sender_id()
+	card_submitted.emit(peer_id, card_id)
+
 #
 # Server -> Client
 #
@@ -33,3 +40,7 @@ func update_players(current_players):
 func begin_game():
 	print("Game started!")
 	game_started.emit()
+
+@rpc("authority", "reliable")
+func receive_opponent_card(card_id):
+	opponent_card_received.emit(card_id)

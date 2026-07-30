@@ -66,7 +66,8 @@ func draw_card():
 	var card_scene = preload(CARD_SCENE_PATH)
 	var new_card = card_scene.instantiate() 
 	
-	#Load JSON DATA
+	# Load JSON DATA and add properties to card
+	# This should be anoter scene to not duplicate code with opponent_deck, srry
 	load_card_data(new_card, card_drawn)
 	$"../CardManager".add_child(new_card)
 	new_card.name = "CARD"
@@ -90,6 +91,7 @@ func load_card_data(new_card, card_drawn):
 	var card_data = json_object.data
 	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + "Card.png")
 	print(card_image_path)
+	new_card.id = card_drawn
 	new_card.points = int(card_data["value"])
 	new_card.get_node("Points").text = str(new_card.points)
 	set_card_data_type(new_card, card_data["type"])

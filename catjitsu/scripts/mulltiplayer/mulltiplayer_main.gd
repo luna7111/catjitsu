@@ -6,5 +6,5 @@ extends Node
 
 func _ready():
 	battle_manager.opponent = opponent
-	opponent.controller = opponent.controller_ai
+	opponent.controller = opponent.controller_network
 	battle_manager.player = player

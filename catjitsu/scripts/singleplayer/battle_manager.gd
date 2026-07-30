@@ -38,6 +38,9 @@ func _ready() -> void:
 
 func _on_player_card_played(card):
 	player_card_on_slot = card
+	# Send to multiplayer NetworkAPI, it does nothing on singleplayer
+	if multiplayer.has_multiplayer_peer():
+		NetworkAPI.submit_card.rpc_id(1, card.id)
 	await play_turn()
 
 # Logic and animations for opponent turn. 

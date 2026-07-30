@@ -70,6 +70,7 @@ func load_card_data(new_card, card_drawn):
 	var card_data = json_object.data
 	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + "Card.png")
 	print(card_image_path)
+	new_card.id = card_drawn
 	new_card.points = int(card_data["value"])
 	new_card.get_node("Points").text = str(new_card.points)
 	set_card_data_type(new_card, card_data["type"])

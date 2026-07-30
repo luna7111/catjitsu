@@ -13,7 +13,11 @@ var _current_scene: Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.scene_manager = self
-	_set_startup_scene(startup_scene)
+	if OS.has_feature("dedicated_server"):
+		print("Dedicated:", OS.has_feature("dedicated_server"))
+		_set_startup_scene(load("res://scenes/server/server.tscn"))
+	else:
+		_set_startup_scene(startup_scene)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

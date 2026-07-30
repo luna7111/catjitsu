@@ -117,7 +117,7 @@ func play_card_keyboard():
 
 # Mouse logic
 func change_input_to_mouse():
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	card_manager_reference.select_card(null)
 
 # Throws a raycast and determines if there's a card or deck under cursor
