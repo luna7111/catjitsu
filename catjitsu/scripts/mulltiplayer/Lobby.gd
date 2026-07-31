@@ -112,7 +112,7 @@ func _on_game_started():
 	print("Starting the game")
 	Global.scene_manager.switch_scene(
 		"res://scenes/multiplayer/multiplayer_main.tscn",
-		true)
+		false)
 
 # Room logic 
 func create_room():

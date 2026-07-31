@@ -13,6 +13,7 @@ func _ready():
 	battle_manager.opponent = opponent
 	opponent.controller = opponent.controller_ai
 	battle_manager.player = player
+	battle_manager.game_finished.connect(_on_game_finished)
 	
 	# Setup player deck
 	var player_deck = DEFAULT_DECK.duplicate()
@@ -23,3 +24,9 @@ func _ready():
 	var opponent_deck = DEFAULT_DECK.duplicate()
 	opponent_deck.shuffle()
 	opponent.setup(opponent_deck)
+
+func _on_game_finished():
+	Global.scene_manager.switch_scene(
+		"res://scenes/scene_manager.tscn",
+		false
+	)

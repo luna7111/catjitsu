@@ -8,6 +8,9 @@ var opponent_card_on_slot
 @onready var player = $"../../Player"
 var player_card_on_slot
 
+# Aftermath
+signal game_finished
+
 # Battle Logic
 var battle_timer
 var player_points = {
@@ -124,10 +127,14 @@ func end_turn():
 		if (player_points[key] == 3 or player_elements == 3
 		or opponent_points[key] == 3 or opponent_elements == 3) :
 			print("Game Over!")
-			get_tree().quit()
+			game_finished.emit()
+			return
+			#get_tree().quit()
 		elif !player.has_cards_on_hand():
 			print("Player has not cards!")
-			get_tree().quit()
+			game_finished.emit()
+			return
+			#get_tree().quit()
 	
 	# Reset turn
 	opponent_card_on_slot = null

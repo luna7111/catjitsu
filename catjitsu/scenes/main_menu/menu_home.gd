@@ -52,4 +52,4 @@ func _on_main_multiplayer_pressed() -> void:
 
 
 func _on_main_singleplayer_pressed() -> void:
-	Global.scene_manager.switch_scene("res://scenes/singleplayer/singleplayer_main.tscn", true)
+	Global.scene_manager.switch_scene("res://scenes/singleplayer/singleplayer_main.tscn", false)
