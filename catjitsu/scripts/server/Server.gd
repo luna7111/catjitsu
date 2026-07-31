@@ -8,6 +8,10 @@ var players = {}
 var player_decks = {}
 var submitted_cards = {}
 
+# Room logic
+var rooms = {}
+var player_rooms = {}
+
 const DEFAULT_DECK = [
 	"World", "World", "World",
 	"Priestess", "Priestess", "Priestess",
@@ -22,6 +26,10 @@ func _ready():
 	# NetworkAPI signals
 	NetworkAPI.player_registered.connect(_on_player_registered)
 	NetworkAPI.card_submitted.connect(_on_card_submitted)
+	# NetworkAPI Room logic
+	NetworkAPI.room_create_requested.connect(_on_room_create_requested)
+	NetworkAPI.room_join_requested.connect(_on_room_join_requested)
+	
 	# Start the server
 	var peer = WebSocketMultiplayerPeer.new()
 	var error = peer.create_server(PORT)
@@ -35,34 +43,100 @@ func _ready():
 func _on_player_registered(id, info):
 	players[id] = info
 	NetworkAPI.update_players.rpc(players)
-	if players.size() == MAX_CONNECTIONS:
-		for peer in players:
-			NetworkAPI.begin_game.rpc_id(peer)
-		prepare_decks()
+	#if players.size() == MAX_CONNECTIONS:
+		#for peer in players:
+			#NetworkAPI.begin_game.rpc_id(peer)
+		#prepare_decks()
 
-func prepare_decks():
+func _on_room_create_requested(peer_id, player_info):
+	var room_code = generate_room_code()
+	rooms[room_code] = {
+		"host": peer_id,
+		"players": {
+			peer_id: player_info
+		}
+	}
+	player_rooms[peer_id] = room_code
+	print("Created room:", room_code)
+	NetworkAPI.notify_room_created.rpc_id(peer_id, room_code)
+
+func generate_room_code():
+	const CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+	var code = ""
+	for i in range(6):
+		code += CHARS[randi() % CHARS.length()]
+	return code
+
+func _on_room_join_requested(peer_id, room_code, player_info):
+	if !rooms.has(room_code):
+		NetworkAPI.notify_room_join_failed.rpc_id(peer_id, "Room not found")
+		return
+	var room = rooms[room_code]
+	if room.players.size() >= MAX_CONNECTIONS:
+		NetworkAPI.notify_room_join_failed.rpc_id(peer_id, "Room is full")
+		return
+	room.players[peer_id] = player_info
+	player_rooms[peer_id] = room_code
+	print("Player joined room:", room_code)
+	NetworkAPI.notify_room_joined.rpc_id(peer_id)
+	NetworkAPI.notify_room_joined.rpc_id(room.host)
+	print("Players in room:", room.players.size())
+	if room.players.size() == MAX_CONNECTIONS:
+		print("Room is full, starting game")
+		#prepare_decks(room_code)
+		for player in room.players.keys():
+			NetworkAPI.begin_game.rpc_id(player)
+		# Important! Prepare decks must be called after starting a game
+		# If not, it will create a race condition and decks will never arrive
+		prepare_decks(room_code)
+
+func prepare_decks(room_code):
 	print("Preparing decks")
-	var ids = players.keys()
+	var room = rooms[room_code]
+	var ids = room.players.keys()
 	var deck1 = DEFAULT_DECK.duplicate()
 	deck1.shuffle()
 	var deck2 = DEFAULT_DECK.duplicate()
 	deck2.shuffle()
-	player_decks[ids[0]] = deck1
-	player_decks[ids[1]] = deck2
-	
-	# Send deck data to player 1
+	if !room.has("decks"):
+		room.decks = {}
+	room.decks[ids[0]] = deck1
+	room.decks[ids[1]] = deck2
 	NetworkAPI.receive_decks.rpc_id(
 		ids[0],
-		player_decks[ids[0]],
-		player_decks[ids[1]]
+		room.decks[ids[0]],
+		room.decks[ids[1]]
 	)
-	
-	# Send deck data to player 2
 	NetworkAPI.receive_decks.rpc_id(
 		ids[1],
-		player_decks[ids[1]],
-		player_decks[ids[0]]
-)
+		room.decks[ids[1]],
+		room.decks[ids[0]]
+	)
+
+# old
+#func prepare_decks():
+	#print("Preparing decks")
+	#var ids = players.keys()
+	#var deck1 = DEFAULT_DECK.duplicate()
+	#deck1.shuffle()
+	#var deck2 = DEFAULT_DECK.duplicate()
+	#deck2.shuffle()
+	#player_decks[ids[0]] = deck1
+	#player_decks[ids[1]] = deck2
+	
+	## Send deck data to player 1
+	#NetworkAPI.receive_decks.rpc_id(
+		#ids[0],
+		#player_decks[ids[0]],
+		#player_decks[ids[1]]
+	#)
+	#
+	## Send deck data to player 2
+	#NetworkAPI.receive_decks.rpc_id(
+		#ids[1],
+		#player_decks[ids[1]],
+		#player_decks[ids[0]]
+#)
 
 # Basic debug
 func _on_player_connected(id):

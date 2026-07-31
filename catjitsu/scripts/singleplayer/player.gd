@@ -14,7 +14,7 @@ signal card_played(card)
 var monster_played_this_turn = false
 
 func setup(deck_data):
-	deck.setup(deck_data)
+	await deck.setup(deck_data)
 
 func choose_card():
 	return await controller.choose_card()

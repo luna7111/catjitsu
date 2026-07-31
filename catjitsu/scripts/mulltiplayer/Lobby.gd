@@ -14,6 +14,16 @@ var player_info = {
 	"name": "Name"
 }
 
+# Room logic
+enum LobbyAction {
+	NONE,
+	HOST,
+	JOIN
+}
+
+var pending_action = LobbyAction.NONE
+var pending_room_code = ""
+
 func _ready():
 	print("Starting multiplayer. Instance:", get_instance_id())
 	# Internal signals from Multiplayer to Lobby
@@ -25,6 +35,10 @@ func _ready():
 	# Signals from Lobby to NetworkAPI
 	NetworkAPI.players_updated.connect(_on_players_updated)
 	NetworkAPI.game_started.connect(_on_game_started)
+	# Signals for room logic 
+	NetworkAPI.room_created.connect(_on_room_created)
+	NetworkAPI.room_joined.connect(_on_room_joined)
+	NetworkAPI.room_join_failed.connect(_on_room_join_failed)
 
 # Joins a game in the stablished webserv / port
 func join_game():
@@ -45,11 +59,29 @@ func join_game():
 
 
 # Recive network connected_to_server
+
 func _on_connected_ok():
 	connected = true
 	print("Connected. My ID:", multiplayer.get_unique_id())
-	# Send player info to NetworkAPI (id = 1)
-	NetworkAPI.register_player.rpc_id(1, player_info)
+
+	match pending_action:
+		LobbyAction.HOST:
+			NetworkAPI.create_room.rpc_id(1, player_info)
+
+		LobbyAction.JOIN:
+			NetworkAPI.join_room.rpc_id(
+				1,
+				pending_room_code,
+				player_info
+			)
+
+# Old version
+#func _on_connected_ok():
+	#connected = true
+	#print("Connected. My ID:", multiplayer.get_unique_id())
+	## Send player info to NetworkAPI (id = 1)
+	## Lets remove this by the moment!
+	##NetworkAPI.register_player.rpc_id(1, player_info)
 
 # Notifies that a player has connected to the server
 func _on_peer_connected(id):
@@ -81,3 +113,36 @@ func _on_game_started():
 	Global.scene_manager.switch_scene(
 		"res://scenes/multiplayer/multiplayer_main.tscn",
 		true)
+
+# Room logic 
+func create_room():
+	if !connected:
+		return
+	NetworkAPI.create_room.rpc_id(1, player_info)
+
+#func join_room(room_code):
+	#if !connected:
+		#return
+	#NetworkAPI.join_room.rpc_id(
+		#1,
+		#room_code,
+		#player_info
+	#)
+	#
+func join_room(room_code):
+	pending_action = LobbyAction.JOIN
+	pending_room_code = room_code
+	join_game()
+
+func host_game():
+	pending_action = LobbyAction.HOST
+	join_game()
+
+func _on_room_created(room_code):
+	print("Room created:", room_code)
+
+func _on_room_joined():
+	print("Joined room!")
+	
+func _on_room_join_failed(reason):
+	print("Join failed:", reason)
