@@ -4,6 +4,16 @@ var options: = []
 var selected = 0
 var item_count = 0
 
+signal selection_changed
+
+
+func _process(delta: float) -> void:
+	if has_focus():
+		if Input.is_action_just_pressed("ui_left"):
+			_on_previous_pressed()
+		elif Input.is_action_just_pressed("ui_right"):
+			_on_next_pressed()
+
 
 func add_item(item: String):
 	options.append(item)
@@ -33,6 +43,9 @@ func _on_previous_pressed() -> void:
 	if selected < 0:
 		selected = item_count - 1
 	update_text()
+	selection_changed.emit()
+	if DisplayServer.accessibility_screen_reader_active():
+		DisplayServer.tts_speak(TranslationServer.tr($Display.text), Global.tts_voice)
 
 
 func _on_next_pressed() -> void:
@@ -40,3 +53,19 @@ func _on_next_pressed() -> void:
 	if selected >= item_count:
 		selected = 0
 	update_text()
+	selection_changed.emit()
+	if DisplayServer.accessibility_screen_reader_active():
+		DisplayServer.tts_speak(TranslationServer.tr($Display.text), Global.tts_voice)
+
+
+func _on_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active():
+		DisplayServer.tts_speak(TranslationServer.tr("Select skin, use left or right to change"), Global.tts_voice)
+		DisplayServer.tts_speak(TranslationServer.tr($Display.text), Global.tts_voice)
+	$Previous.add_theme_color_override("font_color", "bc2851")
+	$Next.add_theme_color_override("font_color", "bc2851")
+
+
+func _on_focus_exited() -> void:
+	$Previous.add_theme_color_override("font_color", "fafafa")
+	$Next.add_theme_color_override("font_color", "fafafa")

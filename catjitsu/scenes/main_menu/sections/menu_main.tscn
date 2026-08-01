@@ -151,7 +151,6 @@ focus_neighbor_top = NodePath("../Settings")
 focus_neighbor_bottom = NodePath("../Multiplayer")
 focus_next = NodePath("../Multiplayer")
 focus_previous = NodePath("../Settings")
-accessibility_name = "Singleplayer Button"
 theme = ExtResource("3_bd5dx")
 text = "SINGLEPLAYER_BUTTON"
 
@@ -162,7 +161,6 @@ focus_neighbor_top = NodePath("../Singleplayer")
 focus_neighbor_bottom = NodePath("../Profile")
 focus_next = NodePath("../Profile")
 focus_previous = NodePath("../Singleplayer")
-accessibility_name = "Multiplayer Button"
 theme = ExtResource("3_bd5dx")
 text = "MULTIPLAYER_BUTTON"
 
@@ -172,8 +170,6 @@ focus_neighbor_top = NodePath("../Multiplayer")
 focus_neighbor_bottom = NodePath("../Settings")
 focus_next = NodePath("../Settings")
 focus_previous = NodePath("../Multiplayer")
-accessibility_name = "Profile Button"
-accessibility_description = "Profile menu lets you configure your profile"
 theme = ExtResource("3_bd5dx")
 text = "PROFILE_BUTTON"
 
@@ -183,7 +179,6 @@ focus_neighbor_top = NodePath("../Profile")
 focus_neighbor_bottom = NodePath("../Singleplayer")
 focus_next = NodePath("../Singleplayer")
 focus_previous = NodePath("../Profile")
-accessibility_name = "Settings button"
 theme = ExtResource("3_bd5dx")
 text = "SETTINGS_BUTTON"
 
@@ -203,6 +198,22 @@ text = "EXIT_BUTTON"
 position = Vector2(1500, 215)
 texture = ExtResource("2_iwikj")
 
+[node name="Dummy" type="Control" parent="." unique_id=871620112]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 313.59998
+offset_top = 735.83997
+offset_right = 792.6
+offset_bottom = 735.83997
+focus_neighbor_left = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_neighbor_top = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_neighbor_right = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_neighbor_bottom = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_next = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_previous = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_mode = 2
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Singleplayer" to="." method="_on_singleplayer_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Multiplayer" to="." method="_on_multiplayer_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Profile" to="." method="_on_profile_pressed"]

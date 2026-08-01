@@ -1,11 +1,6 @@
 extends Control
 
 
-signal change_to_controller
-signal change_to_keyboard
-signal change_to_mouse
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Settings.hide()
@@ -65,3 +60,11 @@ func _on_profile_back_pressed() -> void:
 func _on_multiplayer_back_pressed() -> void:
 	$Multiplayer.hide()
 	$SubViewportContainer/SubViewport/MainMenuBackground.tv_switch_to_cat()
+
+
+func _on_input_mode_changed(mode: Variant) -> void:
+	pass # Replace with function body.
+
+
+func _on_profile_avatar_selection_changed() -> void:
+	$SubViewportContainer/SubViewport/MainMenuBackground.update_photo_cat_texture()

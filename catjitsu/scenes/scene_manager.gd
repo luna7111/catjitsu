@@ -11,6 +11,9 @@ extends Node
 var _current_scene: Node
 
 
+signal input_mode_changed(mode, previous)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	preload("res://scenes/main_menu/menu_home.tscn")
@@ -48,3 +51,25 @@ func notify(text: String):
 	var notification = load("res://scenes/gui_elements/user_notification.tscn").instantiate()
 	notification.text = text
 	$CanvasLayer/Notifications.add_child(notification)
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion \
+			and event.relative.length_squared() > 5000 \
+			and Global.current_input_mode != Global.InputMode.MOUSE:
+		emit_signal("input_mode_changed", Global.InputMode.MOUSE, Global.current_input_mode)
+		Global.current_input_mode = Global.InputMode.MOUSE
+	if event is InputEventMouseButton \
+				and Global.current_input_mode != Global.InputMode.MOUSE:
+		emit_signal("input_mode_changed", Global.InputMode.MOUSE, Global.current_input_mode)
+		Global.current_input_mode = Global.InputMode.MOUSE
+	elif event is InputEventKey \
+			and Global.current_input_mode != Global.InputMode.KEYBOARD:
+		emit_signal("input_mode_changed", Global.InputMode.KEYBOARD, Global.current_input_mode)
+		Global.current_input_mode = Global.InputMode.KEYBOARD
+	elif event is InputEventJoypadButton \
+		and Global.current_input_mode != Global.InputMode.CONTOLLER:
+		emit_signal("input_mode_changed", Global.InputMode.CONTOLLER, Global.current_input_mode)
+		Global.current_input_mode = Global.InputMode.CONTOLLER
+	else:
+		pass

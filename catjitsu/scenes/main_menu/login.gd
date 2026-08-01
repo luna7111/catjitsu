@@ -5,14 +5,9 @@ var client_authorised = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$LoginOptions.show()
 	$Login42Panel.hide()
+	$LoginOptions.show()
 	set_process(false)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-		set_process(false)
 
 
 func wait_for_request(auth_client: StreamPeerTCP) -> String:
@@ -54,15 +49,18 @@ func _on_login_intra_pressed() -> void:
 
 func request_tokens(query_param):
 	$HTTPRequest.request_completed.connect(_uuid_sent)
-	while (client_authorised == false):
+	while ($Login42Panel.visible and client_authorised == false):
 		$HTTPRequest.request("http://localhost:8000/identify-client/" + query_param)
 		await get_tree().create_timer(2.0).timeout
 
 
-func _uuid_sent(result, response_code, headers, body):
+func _uuid_sent(_result, response_code, _headers, body):
+	if not response_code == 200:
+		print("Didn't reveive tokens yet")
+		return
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	print (response_code)
-	if json == null or not response_code ==  200:
+	if json == null:
 		print("Didn't receive tokens yet")
 	else:
 		client_authorised = true
@@ -81,9 +79,16 @@ func _request_player_data(nickname: String):
 	$HTTPRequest.request("http://localhost:8080/player/ldel-val")
 
 func _fetch_player_data(result, response_code, headers, body):
+	if response_code != 200:
+		print("Server didn't answer")
+		return
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	if json:
 		print ("player json: " + json)
 	else:
 		print ("player doesnt exist")
-		
+
+
+func _on_login42_back_button_pressed() -> void:
+	$Login42Panel.hide()
+	$LoginOptions.show()
