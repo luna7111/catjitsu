@@ -28,14 +28,6 @@ from django.contrib.auth.forms import UserCreationForm
 class RegisterUser(generics.CreateAPIView):
     serializer_class = UserSerializer
 
-# class RegisterUser(APIView):
-#     def post(self, request):
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return Response(form, status.HTTP_200_OK)
-#         return Response({}, status.HTTP_400_BAD_REQUEST)
-
 #TODO: maybe this sould be a POST or something idk
 #TODO: cleanly manage timeout (this is a Godot thing but maybe there is a response code or something idk)
 class IdentifyClient(APIView):
@@ -63,7 +55,7 @@ class IdentifyClient(APIView):
         return Response({
             'access': str(refresh.access_token),
             'refresh': str(refresh),
-            'nickname': player.nickname
+            'nickname': player.user.get_username(),
         })
 
 class OAuth42Login(APIView):
@@ -147,7 +139,7 @@ class OAuth42Callback(APIView):
             player.save()
 
         auth_code = secrets.token_urlsafe(32)
-        cache_data = {"player_id": player.id}
+        cache_data = {"player_id": player.user.id}
         if exchange_uuid:
             cache_data["exchange_uuid"] = exchange_uuid
         cache.set(f"auth_code_{auth_code}", cache_data, timeout=300)
