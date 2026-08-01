@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c64ldfruhi1re" path="res://scenes/main_menu/sections/menu_main.gd" id="1_dd4t8"]
 [ext_resource type="FontFile" uid="uid://bp1vilqhd2vyn" path="res://fonts/Chi-Regular.otf" id="2_dd4t8"]
 [ext_resource type="Texture2D" uid="uid://ce8spd0kerh6g" path="res://assets/720x321.png" id="2_iwikj"]
+[ext_resource type="Theme" uid="uid://bqxnag2rlymbi" path="res://themes/Default.tres" id="3_bd5dx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06w41"]
 bg_color = Color(0.9486267, 0.872358, 0.8978954, 1)
@@ -146,35 +147,73 @@ metadata/_edit_group_ = true
 
 [node name="Singleplayer" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=2087781110]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Settings")
+focus_neighbor_bottom = NodePath("../Multiplayer")
+focus_next = NodePath("../Multiplayer")
+focus_previous = NodePath("../Settings")
+theme = ExtResource("3_bd5dx")
 text = "SINGLEPLAYER_BUTTON"
 
 [node name="Multiplayer" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=2028501444]
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Singleplayer")
+focus_neighbor_bottom = NodePath("../Profile")
+focus_next = NodePath("../Profile")
+focus_previous = NodePath("../Singleplayer")
+theme = ExtResource("3_bd5dx")
 text = "MULTIPLAYER_BUTTON"
 
 [node name="Profile" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=1025831049]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Multiplayer")
+focus_neighbor_bottom = NodePath("../Settings")
+focus_next = NodePath("../Settings")
+focus_previous = NodePath("../Multiplayer")
+theme = ExtResource("3_bd5dx")
 text = "PROFILE_BUTTON"
 
 [node name="Settings" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=488260968]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Profile")
+focus_neighbor_bottom = NodePath("../Singleplayer")
+focus_next = NodePath("../Singleplayer")
+focus_previous = NodePath("../Profile")
+theme = ExtResource("3_bd5dx")
 text = "SETTINGS_BUTTON"
 
 [node name="Sandbox" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=376774297]
 visible = false
 layout_mode = 2
+theme = ExtResource("3_bd5dx")
 text = "SANDBOX_BUTTON"
 
 [node name="Exit" type="Button" parent="PanelContainer/MarginContainer/Buttons" unique_id=575201167]
 visible = false
 layout_mode = 2
+theme = ExtResource("3_bd5dx")
 text = "EXIT_BUTTON"
 
 [node name="Logo" type="Sprite2D" parent="." unique_id=1838098992]
 position = Vector2(1500, 215)
 texture = ExtResource("2_iwikj")
 
+[node name="Dummy" type="Control" parent="." unique_id=871620112]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 313.59998
+offset_top = 735.83997
+offset_right = 792.6
+offset_bottom = 735.83997
+focus_neighbor_left = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_neighbor_top = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_neighbor_right = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_neighbor_bottom = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_next = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_previous = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
+focus_mode = 2
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Singleplayer" to="." method="_on_singleplayer_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Multiplayer" to="." method="_on_multiplayer_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Profile" to="." method="_on_profile_pressed"]

@@ -2,9 +2,24 @@ extends Node
 
 var scene_manager : SceneManager
 
+enum InputMode {MOUSE, KEYBOARD, CONTOLLER}
+var current_input_mode = InputMode.MOUSE
+
+var tts_voice
+var tts_avaiable: bool = false
+
+var avatar_list = [
+		"Apolito",
+		"Apoloto",
+		"Rudy",
+		"Rodolfo",
+		"Kimi",
+		"Riku"
+]
+
 var profile = {
 	name = "Guest123",
-	avatar = "Apoloto"
+	avatar = "Apolito"
 }
 
 
@@ -24,6 +39,10 @@ func _ready() -> void:
 	get_user_config()
 	get_user_profile()
 	update_config()
+	var tts_all_voices = DisplayServer.tts_get_voices_for_language(TranslationServer.get_locale())
+	if not tts_all_voices.is_empty():
+		tts_voice = tts_all_voices[0]
+		tts_avaiable = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

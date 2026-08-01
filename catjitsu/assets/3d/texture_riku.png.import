@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfdbfutmceogg"
-path.s3tc="res://.godot/imported/base_pelaje.png-fee2bd123fd4287a5b1f0be98cc2c49b.s3tc.ctex"
+uid="uid://du5o8rv2vardo"
+path.s3tc="res://.godot/imported/texture_riku.png-3f6299930e05ef240e1f0dd918a77fd2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/3d/base_pelaje.png"
-dest_files=["res://.godot/imported/base_pelaje.png-fee2bd123fd4287a5b1f0be98cc2c49b.s3tc.ctex"]
+source_file="res://assets/3d/texture_riku.png"
+dest_files=["res://.godot/imported/texture_riku.png-3f6299930e05ef240e1f0dd918a77fd2.s3tc.ctex"]
 
 [params]
 
