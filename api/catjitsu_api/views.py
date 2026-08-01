@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 import requests
 import secrets
 from datetime import timedelta
@@ -5,6 +6,7 @@ from http.client import HTTPResponse
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.utils import timezone
+from rest_framework.authtoken.models import Token
 from .models import Player, AuthIdentity
 from .models import Match
 from .serializers import UserSerializer
@@ -27,6 +29,16 @@ from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
     serializer_class = UserSerializer
+
+class LoginUser(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username = username, password = password)
+        if user is not None:
+            token, created = Token.objects.get_or_create(user = user)
+            return Response({'token':token.key}, status=status.HTTP_200_OK)
+        return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 #TODO: maybe this sould be a POST or something idk
 #TODO: cleanly manage timeout (this is a Godot thing but maybe there is a response code or something idk)
