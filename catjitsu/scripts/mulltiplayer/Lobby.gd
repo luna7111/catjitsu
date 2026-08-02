@@ -2,7 +2,6 @@ extends Node
 
 #signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
-signal server_disconnected
 
 const SERVER_URL = "ws://localhost:8080"
 
@@ -29,7 +28,6 @@ func _ready():
 	# Internal signals from Multiplayer to Lobby
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_fail)
-	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	# Signals from Lobby to NetworkAPI
@@ -98,7 +96,8 @@ func _on_server_disconnected():
 	players.clear()
 	pending_action = LobbyAction.NONE
 	pending_room_code = ""
-	server_disconnected.emit()
+	#server_disconnected.emit()
+	NetworkAPI.server_disconnected.emit()
 
 func _on_players_updated(new_players):
 	players = new_players

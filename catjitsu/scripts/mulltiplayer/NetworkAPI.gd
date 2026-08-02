@@ -16,7 +16,9 @@ var current_room_code = ""
 # Signals for lobby
 signal player_registered(peer_id, info)
 signal players_updated(players)
+signal server_disconnected
 signal game_started
+signal match_aborted
 
 # Signals for room
 signal room_create_requested(peer_id, player_info)
@@ -33,6 +35,8 @@ signal opponent_card_received(card_id)
 
 func _ready():
 	print("NetworkAPI path: ", get_path())
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 #
 # Client -> Server
@@ -96,3 +100,16 @@ func receive_opponent_card(card_id):
 func receive_decks(player_deck, opponent_deck):
 	print("Received decks")
 	decks_received.emit(player_deck, opponent_deck)
+
+func _on_server_disconnected():
+	print("NetworkAPI: Server disconnected")
+	server_disconnected.emit()
+
+
+func _on_peer_disconnected(id):
+	print("Peer disconnected:", id)
+
+@rpc("authority", "call_remote")
+func match_has_aborted():
+	print("Match aborted received")
+	match_aborted.emit()

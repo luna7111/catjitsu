@@ -113,21 +113,63 @@ func prepare_decks(room_code):
 func _on_player_connected(id):
 	print("Player connected:", id)
 
+
 func _on_player_disconnected(id):
 	print("Player disconnected:", id)
 	players.erase(id)
 	submitted_cards.erase(id)
-	# If all players had left the room, erase it
 	if player_rooms.has(id):
 		var room_code = player_rooms[id]
 		if rooms.has(room_code):
-			rooms[room_code].players.erase(id)
-			print("Players left in room:", rooms[room_code].players.size())
-		if rooms[room_code].players.is_empty():
-			print("Deleting room:", room_code)
+			var room = rooms[room_code]
+			for player_id in room.players.keys():
+				if player_id != id and multiplayer.get_peers().has(player_id):
+					print("Sending abort to:", player_id)
+					NetworkAPI.match_has_aborted.rpc_id(player_id)
+					player_rooms.erase(player_id)
 			rooms.erase(room_code)
-	player_rooms.erase(id)
+		player_rooms.erase(id)
 	NetworkAPI.update_players.rpc(players)
+
+#old
+#func _on_player_disconnected(id):
+	#print("Player disconnected:", id)
+	#players.erase(id)
+	#submitted_cards.erase(id)
+	#if player_rooms.has(id):
+		#var room_code = player_rooms[id]
+		#print("Player was in room:", room_code)
+		#if rooms.has(room_code):
+			#var room = rooms[room_code]
+			#for player_id in room.players.keys():
+				#if player_id != id and multiplayer.get_peers().has(player_id):
+					#print("Sending abort to:", player_id)
+					#NetworkAPI.match_has_aborted.rpc_id(player_id)
+
+#old
+#func _on_player_disconnected(id):
+	#print("Player disconnected:", id)
+	#players.erase(id)
+	#submitted_cards.erase(id)
+	## Check if player belonged to a room
+	#if player_rooms.has(id):
+		#var room_code = player_rooms[id]
+		#if rooms.has(room_code):
+			#var room = rooms[room_code]
+			## Notify remaining players in this room
+			#for player_id in room.players.keys():
+				#if player_id != id:
+					#print("Notifying player about opponent disconnect:", player_id)
+					#NetworkAPI.match_has_aborted.rpc_id(player_id)
+			## Remove disconnected player from room
+			#room.players.erase(id)
+			#print("Players left in room:", room.players.size())
+			## Delete empty room
+			#if room.players.is_empty():
+				#print("Deleting room:", room_code)
+				#rooms.erase(room_code)
+		#player_rooms.erase(id)
+	#NetworkAPI.update_players.rpc(players)
 
 # Receives player_card
 func _on_card_submitted(peer_id, card_name):
