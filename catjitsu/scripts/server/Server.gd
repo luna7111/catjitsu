@@ -43,10 +43,6 @@ func _ready():
 func _on_player_registered(id, info):
 	players[id] = info
 	NetworkAPI.update_players.rpc(players)
-	#if players.size() == MAX_CONNECTIONS:
-		#for peer in players:
-			#NetworkAPI.begin_game.rpc_id(peer)
-		#prepare_decks()
 
 func _on_room_create_requested(peer_id, player_info):
 	var room_code = generate_room_code()
@@ -113,31 +109,6 @@ func prepare_decks(room_code):
 		room.decks[ids[0]]
 	)
 
-# old
-#func prepare_decks():
-	#print("Preparing decks")
-	#var ids = players.keys()
-	#var deck1 = DEFAULT_DECK.duplicate()
-	#deck1.shuffle()
-	#var deck2 = DEFAULT_DECK.duplicate()
-	#deck2.shuffle()
-	#player_decks[ids[0]] = deck1
-	#player_decks[ids[1]] = deck2
-	
-	## Send deck data to player 1
-	#NetworkAPI.receive_decks.rpc_id(
-		#ids[0],
-		#player_decks[ids[0]],
-		#player_decks[ids[1]]
-	#)
-	#
-	## Send deck data to player 2
-	#NetworkAPI.receive_decks.rpc_id(
-		#ids[1],
-		#player_decks[ids[1]],
-		#player_decks[ids[0]]
-#)
-
 # Basic debug
 func _on_player_connected(id):
 	print("Player connected:", id)
@@ -146,6 +117,16 @@ func _on_player_disconnected(id):
 	print("Player disconnected:", id)
 	players.erase(id)
 	submitted_cards.erase(id)
+	# If all players had left the room, erase it
+	if player_rooms.has(id):
+		var room_code = player_rooms[id]
+		if rooms.has(room_code):
+			rooms[room_code].players.erase(id)
+			print("Players left in room:", rooms[room_code].players.size())
+		if rooms[room_code].players.is_empty():
+			print("Deleting room:", room_code)
+			rooms.erase(room_code)
+	player_rooms.erase(id)
 	NetworkAPI.update_players.rpc(players)
 
 # Receives player_card

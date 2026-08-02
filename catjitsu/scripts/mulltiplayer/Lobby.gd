@@ -44,13 +44,14 @@ func _ready():
 func join_game():
 	# Basic check
 	if connected:
+		print("Alredy connected!")
 		return
-	
+
 	# Creates a WebSocketMultiplayerPeer and connects to URL as client
 	print("Connecting to server")
 	var peer = WebSocketMultiplayerPeer.new()
 	var error = peer.create_client(SERVER_URL)
-	
+
 	# If everything ok, we change peer and confirm the conexion
 	if error != OK:
 		print("Connection error:", error)
@@ -63,25 +64,17 @@ func join_game():
 func _on_connected_ok():
 	connected = true
 	print("Connected. My ID:", multiplayer.get_unique_id())
-
 	match pending_action:
 		LobbyAction.HOST:
 			NetworkAPI.create_room.rpc_id(1, player_info)
-
 		LobbyAction.JOIN:
 			NetworkAPI.join_room.rpc_id(
 				1,
 				pending_room_code,
 				player_info
 			)
-
-# Old version
-#func _on_connected_ok():
-	#connected = true
-	#print("Connected. My ID:", multiplayer.get_unique_id())
-	## Send player info to NetworkAPI (id = 1)
-	## Lets remove this by the moment!
-	##NetworkAPI.register_player.rpc_id(1, player_info)
+	pending_action = LobbyAction.NONE
+	pending_room_code = ""
 
 # Notifies that a player has connected to the server
 func _on_peer_connected(id):
@@ -103,6 +96,8 @@ func _on_server_disconnected():
 	print("Server disconnected")
 	connected = false
 	players.clear()
+	pending_action = LobbyAction.NONE
+	pending_room_code = ""
 	server_disconnected.emit()
 
 func _on_players_updated(new_players):
@@ -120,15 +115,6 @@ func create_room():
 		return
 	NetworkAPI.create_room.rpc_id(1, player_info)
 
-#func join_room(room_code):
-	#if !connected:
-		#return
-	#NetworkAPI.join_room.rpc_id(
-		#1,
-		#room_code,
-		#player_info
-	#)
-	#
 func join_room(room_code):
 	pending_action = LobbyAction.JOIN
 	pending_room_code = room_code
