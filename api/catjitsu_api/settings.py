@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',  # TEMPORARY: allow the Godot web build at http://localhost to access the API during local dev. Remove when frontend and API are served from the same origin.
     'rest_framework',
     'rest_framework_api_key',
+    'rest_framework.authtoken',
     'catjitsu_api',
     'django.contrib.admin',
     'django.contrib.auth',

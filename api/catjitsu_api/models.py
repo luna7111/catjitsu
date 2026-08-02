@@ -21,7 +21,7 @@ class Player(models.Model):
     #     verbose_name_plural = _("players")
 
     def __str__(self):
-        return self.user.get_attname()
+        return self.user.get_username()
 
     # def get_absolute_url(self):
     #     return reverse("player_detail", kwargs={"pk": self.pk})
