@@ -10,15 +10,14 @@
 [node name="Opponent" type="Node2D" unique_id=1536269255]
 script = ExtResource("1_frjr2")
 
+[node name="OpponentHand" parent="." unique_id=1295232046 instance=ExtResource("3_frjr2")]
+
 [node name="OpponentCardSlot" parent="." unique_id=1332720918 instance=ExtResource("1_p7kbq")]
 visible = false
 z_index = -3
 position = Vector2(0, 516)
 
 [node name="OpponentDeck" parent="." unique_id=64516707 instance=ExtResource("2_ocpkl")]
-
-[node name="OpponentHand" parent="." unique_id=1295232046 instance=ExtResource("3_frjr2")]
-position = Vector2(821.3297, 18.315948)
 
 [node name="OpponentAI" type="Node2D" parent="." unique_id=2081968094]
 script = ExtResource("4_ocpkl")

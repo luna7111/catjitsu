@@ -14,6 +14,7 @@ signal card_played(card)
 var monster_played_this_turn = false
 
 func setup(deck_data):
+	hand.clear_hand()
 	await deck.setup(deck_data)
 
 func choose_card():

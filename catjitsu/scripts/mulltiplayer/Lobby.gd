@@ -116,19 +116,30 @@ func create_room():
 	NetworkAPI.create_room.rpc_id(1, player_info)
 
 func join_room(room_code):
-	pending_action = LobbyAction.JOIN
 	pending_room_code = room_code
-	join_game()
+	if connected:
+		# Already connected, just try to join another room
+		NetworkAPI.join_room.rpc_id(
+			1,
+			room_code,
+			player_info
+		)
+	else:
+		# Not connected yet, connect first
+		pending_action = LobbyAction.JOIN
+		join_game()
 
 func host_game():
 	pending_action = LobbyAction.HOST
 	join_game()
 
 func _on_room_created(room_code):
+	NetworkAPI.current_room_code = room_code
 	print("Room created:", room_code)
 
 func _on_room_joined():
-	print("Joined room!")
+	NetworkAPI.current_room_code = pending_room_code
+	print("Joined room: ", pending_room_code)
 	
 func _on_room_join_failed(reason):
 	print("Join failed:", reason)

@@ -13,6 +13,7 @@ var controller
 @onready var controller_network = $OpponentNetwork
 
 func setup(deck_data):
+	hand.clear_hand()
 	await deck.setup(deck_data)
 
 func choose_card():

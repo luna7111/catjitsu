@@ -4,6 +4,12 @@ extends Node
 # I.e, register player, play_card, end turn, begin_game
 
 #
+# Var
+#
+
+var current_room_code = ""
+
+#
 # Signals
 #
 

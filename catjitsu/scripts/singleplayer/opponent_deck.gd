@@ -55,7 +55,10 @@ func draw_card():
 	var new_card = card_scene.instantiate() 
 	#Load JSON DATA
 	load_card_data(new_card, card_drawn)
-	get_tree().current_scene.add_child(new_card)
+	# Heres a bug, first line put cards right but doesnt free them. Second puts them on a bad spot
+	#get_tree().current_scene.add_child(new_card)
+	opponent_hand_reference.add_child(new_card)
+	#new_card.global_position = global_position
 	new_card.name = "CARD"
 	opponent_hand_reference.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 	#new_card.get_node("AnimationPlayer").play("card_flip")

@@ -51,3 +51,8 @@ func remove_card_from_hand(card):
 	if card in player_hand:
 			player_hand.erase(card)
 			update_hand_positions()
+
+func clear_hand():
+	for card in player_hand:
+		card.queue_free()
+	player_hand.clear()
