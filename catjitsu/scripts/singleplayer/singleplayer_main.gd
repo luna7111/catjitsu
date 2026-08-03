@@ -1,10 +1,26 @@
 extends Node
 
 const DEFAULT_DECK = [
-	"World", "World", "World",
-	"Priestess", "Priestess", "Priestess",
-	"Fool", "Fool", "Fool"
+	"Barbacute",
+	"Bigpaw",
+	"Brainfreeze",
+	"Catzilla",
+	"Choco",
+	"Furcone",
+	"Katcren",
+	"Kiro",
+	"Match",
+	"Papercut beach",
+	"Papercut mountains",
+	"Papercut volcano",
+	"Partyhat",
+	"Purrsa",
+	"Rubberduck",
+	"Snowcat",
+	"Towel",
+	"Troublemaker"
 ]
+
 @onready var opponent = $Opponent
 @onready var player = $Player
 @onready var battle_manager = $BattleLogic/BattleManager

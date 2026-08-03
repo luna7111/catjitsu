@@ -456,9 +456,9 @@ vertical_alignment = 1
 
 [node name="Type" type="TextureRect" parent="." unique_id=1033479794]
 offset_left = 27.0
-offset_top = 38.0
+offset_top = 50.0
 offset_right = 62.0
-offset_bottom = 85.25
+offset_bottom = 97.25
 scale = Vector2(1e-05, 1)
 stretch_mode = 4
 

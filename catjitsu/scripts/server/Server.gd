@@ -13,9 +13,24 @@ var rooms = {}
 var player_rooms = {}
 
 const DEFAULT_DECK = [
-	"World", "World", "World",
-	"Priestess", "Priestess", "Priestess",
-	"Fool", "Fool", "Fool"
+	"Barbacute",
+	"Bigpaw",
+	"Brainfreeze",
+	"Catzilla",
+	"Choco",
+	"Furcone",
+	"Katcren",
+	"Kiro",
+	"Match",
+	"Papercut beach",
+	"Papercut mountains",
+	"Papercut volcano",
+	"Partyhat",
+	"Purrsa",
+	"Rubberduck",
+	"Snowcat",
+	"Towel",
+	"Troublemaker"
 ]
 
 func _ready():

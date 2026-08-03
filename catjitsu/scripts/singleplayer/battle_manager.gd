@@ -42,6 +42,7 @@ func _ready() -> void:
 func _on_player_card_played(card):
 	player_card_on_slot = card
 	# Send to multiplayer NetworkAPI, it does nothing on singleplayer
+	# BUG: Right now, after doing a multiplayer match, it stays connected to peer and calls in singleplayer
 	if multiplayer.has_multiplayer_peer() and !multiplayer.is_server():
 		NetworkAPI.submit_card.rpc_id(1, card.id)
 	await play_turn()
@@ -85,7 +86,11 @@ func calculate_battle_result():
 		if opponent_card_on_slot.points == player_card_on_slot.points:
 			result = [BATTLE_RESULT.TIE, "None"]
 		else:
-			result[0] = opponent_card_on_slot.points > player_card_on_slot.points
+			var winner = opponent_card_on_slot.points > player_card_on_slot.points
+			if winner == true:
+				result[0] = BATTLE_RESULT.OPPONENT
+			else:
+				result[0] = BATTLE_RESULT.PLAYER
 			result[1] = opponent_card_on_slot.type
 	elif (opponent_card_on_slot.type == "Fire" && player_card_on_slot.type == "Ice" 
 		or opponent_card_on_slot.type == "Ice" && player_card_on_slot.type == "Water"
@@ -93,6 +98,7 @@ func calculate_battle_result():
 			result = [BATTLE_RESULT.OPPONENT, opponent_card_on_slot.type]
 	else:
 		result = [BATTLE_RESULT.PLAYER, player_card_on_slot.type]
+	print("Result is: ", result)
 	return result
 
 # Update points and visuals

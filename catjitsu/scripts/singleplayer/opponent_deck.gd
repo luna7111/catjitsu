@@ -79,7 +79,7 @@ func load_card_data(new_card, card_drawn):
 	
 	# Load the data of the card
 	var card_data = json_object.data
-	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + "Card.png")
+	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + ".png")
 	print(card_image_path)
 	new_card.id = card_drawn
 	new_card.points = int(card_data["value"])
