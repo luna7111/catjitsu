@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c5fggaxemhguu"]
+
+[ext_resource type="Texture2D" uid="uid://du5o8rv2vardo" path="res://assets/3d/texture_riku.png" id="1_gu13j"]
+
+[resource]
+resource_name = "pelaje"
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_gu13j")
+metallic = 0.5
+roughness = 0.0

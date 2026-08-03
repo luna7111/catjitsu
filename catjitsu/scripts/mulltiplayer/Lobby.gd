@@ -64,10 +64,10 @@ func leave_room():
 		connected = false
 	
 	# Use Luna method to go back
-	Global.scene_manager.switch_scene(
-		"res://scenes/scene_manager.tscn",
-		false
-	)
+	#Global.scene_manager.switch_scene(
+		#"res://scenes/scene_manager.tscn",
+		#false
+	#)
 
 # Recive network connected_to_server
 

@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://j6msvof418ix"]
+
+[ext_resource type="Texture2D" uid="uid://ce8spd0kerh6g" path="res://assets/720x321.png" id="1_5w227"]
+[ext_resource type="Script" uid="uid://x7k0y1pu36sn" path="res://scenes/main_menu/login.gd" id="1_061kd"]
+[ext_resource type="Theme" uid="uid://bqxnag2rlymbi" path="res://themes/Default.tres" id="2_061kd"]
+[ext_resource type="Script" uid="uid://bkc53vdnl1s2a" path="res://scenes/main_menu/login_options.gd" id="2_blsv8"]
+[ext_resource type="Script" uid="uid://drjtpv12vivm3" path="res://scenes/main_menu/login_42_panel.gd" id="5_cgmhl"]
+
+[node name="Login" type="Control" unique_id=129878198]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_061kd")
+
+[node name="LoginOptions" type="MarginContainer" parent="." unique_id=1013145333]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 384
+script = ExtResource("2_blsv8")
+
+[node name="Logo" type="Sprite2D" parent="LoginOptions" unique_id=1593965926]
+position = Vector2(960, 384)
+texture = ExtResource("1_5w227")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoginOptions" unique_id=1339197336]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 32
+
+[node name="LoginIntra" type="Button" parent="LoginOptions/VBoxContainer" unique_id=1582211784]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../SkipLogin")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../SkipLogin")
+focus_next = NodePath("../SkipLogin")
+focus_previous = NodePath("../SkipLogin")
+accessibility_name = "Login with 42 Intra"
+theme = ExtResource("2_061kd")
+text = "Login with 42 Intra"
+
+[node name="SkipLogin" type="Button" parent="LoginOptions/VBoxContainer" unique_id=688413602]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../LoginIntra")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../LoginIntra")
+focus_next = NodePath("../LoginIntra")
+focus_previous = NodePath("../LoginIntra")
+theme = ExtResource("2_061kd")
+text = "Skip login"
+
+[node name="Dummy" type="Control" parent="LoginOptions" unique_id=1301061980]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_neighbor_left = NodePath("../VBoxContainer/LoginIntra")
+focus_neighbor_top = NodePath("../VBoxContainer/LoginIntra")
+focus_neighbor_right = NodePath("../VBoxContainer/LoginIntra")
+focus_neighbor_bottom = NodePath("../VBoxContainer/LoginIntra")
+focus_next = NodePath("../VBoxContainer/LoginIntra")
+focus_previous = NodePath("../VBoxContainer/LoginIntra")
+focus_mode = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=877939769]
+
+[node name="Login42Panel" type="MarginContainer" parent="." unique_id=2098489762]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 600
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 600
+theme_override_constants/margin_bottom = 300
+script = ExtResource("5_cgmhl")
+
+[node name="Panel" type="Panel" parent="Login42Panel" unique_id=825370181]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Login42Panel" unique_id=395174741]
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Login42Panel/MarginContainer" unique_id=248374083]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=699160970]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Waiting for 42 Intra Login..."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=1081544966]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Please check your browser"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=1408721116]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+text = "BACK_BUTTON"
+
+[node name="Dummy" type="Control" parent="Login42Panel" unique_id=327215426]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_neighbor_left = NodePath("../MarginContainer/VBoxContainer/BackButton")
+focus_neighbor_top = NodePath("../MarginContainer/VBoxContainer/BackButton")
+focus_neighbor_right = NodePath("../MarginContainer/VBoxContainer/BackButton")
+focus_neighbor_bottom = NodePath("../MarginContainer/VBoxContainer/BackButton")
+focus_next = NodePath("../MarginContainer/VBoxContainer/BackButton")
+focus_previous = NodePath("../MarginContainer/VBoxContainer/BackButton")
+focus_mode = 2
+
+[connection signal="visibility_changed" from="LoginOptions" to="LoginOptions" method="_on_visibility_changed"]
+[connection signal="pressed" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]
+[connection signal="pressed" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]
+[connection signal="visibility_changed" from="Login42Panel" to="Login42Panel" method="_on_visibility_changed"]
+[connection signal="pressed" from="Login42Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_login42_back_button_pressed"]

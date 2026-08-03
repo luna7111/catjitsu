@@ -9,11 +9,13 @@ extends CanvasLayer
 @onready var copy_button = $MarginContainer/HBoxContainer/VBoxContainer2/CopyButton
 @onready var lobby = $Lobby
 
+signal back_pressed
+
 # Rooms version
 func _ready():
 	host_button.pressed.connect(_on_host_pressed)
 	join_button.pressed.connect(_on_join_pressed)
-	back_button.pressed.connect(_on_back_pressed)
+	#back_button.pressed.connect(_on_back_pressed)
 	play_button.disabled = true
 	copy_button.disabled = true
 	copy_button.visible = false
@@ -41,3 +43,4 @@ func _on_copy_pressed():
 
 func _on_back_pressed():
 	lobby.leave_room()
+	emit_signal("back_pressed")
