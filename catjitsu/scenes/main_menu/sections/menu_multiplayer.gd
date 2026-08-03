@@ -1,51 +1,29 @@
 extends CanvasLayer
 
-@onready var host_button = $MarginContainer/HBoxContainer/Button
+@onready var host_button = $MarginContainer/HBoxContainer/VBoxContainer2/Button
 @onready var join_button = $MarginContainer/HBoxContainer/VBoxContainer/Button
 @onready var play_button = $MarginContainer/HBoxContainer/PlayGameButton
+@onready var back_button = $Back
 @onready var room_code_input = $MarginContainer/HBoxContainer/VBoxContainer/LineEdit
-@onready var room_code_text = $RoomCode
-@onready var copy_button = $CopyButton
+@onready var room_code_text = $MarginContainer/HBoxContainer/VBoxContainer2/RoomCode
+@onready var copy_button = $MarginContainer/HBoxContainer/VBoxContainer2/CopyButton
 @onready var lobby = $Lobby
-
-# Lobby version
-#func _ready():
-	#host_button.pressed.connect(Lobby.create_game)
-	#join_button.pressed.connect(Lobby.join_game)
-	#play_button.disabled = true
-	#play_button.pressed.connect(Lobby._on_start_game_pressed)
-	#Lobby.player_connected.connect(_on_player_connected)
-	#
-#func _on_player_connected(id, info):
-	#if multiplayer.is_server():
-		#if Lobby.players.size() == Lobby.MAX_CONNECTIONS:
-			#play_button.disabled = false
-
-# working Lobby pre rooms version
-#func _ready():
-	#host_button.pressed.connect(LobbyWithServer.create_game)
-	#join_button.pressed.connect(Lobby.join_game)
-	#play_button.disabled = true
-	#play_button.pressed.connect(LobbyWithServer._on_start_game_pressed)
-	#LobbyWithServer.player_connected.connect(_on_player_connected)
-
-#func _on_player_connected(id, info):
-	#if multiplayer.is_server():
-		#if LobbyWithServer.players.size() == Lobby.MAX_CONNECTIONS:
-			#play_button.disabled = false
 
 # Rooms version
 func _ready():
 	host_button.pressed.connect(_on_host_pressed)
 	join_button.pressed.connect(_on_join_pressed)
+	back_button.pressed.connect(_on_back_pressed)
 	play_button.disabled = true
 	copy_button.disabled = true
 	copy_button.visible = false
 	copy_button.pressed.connect(_on_copy_pressed)
+	room_code_text.visible = false
 
 func _on_host_pressed():
 	lobby.host_game()
 	var room_code = await NetworkAPI.room_created
+	room_code_text.visible = true
 	room_code_text.text = "Room Code: " + room_code
 	copy_button.visible = true
 	copy_button.disabled = false
@@ -60,3 +38,6 @@ func _on_join_pressed():
 func _on_copy_pressed():
 	DisplayServer.clipboard_set(NetworkAPI.current_room_code)
 	print("Room code copied!")
+
+func _on_back_pressed():
+	lobby.leave_room()

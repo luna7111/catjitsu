@@ -56,6 +56,18 @@ func join_game():
 		return
 	multiplayer.multiplayer_peer = peer
 
+func leave_room():
+	if connected:
+		print("Disconecting from server")
+		multiplayer.multiplayer_peer.close()
+		multiplayer.multiplayer_peer = null
+		connected = false
+	
+	# Use Luna method to go back
+	Global.scene_manager.switch_scene(
+		"res://scenes/scene_manager.tscn",
+		false
+	)
 
 # Recive network connected_to_server
 
