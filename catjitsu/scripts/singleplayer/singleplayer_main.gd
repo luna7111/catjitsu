@@ -49,4 +49,3 @@ func _on_game_finished():
 		"res://scenes/scene_manager.tscn",
 		false
 	)
->>>>>>> main
