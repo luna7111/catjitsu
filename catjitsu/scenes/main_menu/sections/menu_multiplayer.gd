@@ -43,4 +43,6 @@ func _on_copy_pressed():
 
 func _on_back_pressed():
 	lobby.leave_room()
+	room_code_text.visible = false
+	room_code_text.text = ""
 	emit_signal("back_pressed")

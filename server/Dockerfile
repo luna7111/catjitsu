@@ -1,10 +1,55 @@
-# ---Basic setup---
-
-# Using debian penultimate stable version, bookworm (12). Trixie(13) is the latest!
 FROM debian:bookworm
 
-# Let's update all the packages
-RUN apt update -y && apt upgrade -y
+RUN apt update && \
+	apt install -y --no-install-recommends \
+	curl \
+	wget \
+	unzip \
+	ca-certificates \
+	fontconfig && \
+	rm -rf /var/lib/apt/lists/*
 
-# Let's just install the best text editor in the world and curl
-RUN apt install vim -y && apt install curl -y
+
+# Install Godot
+RUN wget https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip && \
+	unzip Godot_v4.7-stable_linux.x86_64.zip && \
+	mv Godot_v4.7-stable_linux.x86_64 /usr/local/bin/godot && \
+	chmod +x /usr/local/bin/godot && \
+	rm Godot_v4.7-stable_linux.x86_64.zip
+
+
+# Install Linux export template
+RUN mkdir -p /root/.local/share/godot/export_templates/4.7.stable
+
+COPY templates/linux_release.x86_64 \
+	/root/.local/share/godot/export_templates/4.7.stable/
+
+COPY templates/version.txt \
+	/root/.local/share/godot/export_templates/4.7.stable/
+
+
+# Copy project
+COPY catjitsu-server /catjitsu-server
+
+WORKDIR /catjitsu-server
+
+
+# Export server
+RUN mkdir -p build && \
+	godot --headless --export-release "Linux"
+
+
+# Runtime folder
+WORKDIR /catjitsu-server/build
+
+
+# Entrypoint
+COPY catjitsu-server/docker-entrypoint.sh .
+
+RUN chmod +x docker-entrypoint.sh
+
+
+EXPOSE 8080
+
+
+CMD ["./docker-entrypoint.sh"]

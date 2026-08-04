@@ -1,6 +1,24 @@
 extends Node
+class_name Log
 
-const PORT = 8080
+static func _timestamp() -> String:
+	return Time.get_datetime_string_from_system()
+
+static func info(message: String):
+	printerr("[%s] [INFO] %s" % [_timestamp(), message])
+
+static func warn(message: String):
+	printerr("[%s] [WARN] %s" % [_timestamp(), message])
+
+static func error(message: String):
+	printerr("[%s] [ERROR] %s" % [_timestamp(), message])
+
+static func debug(message: String):
+	# Uncomment while debugging
+	# printerr("[%s] [DEBUG] %s" % [_timestamp(), message])
+	pass
+
+var port := 8080
 const MAX_CONNECTIONS = 2
 
 # Shared with Client via NetworkAPI
@@ -34,7 +52,11 @@ const DEFAULT_DECK = [
 ]
 
 func _ready():
-	print("Starting server. Instance:", get_instance_id())
+	var env_port = OS.get_environment("PORT")
+	if env_port != "":
+		port = int(env_port)
+	Log.info("Starting server. Instance: %d" % get_instance_id())
+	Log.info("Starting server on port %d" % port)
 	# Godot High-Level API signals
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
@@ -47,12 +69,12 @@ func _ready():
 	
 	# Start the server
 	var peer = WebSocketMultiplayerPeer.new()
-	var error = peer.create_server(PORT)
+	var error = peer.create_server(port)
 	if error != OK:
-		print("Could not start server")
+		Log.error("Could not start server on port %d" % port)
 		return
 	multiplayer.multiplayer_peer = peer
-	print("Server running on port:", PORT)
+	print("Server running on port:", port)
 
 # Registers a player into the Lobby, updates array and emits signal to start
 func _on_player_registered(id, info):
@@ -68,7 +90,7 @@ func _on_room_create_requested(peer_id, player_info):
 		}
 	}
 	player_rooms[peer_id] = room_code
-	print("Created room:", room_code)
+	Log.info("Created room %s" % room_code)
 	NetworkAPI.notify_room_created.rpc_id(peer_id, room_code)
 
 func generate_room_code():
@@ -80,20 +102,23 @@ func generate_room_code():
 
 func _on_room_join_requested(peer_id, room_code, player_info):
 	if !rooms.has(room_code):
+		Log.warn("Player %d tried to join nonexistent room %s" % [peer_id, room_code])
 		NetworkAPI.notify_room_join_failed.rpc_id(peer_id, "Room not found")
 		return
 	var room = rooms[room_code]
 	if room.players.size() >= MAX_CONNECTIONS:
+		Log.warn("Player %d tried to join full room %s" % [peer_id, room_code])
 		NetworkAPI.notify_room_join_failed.rpc_id(peer_id, "Room is full")
 		return
 	room.players[peer_id] = player_info
 	player_rooms[peer_id] = room_code
-	print("Player joined room:", room_code)
+	Log.info("Player %d joined room %s" % [peer_id, room_code])
 	NetworkAPI.notify_room_joined.rpc_id(peer_id)
 	NetworkAPI.notify_room_joined.rpc_id(room.host)
-	print("Players in room:", room.players.size())
+	Log.info("Room %s now has %d/%d players" %
+		[room_code, room.players.size(), MAX_CONNECTIONS])
 	if room.players.size() == MAX_CONNECTIONS:
-		print("Room is full, starting game")
+		Log.info("Room %s is full. Starting game." % room_code)
 		#prepare_decks(room_code)
 		for player in room.players.keys():
 			NetworkAPI.begin_game.rpc_id(player)
@@ -102,7 +127,7 @@ func _on_room_join_requested(peer_id, room_code, player_info):
 		prepare_decks(room_code)
 
 func prepare_decks(room_code):
-	print("Preparing decks")
+	Log.info("Preparing decks for room %s" % room_code)
 	var room = rooms[room_code]
 	var ids = room.players.keys()
 	var deck1 = DEFAULT_DECK.duplicate()
@@ -126,11 +151,11 @@ func prepare_decks(room_code):
 
 # Basic debug
 func _on_player_connected(id):
-	print("Player connected:", id)
+	Log.info("Player %d connected" % id)
 
 
 func _on_player_disconnected(id):
-	print("Player disconnected:", id)
+	Log.info("Player %d disconnected" % id)
 	players.erase(id)
 	submitted_cards.erase(id)
 	if player_rooms.has(id):
@@ -139,9 +164,13 @@ func _on_player_disconnected(id):
 			var room = rooms[room_code]
 			for player_id in room.players.keys():
 				if player_id != id and multiplayer.get_peers().has(player_id):
-					print("Sending abort to:", player_id)
+					Log.info(
+						"Aborting match in room %s. Notifying player %d" %
+						[room_code, player_id]
+					)
 					NetworkAPI.match_has_aborted.rpc_id(player_id)
 					player_rooms.erase(player_id)
+			Log.info("Deleting room %s" % room_code)
 			rooms.erase(room_code)
 		player_rooms.erase(id)
 	NetworkAPI.update_players.rpc(players)
