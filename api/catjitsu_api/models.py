@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 
 class Player(models.Model):
@@ -13,6 +14,10 @@ class Player(models.Model):
     # name = models.CharField(max_length=50)
     # nickname = models.CharField(max_length=50, unique=True)
     deck = models.CharField(max_length=16) # TODO restrict this to carry x ints of x size to identify the cards
+    avatar = models.CharField(max_length=200, blank=True, default='Apolito')
+    language = models.CharField(max_length=10, blank=True, default='en')
+    screenreader = models.BooleanField(default=False)
+    volume = models.IntegerField(default=50, validators=[MinValueValidator(0), MaxValueValidator(100)])
     current_session_uuid = models.UUIDField(null=True, blank=True, editable=False)
     current_session_uuid_set_at = models.DateTimeField(null=True, blank=True, editable=False)
 

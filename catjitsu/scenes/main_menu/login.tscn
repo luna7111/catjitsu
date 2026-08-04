@@ -74,8 +74,6 @@ focus_next = NodePath("../VBoxContainer/LoginIntra")
 focus_previous = NodePath("../VBoxContainer/LoginIntra")
 focus_mode = 2
 
-[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=877939769]
-
 [node name="Login42Panel" type="MarginContainer" parent="." unique_id=2098489762]
 visible = false
 layout_mode = 1
@@ -136,6 +134,12 @@ focus_neighbor_bottom = NodePath("../MarginContainer/VBoxContainer/BackButton")
 focus_next = NodePath("../MarginContainer/VBoxContainer/BackButton")
 focus_previous = NodePath("../MarginContainer/VBoxContainer/BackButton")
 focus_mode = 2
+
+[node name="HTTP" type="Node" parent="." unique_id=543820286]
+
+[node name="IdentifyClient" type="HTTPRequest" parent="HTTP" unique_id=877939769]
+
+[node name="PlayerData" type="HTTPRequest" parent="HTTP" unique_id=566841374]
 
 [connection signal="visibility_changed" from="LoginOptions" to="LoginOptions" method="_on_visibility_changed"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]

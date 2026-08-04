@@ -5,6 +5,7 @@ var client_authorised = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.scene_manager.music_player.volume_db = -80
 	$Login42Panel.hide()
 	$LoginOptions.show()
 	set_process(false)
@@ -48,43 +49,65 @@ func _on_login_intra_pressed() -> void:
 
 
 func request_tokens(query_param):
-	$HTTPRequest.request_completed.connect(_uuid_sent)
+	$HTTP/IdentifyClient.request_completed.connect(_uuid_sent)
 	while ($Login42Panel.visible and client_authorised == false):
-		$HTTPRequest.request("http://localhost:8000/identify-client/" + query_param)
+		$HTTP/IdentifyClient.request("http://localhost:8000/identify-client/" + query_param)
 		await get_tree().create_timer(2.0).timeout
 
 
 func _uuid_sent(_result, response_code, _headers, body):
+	print()
+	print ("--UUID SENT--")
+	print ("Response code: ", response_code)
 	if not response_code == 200:
-		print("Didn't reveive tokens yet")
+		print("Didn't reveive tokens yet: ", response_code)
 		return
 	var json = JSON.parse_string(body.get_string_from_utf8())
-	print (response_code)
 	if json == null:
 		print("Didn't receive tokens yet")
-	else:
-		client_authorised = true
-		print (json)
-		var access_token = json["access"]
-		var refresh_token = json["refresh"]
-		Global.api.access_token = access_token
-		Global.api.refresh_token = refresh_token
-		var nickname = json["nickname"]
-		_request_player_data(nickname)
-		Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
+		return
+	client_authorised = true
+	print("raw json: ", json)
+	print()
+	var access_token = json.get("access", "")
+	print("access token: ", access_token)
+	print()
+	var refresh_token = json.get("refresh", "")
+	print("refresh token: ", refresh_token)
+	Global.api.access_token = access_token
+	Global.api.refresh_token = refresh_token
+	var player_id = json.get("player-id", "")
+	print("player id: ", player_id)
+	print()
+	_request_player_data(player_id)
 
 
-func _request_player_data(nickname: String):
-	$HTTPRequest.request_completed.connect(_fetch_player_data)
-	$HTTPRequest.request("http://localhost:8080/player/ldel-val")
+func _request_player_data(player_id):
+	print("Request player data: ", player_id)
+	print("http://localhost:8080/player/", str(player_id).pad_decimals(0))
+	$HTTP/PlayerData.request_completed.connect(_fetch_player_data)
+	$HTTP/PlayerData.request("http://localhost:8000/player/" + str(player_id).pad_decimals(0))
 
 func _fetch_player_data(result, response_code, headers, body):
+	print()
+	print("--fetch player data--")
+	print()
+	print("response code: ", response_code)
 	if response_code != 200:
 		print("Server didn't answer")
 		return
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	if json:
-		print ("player json: " + json)
+		print ("player json: ", json)
+		Global.profile.id = json.get("id", "")
+		Global.profile.avatar = json.get("avatar", "")
+		Global.profile.name = json.get("username", "")
+		Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
+		
+		Global.config.language = json.get("preferences").get("language")
+		Global.config.volume = json.get("preferences").get("volume")
+		print("g c v ", Global.config.volume)
+		Global.update_config()
 	else:
 		print ("player doesnt exist")
 

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://gkwnhtv6m46v"]
+
+[ext_resource type="AudioStream" uid="uid://ddxklopf5pgot" path="res://assets/audio/Whatsapp Audio.mp3" id="1_ql6qh"]
+[ext_resource type="Script" uid="uid://dr3fcmqqjpv2t" path="res://scenes/main_menu/audio_stream_player.gd" id="2_l7xiw"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=345147367]
+stream = ExtResource("1_ql6qh")
+volume_db = -80.0
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+script = ExtResource("2_l7xiw")

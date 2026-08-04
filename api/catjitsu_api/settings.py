@@ -14,8 +14,8 @@ from pathlib import Path
 
 # 42 Oauth
 
-CLIENT_ID = ""
-CLIENT_SECRET = ""
+CLIENT_ID = "u-s4t2ud-1eb3f99b855c9b90a64c280bb66da64afbd11540e6536065c4510e01d5fa0c3b"
+CLIENT_SECRET = "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"
 REDIRECT_URI = "http://localhost:8000/auth/42/callback/"
 
 REST_FRAMEWORK = {

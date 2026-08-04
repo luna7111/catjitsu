@@ -18,10 +18,13 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class PlayerSerializer(serializers.ModelSerializer):
+    # expose username from related User for convenience
+    username = serializers.CharField(source='user.username', read_only=True)
+
     class Meta:
         model = Player
-        # fields = ['id', 'name', 'nickname']
-        fields = '__all__' #TODO remove for prod and update line above
+        # keep fields explicit to avoid exposing transient/session data
+        fields = ['id', 'user', 'username', 'deck', 'avatar', 'language', 'screenreader', 'volume']
     
 class MatchSerializer(serializers.ModelSerializer):
     class Meta:

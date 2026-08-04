@@ -1,5 +1,7 @@
 extends Node
 
+signal settings_changed
+
 var scene_manager : SceneManager
 
 enum InputMode {MOUSE, KEYBOARD, CONTOLLER}
@@ -18,13 +20,14 @@ var avatar_list = [
 ]
 
 var profile = {
+	id = 0,
 	name = "Guest123",
 	avatar = "Apolito"
 }
 
 
 var config = {
-	volume = 100,
+	volume = 50,
 	language = "English"
 }
 
@@ -34,8 +37,11 @@ var api = {
 	refresh_token = ""
 }
 
+var music_player
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	get_user_config()
 	get_user_profile()
 	update_config()
@@ -60,6 +66,7 @@ func get_user_profile():
 
 func update_config():
 	update_translations()
+	settings_changed.emit()
 
 
 func update_translations():
