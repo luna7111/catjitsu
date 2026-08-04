@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password']
 
-    def create(self, validated_data):
+    def create(self, validated_data): # this ensures Django hashes the password upon user registration
         user = User.objects.create_user(
             username = validated_data['username'],
             password = validated_data['password']
@@ -18,10 +18,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class PlayerSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Player
-        # fields = ['id', 'name', 'nickname']
-        fields = '__all__' #TODO remove for prod and update line above
+        fields = ['id', 'user', 'deck', 'current_session_uuid', 'current_session_uuid_set_at']
+        # fields = '__all__' #TODO remove for prod and update line above
     
 class MatchSerializer(serializers.ModelSerializer):
     class Meta:
