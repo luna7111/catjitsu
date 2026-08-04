@@ -15,7 +15,8 @@ var player_hand_reference
 # Setup Deck
 const CARD_SCENE_PATH = "res://scenes/singleplayer/player_card.tscn"
 const STARTING_HAND_SIZE = 5
-var player_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+#var player_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+var player_deck
 var quarter_screen_x
 var bottom_screen_y
 
@@ -24,11 +25,16 @@ var drawn_card_this_turn = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player_deck.shuffle()
 	player_hand_reference = $"../PlayerHand"
-	$RichTextLabel.text = str(player_deck.size())
+
+func setup(deck_data):
 	await animate_deck_to_position()
-	for i in range(STARTING_HAND_SIZE):
+	player_deck = deck_data.duplicate()
+	$RichTextLabel.text = str(player_deck.size())
+	await initialize()
+
+func initialize():
+	for i in STARTING_HAND_SIZE:
 		draw_card()
 		drawn_card_this_turn = false
 	drawn_card_this_turn = true
@@ -44,26 +50,35 @@ func animate_deck_to_position():
 		INITIAL_DECK_SPEED)
 	await tween.finished
 
+# Main function. Draws a card from the deck and add it to the player_hand
 func draw_card():
+	# logic check
 	if drawn_card_this_turn or player_deck.size() == 0:
 		return
-		
+	
+	# Erase card from the deck
 	drawn_card_this_turn = true
 	var card_drawn = player_deck[0]
 	player_deck.erase(card_drawn)
 	
+	# If the deck is empty, hide deck. Else update deck count
 	if player_deck.size() == 0:
 		$Area2D/CollisionShape2D.disabled = true
 		$CardBack.visible = false
 		$RichTextLabel.visible = false
-	
 	$RichTextLabel.text = str(player_deck.size())
+	
+	# Instantiate a card scene
 	var card_scene = preload(CARD_SCENE_PATH)
 	var new_card = card_scene.instantiate() 
-	#Load JSON DATA
+	
+	# Load JSON DATA and add properties to card
+	# This should be anoter scene to not duplicate code with opponent_deck, srry
 	load_card_data(new_card, card_drawn)
-	$"../../CardManager".add_child(new_card)
+	$"../CardManager".add_child(new_card)
 	new_card.name = "CARD"
+	
+	# Add card to the hand of the player
 	player_hand_reference.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 	new_card.get_node("AnimationPlayer").play("card_flip")	
 
@@ -80,8 +95,9 @@ func load_card_data(new_card, card_drawn):
 	
 	# Load the data of the card
 	var card_data = json_object.data
-	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + "Card.png")
+	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + ".png")
 	print(card_image_path)
+	new_card.id = card_drawn
 	new_card.points = int(card_data["value"])
 	new_card.get_node("Points").text = str(new_card.points)
 	set_card_data_type(new_card, card_data["type"])
@@ -98,14 +114,17 @@ func set_card_data_type(drawn_card, type):
 	# Change color of cards. Must be identical that opponent_deck
 	match type:
 		"Fire":
-			style.bg_color = Color(0.9, 0.8, 0.6)
-			style.border_color = Color(0.9, 0.7, 0.3)
+			style.bg_color = Color("f4dbc2")
+			style.border_color = Color("dcc197")
 		"Water":
-			style.bg_color = Color(0.8, 0.8, 0.9)
-			style.border_color = Color(0.3, 0.5, 0.6)
+			style.bg_color = Color("d0d0f6")
+			style.border_color = Color("a897dc")
 		"Ice":
-			style.bg_color = Color(0.9, 0.9, 0.9)
-			style.border_color = Color(0.3, 0.8, 0.8)
+			style.bg_color = Color("e7f2f9")
+			style.border_color = Color("c1daec")
 
 func reset_draw():
 	drawn_card_this_turn = false
+
+func has_cards():
+	return player_deck.size() > 0

@@ -453,12 +453,12 @@ texture = ExtResource("3_x54ck")
 
 [node name="Points" type="RichTextLabel" parent="." unique_id=1254066637]
 modulate = Color(1, 1, 1, 0)
-offset_left = -67.0
-offset_top = 43.0
-offset_right = -9.0
-offset_bottom = 92.0
+offset_left = -58.0
+offset_top = 41.0
+offset_bottom = 90.0
 scale = Vector2(1e-05, 1e-05)
 mouse_filter = 2
+theme_override_colors/default_color = Color(0.28627452, 0.24705882, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("4_x54ck")
 theme_override_font_sizes/normal_font_size = 50
 text = "0"
@@ -466,10 +466,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Type" type="TextureRect" parent="." unique_id=1033479794]
-offset_left = 27.0
-offset_top = 38.0
-offset_right = 62.0
-offset_bottom = 85.25
+offset_left = 13.0
+offset_top = 50.0
+offset_right = 48.0
+offset_bottom = 97.25
 scale = Vector2(1e-05, 1)
 mouse_filter = 2
 stretch_mode = 4

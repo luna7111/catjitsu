@@ -18,8 +18,6 @@ var bottom_screen_y
 func _ready() -> void:
 	center_screen_x = get_viewport().get_visible_rect().size.x / 2
 	bottom_screen_y = get_viewport().get_visible_rect().size.y / 10 * 9
-	print(get_viewport().get_visible_rect().size.x)
-	print(get_viewport().get_visible_rect().size.y)
 
 func add_card_to_hand(card, speed):
 	if card not in player_hand:
@@ -28,6 +26,9 @@ func add_card_to_hand(card, speed):
 		update_hand_positions()
 	else:
 		animate_card_to_position(card, card.in_hand_position, speed)
+
+func has_cards():
+	return player_hand.size() > 0
 
 func update_hand_positions():
 	for i in range(player_hand.size()):
@@ -50,3 +51,8 @@ func remove_card_from_hand(card):
 	if card in player_hand:
 			player_hand.erase(card)
 			update_hand_positions()
+
+func clear_hand():
+	for card in player_hand:
+		card.queue_free()
+	player_hand.clear()
