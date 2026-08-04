@@ -1,5 +1,7 @@
 from typing import Any
 
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError# as DjangoValidationError
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Player
@@ -9,6 +11,13 @@ class UserAuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+    def validate_password(self, value):
+        try:
+            validate_password(value) # Runs Django's configured AUTH_PASSWORD_VALIDATORS against the password
+        except ValidationError as e: # ensures proper exception is raised and error message sent
+            raise serializers.ValidationError(list(e.messages))
+        return value
 
     def create(self, validated_data): # this ensures Django hashes the password upon user registration
         user = User.objects.create_user(
