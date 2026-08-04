@@ -16,14 +16,9 @@ var top_screen_y
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	center_screen_x = get_viewport().get_visible_rect().size.x / 2
-	top_screen_y = get_viewport().get_visible_rect().size.y / 10
-	#var card_scene = preload(CARD_SCENE_PATH)
-	#for i in range(HAND_COUNT):
-		#var new_card = card_scene.instantiate()
-		#$"../CardManager".add_child(new_card)
-		#new_card.name = "CARD"
-		#add_card_to_hand(new_card)
+	#center_screen_x = get_viewport().get_visible_rect().size.x / 2
+	#top_screen_y = get_viewport().get_visible_rect().size.y / 10
+	print("Opponent hand position: ", position)
 
 func add_card_to_hand(card, speed):
 	if card not in opponent_hand:
@@ -33,11 +28,22 @@ func add_card_to_hand(card, speed):
 	else:
 		animate_card_to_position(card, card.in_hand_position, speed)
 
+func has_cards():
+	return opponent_hand.size() > 0
+
+#func update_hand_positions():
+	#for i in range(opponent_hand.size()):
+		#var new_position = Vector2(calculate_card_position(i), 0)
+		#var card = opponent_hand[i]
+		#card.in_hand_position = new_position
+		#animate_card_to_position(card, new_position, DEFAULT_CARD_MOVE_SPEED)
+
+# Old
 func update_hand_positions():
 	if center_screen_x == null:
 		center_screen_x = get_viewport().get_visible_rect().size.x / 2
 	if top_screen_y == null:
-		top_screen_y = get_viewport().get_visible_rect().size.y / 6
+		top_screen_y = get_viewport().get_visible_rect().size.y / 10
 	for i in range(opponent_hand.size()):
 		#var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var new_position = Vector2(calculate_card_position(i), top_screen_y)
@@ -45,6 +51,12 @@ func update_hand_positions():
 		card.in_hand_position = new_position
 		animate_card_to_position(card, new_position, DEFAULT_CARD_MOVE_SPEED)
 
+#func calculate_card_position(index):
+	#var total_width = (opponent_hand.size() - 1) * CARD_WIDTH
+	#var x_offset = index * CARD_WIDTH - total_width / 2.0
+	#return x_offset
+
+# Old, treats cards like isolate objects and not chid of opponent_hand
 func calculate_card_position(index):
 	if center_screen_x == null:
 		center_screen_x = get_viewport().get_visible_rect().size.x / 2
@@ -60,3 +72,8 @@ func remove_card_from_hand(card):
 	if card in opponent_hand:
 			opponent_hand.erase(card)
 			update_hand_positions()
+
+func clear_hand():
+	for card in opponent_hand:
+		card.queue_free()
+	opponent_hand.clear()

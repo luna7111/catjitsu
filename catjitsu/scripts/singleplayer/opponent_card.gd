@@ -13,6 +13,7 @@ var quarter_screen_x
 var top_screen_y
 
 # Card Data, read from JSON
+var id
 var points
 var type
 
@@ -22,7 +23,7 @@ func _ready() -> void:
 	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10 
 	top_screen_y = get_viewport().get_visible_rect().size.y / 6
 	position = Vector2(quarter_screen_x, top_screen_y)
-	get_parent().connect_card_signals(self)
+	#get_parent().connect_card_signals(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

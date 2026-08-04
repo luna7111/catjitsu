@@ -447,6 +447,7 @@ offset_top = 43.0
 offset_right = -9.0
 offset_bottom = 92.0
 scale = Vector2(1e-05, 1e-05)
+theme_override_colors/default_color = Color(0.28627452, 0.24705882, 0.20392157, 1)
 theme_override_fonts/normal_font = ExtResource("4_4eucc")
 theme_override_font_sizes/normal_font_size = 50
 text = "0"
@@ -455,9 +456,9 @@ vertical_alignment = 1
 
 [node name="Type" type="TextureRect" parent="." unique_id=1033479794]
 offset_left = 27.0
-offset_top = 38.0
+offset_top = 50.0
 offset_right = 62.0
-offset_bottom = 85.25
+offset_bottom = 97.25
 scale = Vector2(1e-05, 1)
 stretch_mode = 4
 

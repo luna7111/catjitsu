@@ -23,7 +23,11 @@ func _ready() -> void:
 	music_player = music_player_scene.instantiate()
 	add_child(music_player)
 	Global.scene_manager = self
-	_set_startup_scene(startup_scene)
+	if OS.has_feature("dedicated_server"):
+		print("Dedicated:", OS.has_feature("dedicated_server"))
+		_set_startup_scene(load("res://scenes/server/server.tscn"))
+	else:
+		_set_startup_scene(startup_scene)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

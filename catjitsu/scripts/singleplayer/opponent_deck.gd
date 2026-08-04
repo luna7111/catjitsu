@@ -15,18 +15,23 @@ var opponent_hand_reference
 # Setup Deck
 const CARD_SCENE_PATH = "res://scenes/singleplayer/opponent_card.tscn"
 const STARTING_HAND_SIZE = 5
-var opponent_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+#var opponent_deck = ["World", "World", "World", "Priestess", "Priestess", "Priestess", "Fool", "Fool", "Fool"]
+var opponent_deck
 var quarter_screen_x
 var top_screen_y
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	opponent_deck.shuffle()
 	opponent_hand_reference = $"../OpponentHand"
-	await animate_deck_to_position()
-	for i in range(STARTING_HAND_SIZE):
-		draw_card()
 
+func setup(deck_data):
+	await animate_deck_to_position()
+	opponent_deck = deck_data.duplicate()
+	await initialize()
+
+func initialize():
+	for i in STARTING_HAND_SIZE:
+		draw_card()
 
 func animate_deck_to_position():
 	quarter_screen_x = get_viewport().get_visible_rect().size.x / 10
@@ -37,6 +42,8 @@ func animate_deck_to_position():
 	await tween.finished
 
 func draw_card():
+	if opponent_deck.is_empty():
+		return
 	var card_drawn = opponent_deck[0]
 	opponent_deck.erase(card_drawn)
 	
@@ -48,10 +55,16 @@ func draw_card():
 	var new_card = card_scene.instantiate() 
 	#Load JSON DATA
 	load_card_data(new_card, card_drawn)
-	$"../../CardManager".add_child(new_card)
+	# Heres a bug, first line put cards right but doesnt free them. Second puts them on a bad spot
+	#get_tree().current_scene.add_child(new_card)
+	opponent_hand_reference.add_child(new_card)
+	#new_card.global_position = global_position
 	new_card.name = "CARD"
 	opponent_hand_reference.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 	#new_card.get_node("AnimationPlayer").play("card_flip")
+	
+func has_cards():
+	return opponent_deck.size() > 0
 
 func load_card_data(new_card, card_drawn):
 	# Open the file and check if it exists
@@ -66,8 +79,9 @@ func load_card_data(new_card, card_drawn):
 	
 	# Load the data of the card
 	var card_data = json_object.data
-	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + "Card.png")
+	var card_image_path = str("res://assets/singleplayer/cards_images/" + card_drawn + ".png")
 	print(card_image_path)
+	new_card.id = card_drawn
 	new_card.points = int(card_data["value"])
 	new_card.get_node("Points").text = str(new_card.points)
 	set_card_data_type(new_card, card_data["type"])
@@ -84,11 +98,11 @@ func set_card_data_type(drawn_card, type):
 	# Change color of cards. Must be identical that player_deck
 	match type:
 		"Fire":
-			style.bg_color = Color(0.9, 0.8, 0.6)
-			style.border_color = Color(0.9, 0.7, 0.3)
+			style.bg_color = Color("f4dbc2")
+			style.border_color = Color("dcc197")
 		"Water":
-			style.bg_color = Color(0.8, 0.8, 0.9)
-			style.border_color = Color(0.3, 0.5, 0.6)
+			style.bg_color = Color("d0d0f6")
+			style.border_color = Color("a897dc")
 		"Ice":
-			style.bg_color = Color(0.9, 0.9, 0.9)
-			style.border_color = Color(0.3, 0.8, 0.8)
+			style.bg_color = Color("e7f2f9")
+			style.border_color = Color("c1daec")
