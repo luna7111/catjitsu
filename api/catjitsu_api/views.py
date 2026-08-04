@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from .models import Player, AuthIdentity
 from .models import Match
-from .serializers import UserSerializer
+from .serializers import UserAuthSerializer
 from .serializers import PlayerSerializer
 from .serializers import MatchSerializer
 from django.http import HttpResponse
@@ -29,7 +29,7 @@ from django import shortcuts
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserAuthSerializer
 
 class LoginUser(APIView):
     def post(self, request):

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import Player
 from .models import Match
 
-class UserSerializer(serializers.ModelSerializer):
+class UserAuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password']
@@ -16,6 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
             password = validated_data['password']
         )
         return user
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'name']
 
 class PlayerSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
