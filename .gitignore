@@ -28,3 +28,7 @@ __pycache__
 db.sqlite3
 media
 .venv
+
+# ALEX Client files
+client/certs/
+client/web/

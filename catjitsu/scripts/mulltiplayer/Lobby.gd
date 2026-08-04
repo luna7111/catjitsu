@@ -6,7 +6,7 @@ signal player_disconnected(peer_id)
 # IMPORTANT! CHANGE TO WORK WITH DOCKER NETWORK. CHECK LOGIN.GD HTTPREQUEST.REQUEST!!!!
 #const SERVER_URL = "ws://localhost:9000"
 #const SERVER_URL = "ws://192.168.1.36:9000"
-const SERVER_URL = "wss://192.168.1.36:8443/ws"
+var SERVER_URL = Global.websocket_url
 
 # Shared with Server via NetworkAPI
 var players = {}

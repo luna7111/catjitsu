@@ -8,6 +8,11 @@ var current_input_mode = InputMode.MOUSE
 var tts_voice
 var tts_avaiable: bool = false
 
+# URL access, as it is setted from NGINX
+var host
+var websocket_url
+var api_base
+
 var avatar_list = [
 		"Apolito",
 		"Apoloto",
@@ -36,6 +41,7 @@ var api = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	configure_network()
 	get_user_config()
 	get_user_profile()
 	update_config()
@@ -71,3 +77,27 @@ func update_translations():
 			TranslationServer.set_locale("es")
 		"French":
 			TranslationServer.set_locale("fr")
+
+# ALEX: retrieve IP address from the brosers perspective as served / configured in NGINX
+func configure_network() -> void:
+	if OS.has_feature("web"):
+		var protocol = JavaScriptBridge.eval("window.location.protocol")
+		host = JavaScriptBridge.eval("window.location.host")
+
+		var ws_protocol := "ws"
+		if protocol == "https:":
+			ws_protocol = "wss"
+
+		websocket_url = "%s://%s/ws" % [ws_protocol, host]
+		api_base = "%s//%s/api" % [protocol, host]
+
+		print("--------------------------------")
+		print("Host:", host)
+		print("WebSocket:", websocket_url)
+		print("API:", api_base)
+		print("--------------------------------")
+
+	else:
+		host = "localhost:9000"
+		websocket_url = "ws://localhost:9000"
+		api_base = "http://localhost:9000/api"
