@@ -20,7 +20,7 @@ class UserAuthSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'name']
+        fields = ['username', 'first_name']
 
 class PlayerSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
