@@ -7,9 +7,10 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from .models import Player, AuthIdentity
 from .models import Match
-from .serializers import UserSerializer
+from .serializers import UserAuthSerializer
 from .serializers import PlayerSerializer
 from .serializers import MatchSerializer
 from django.http import HttpResponse
@@ -22,13 +23,13 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_api_key.permissions import HasAPIKey
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken #TODO temporarily disabled this token auth into settings
 from django import shortcuts
 
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserAuthSerializer
 
 class LoginUser(APIView):
     def post(self, request):
@@ -204,6 +205,8 @@ class PlayerList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class PlayerDetail(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def get_object(self, pk):
         return shortcuts.get_object_or_404(Player, pk=pk)
 
