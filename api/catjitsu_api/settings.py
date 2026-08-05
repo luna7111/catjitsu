@@ -28,6 +28,9 @@ REST_FRAMEWORK = {
         # "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        # "rest_framework_api_key.permissions.HasAPIKey",
+    ],
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
