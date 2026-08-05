@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from django.conf.global_settings import CSRF_TRUSTED_ORIGINS
+from dotenv import load_dotenv
+
+load_dotenv('.env.local')
 
 # 42 Oauth
 
@@ -33,13 +38,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+# SECRET_KEY = 'django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG", default=0))
+# DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
+# ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "https://127.0.0.1").split(",")
 
 
 # Application definition
