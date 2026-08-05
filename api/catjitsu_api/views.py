@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
+# from yaml import serialize
 from .models import Player, AuthIdentity
 from .models import Match
 from .serializers import UserSerializer
@@ -21,6 +22,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework_simplejwt.tokens import RefreshToken
 from django import shortcuts
@@ -214,6 +216,13 @@ class PlayerList(APIView):
             entry.pop('current_session_uuid_set_at', None)
             sanitized.append(entry)
         return Response({'players': sanitized})
+
+class CurrentPlayerDetail(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        serializer = PlayerSerializer(request.user.player)
+        return Response(serializer.data)
 
 class PlayerDetail(APIView):
     def get_object(self, pk):
