@@ -1,9 +1,10 @@
+# Remove sudo for 42 school pc
 COMPOSE = docker compose
 BUILDER = catjitsu-builder
 
-.PHONY: all cert export build up up-d down clean fclean re logs ps
+.PHONY: all cert export build deploy up up-d down clean fclean re logs ps
 
-all: up
+all: deploy
 
 cert:
 	./client/scripts/generate-dev-cert.sh
@@ -14,8 +15,14 @@ export:
 		-v "$(PWD)":/workspace \
 		$(BUILDER)
 
-build: cert export
+build: cert
 	$(COMPOSE) build
+
+deploy: export build
+	$(COMPOSE) up
+
+deploy-d: export build
+	$(COMPOSE) up -d
 
 up: build
 	$(COMPOSE) up
@@ -36,7 +43,7 @@ clean:
 fclean: clean
 	docker system prune -f -a
 
-re: clean up
+re: clean deploy
 
 logs:
 	$(COMPOSE) logs -f

@@ -14,4 +14,4 @@ RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 8080
 
-CMD ["./docker-entrypoint.sh"]
+CMD ["./catjitsu-server.x86_64"]
