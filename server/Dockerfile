@@ -17,20 +17,21 @@ RUN wget https://github.com/godotengine/godot/releases/download/4.7-stable/Godot
 	chmod +x /usr/local/bin/godot && \
 	rm Godot_v4.7-stable_linux.x86_64.zip
 
-# Install Linux export templates
-RUN wget https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz && \
-    mkdir -p /root/.local/share/godot/export_templates/4.7.stable && \
-    unzip Godot_v4.7-stable_export_templates.tpz && \
-    cp -r templates/* /root/.local/share/godot/export_templates/4.7.stable/ && \
-    rm -rf templates Godot_v4.7-stable_export_templates.tpz
+# Install Linux export templates from web. It weights 1.2 gb
+# RUN wget https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz && \
+#     mkdir -p /root/.local/share/godot/export_templates/4.7.stable && \
+#     unzip Godot_v4.7-stable_export_templates.tpz && \
+#     cp -r templates/* /root/.local/share/godot/export_templates/4.7.stable/ && \
+#     rm -rf templates Godot_v4.7-stable_export_templates.tpz
 
-# RUN mkdir -p /root/.local/share/godot/export_templates/4.7.stable
+# Alternate method, servethe file and move it directly
+RUN mkdir -p /root/.local/share/godot/export_templates/4.7.stable
 
-# COPY templates/linux_release.x86_64 \
-# 	/root/.local/share/godot/export_templates/4.7.stable/
+COPY templates/linux_release.x86_64 \
+	/root/.local/share/godot/export_templates/4.7.stable/
 
-# COPY templates/version.txt \
-# 	/root/.local/share/godot/export_templates/4.7.stable/
+COPY templates/version.txt \
+	/root/.local/share/godot/export_templates/4.7.stable/
 
 
 # Copy project

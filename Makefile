@@ -1,5 +1,5 @@
 # Remove sudo for 42 school pc
-COMPOSE = sudo docker compose
+COMPOSE = docker compose
 
 .PHONY: all cert build up up-d down clean fclean re logs ps
 
@@ -22,12 +22,11 @@ down:
 
 clean:
 	$(COMPOSE) down --remove-orphans --volumes
-	sudo docker image rm -f catjitsu-client catjitsu-server 2>/dev/null || true
-	sudo docker builder prune -f
+	docker builder prune -f
 	rm -r client/certs
 
 fclean: clean
-	sudo docker system prune -f
+	docker system prune -f -a
 
 re: clean build up
 
