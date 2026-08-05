@@ -16,8 +16,14 @@ class UserSerializer(serializers.ModelSerializer):
             password = validated_data['password']
         )
         Player.objects.create(
-            user=user,
-            deck=""
+            user = user,
+            deck = 'defaultdeck',
+            avatar = 'Apolito',
+            language = 'en',
+            screenreader = False,
+            volume = 100,
+            current_session_uuid = None,
+            current_session_uuid_set_at = None,
         )
         return user
 
