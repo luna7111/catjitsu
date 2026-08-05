@@ -15,7 +15,7 @@ from pathlib import Path
 from django.conf.global_settings import CSRF_TRUSTED_ORIGINS, STATIC_ROOT
 from dotenv import load_dotenv
 
-load_dotenv('.env.local')
+load_dotenv('.env.prod')
 
 # 42 Oauth
 
