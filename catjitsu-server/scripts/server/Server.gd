@@ -14,8 +14,7 @@ static func error(message: String):
 	printerr("[%s] [ERROR] %s" % [_timestamp(), message])
 
 static func debug(message: String):
-	# Uncomment while debugging
-	# printerr("[%s] [DEBUG] %s" % [_timestamp(), message])
+	printerr("[%s] [DEBUG] %s" % [_timestamp(), message])
 	pass
 
 var port := 8080
@@ -23,8 +22,9 @@ const MAX_CONNECTIONS = 2
 
 # Shared with Client via NetworkAPI
 var players = {}
-var player_decks = {}
-var submitted_cards = {}
+
+# To remove
+#var submitted_cards = {}
 
 # Room logic
 var rooms = {}
@@ -69,16 +69,16 @@ func _ready():
 	
 	# Start the server
 	var peer = WebSocketMultiplayerPeer.new()
-	var error = peer.create_server(port)
-	if error != OK:
+	var server_error = peer.create_server(port)
+	if server_error != OK:
 		Log.error("Could not start server on port %d" % port)
 		return
 	multiplayer.multiplayer_peer = peer
 	print("Server running on port:", port)
 
 # Registers a player into the Lobby, updates array and emits signal to start
-func _on_player_registered(id, info):
-	players[id] = info
+func _on_player_registered(id, player_info):
+	players[id] = player_info
 	NetworkAPI.update_players.rpc(players)
 
 func _on_room_create_requested(peer_id, player_info):
@@ -87,7 +87,9 @@ func _on_room_create_requested(peer_id, player_info):
 		"host": peer_id,
 		"players": {
 			peer_id: player_info
-		}
+		},
+		"decks": {},
+		"submitted_cards": {}
 	}
 	player_rooms[peer_id] = room_code
 	Log.info("Created room %s" % room_code)
@@ -157,7 +159,7 @@ func _on_player_connected(id):
 func _on_player_disconnected(id):
 	Log.info("Player %d disconnected" % id)
 	players.erase(id)
-	submitted_cards.erase(id)
+	#submitted_cards.erase(id)
 	if player_rooms.has(id):
 		var room_code = player_rooms[id]
 		if rooms.has(room_code):
@@ -216,14 +218,42 @@ func _on_player_disconnected(id):
 	#NetworkAPI.update_players.rpc(players)
 
 # Receives player_card
+
 func _on_card_submitted(peer_id, card_name):
-	submitted_cards[peer_id] = card_name
-	if submitted_cards.size() == MAX_CONNECTIONS:
-		var ids = submitted_cards.keys()
-		var player1 = ids[0]
-		var player2 = ids[1]
-		var card1 = submitted_cards[player1]
-		var card2 = submitted_cards[player2]
-		NetworkAPI.receive_opponent_card.rpc_id(player1, card2)
-		NetworkAPI.receive_opponent_card.rpc_id(player2, card1)
-		submitted_cards.clear()
+	# Player must belong to a room
+	if !player_rooms.has(peer_id):
+		Log.warn("Player %d submitted a card but is not in a room." % peer_id)
+		return
+	var room_code = player_rooms[peer_id]
+	if !rooms.has(room_code):
+		Log.warn("Room %s no longer exists." % room_code)
+		return
+	var room = rooms[room_code]
+	# Store the submitted card inside this room
+	room.submitted_cards[peer_id] = card_name
+	# Wait until both players have submitted
+	if room.submitted_cards.size() != MAX_CONNECTIONS:
+		return
+	# Resolve only this room
+	var ids = room.players.keys()
+	var player1 = ids[0]
+	var player2 = ids[1]
+	var card1 = room.submitted_cards[player1]
+	var card2 = room.submitted_cards[player2]
+	NetworkAPI.receive_opponent_card.rpc_id(player1, card2)
+	NetworkAPI.receive_opponent_card.rpc_id(player2, card1)
+	# Clear only this room's submissions
+	room.submitted_cards.clear()
+
+# Old, broken as it doesnt take on check the room
+#func _on_card_submitted(peer_id, card_name):
+	#submitted_cards[peer_id] = card_name
+	#if submitted_cards.size() == MAX_CONNECTIONS:
+		#var ids = submitted_cards.keys()
+		#var player1 = ids[0]
+		#var player2 = ids[1]
+		#var card1 = submitted_cards[player1]
+		#var card2 = submitted_cards[player2]
+		#NetworkAPI.receive_opponent_card.rpc_id(player1, card2)
+		#NetworkAPI.receive_opponent_card.rpc_id(player2, card1)
+		#submitted_cards.clear()
