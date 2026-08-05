@@ -5,9 +5,13 @@ var client_authorised = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$HTTP/PlayerData.request_completed.connect(_fetch_player_data)
+	$HTTP/Register.request_completed.connect(_user_registered)
 	Global.scene_manager.music_player.volume_db = -80
 	$Login42Panel.hide()
 	$LoginOptions.show()
+	$RegisterPanel.hide()
+	$LoginPanel.hide()
 	set_process(false)
 
 
@@ -45,6 +49,8 @@ func _on_login_intra_pressed() -> void:
 	OS.shell_open("http://localhost:8000/auth/42/login/" + query_param)
 	$LoginOptions.hide()
 	$Login42Panel.show()
+	$LoginPanel.hide()
+	$RegisterPanel.hide()
 	request_tokens(query_param)
 
 
@@ -85,7 +91,6 @@ func _uuid_sent(_result, response_code, _headers, body):
 func _request_player_data(player_id):
 	print("Request player data: ", player_id)
 	print("http://localhost:8080/player/", str(player_id).pad_decimals(0))
-	$HTTP/PlayerData.request_completed.connect(_fetch_player_data)
 	$HTTP/PlayerData.request("http://localhost:8000/player/" + str(player_id).pad_decimals(0))
 
 func _fetch_player_data(result, response_code, headers, body):
@@ -112,6 +117,27 @@ func _fetch_player_data(result, response_code, headers, body):
 		print ("player doesnt exist")
 
 
-func _on_login42_back_button_pressed() -> void:
+func _on_panel_back_button_pressed() -> void:
 	$Login42Panel.hide()
+	$LoginPanel.hide()
+	$RegisterPanel.hide()
 	$LoginOptions.show()
+
+
+func _on_register_pressed() -> void:
+	$Login42Panel.hide()
+	$LoginPanel.hide()
+	$RegisterPanel.show()
+	$LoginOptions.hide()
+
+
+func _on_register_enter_button_pressed() -> void:
+	var username = $RegisterPanel/MarginContainer/VBoxContainer/Username.text
+	var password = $RegisterPanel/MarginContainer/VBoxContainer/Password.text
+	var request_body = "{\"username\": \""+ username + "\", \"password\":\"" + password + "\"}"
+	var request_headers = []
+	$HTTP/Register.request("http://localhost:8000/register/", request_headers, HTTPClient.METHOD_PUT, request_body)
+
+
+func _user_registered(result, response_code, headers, body):
+	var json = JSON.parse_string(body.get_string_from_utf8())

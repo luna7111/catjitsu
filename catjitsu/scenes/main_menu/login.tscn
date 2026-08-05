@@ -16,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_061kd")
 
 [node name="LoginOptions" type="MarginContainer" parent="." unique_id=1013145333]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +36,18 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 32
 
+[node name="HBoxContainer" type="HBoxContainer" parent="LoginOptions/VBoxContainer" unique_id=1241021805]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Login" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=1805959836]
+layout_mode = 2
+text = "LOGIN_BUTTON"
+
+[node name="Register" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=222153644]
+layout_mode = 2
+text = "REGISTER_BUTTON"
+
 [node name="LoginIntra" type="Button" parent="LoginOptions/VBoxContainer" unique_id=1582211784]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -47,7 +60,7 @@ focus_next = NodePath("../SkipLogin")
 focus_previous = NodePath("../SkipLogin")
 accessibility_name = "Login with 42 Intra"
 theme = ExtResource("2_061kd")
-text = "Login with 42 Intra"
+text = "Continue with 42 Intra"
 
 [node name="SkipLogin" type="Button" parent="LoginOptions/VBoxContainer" unique_id=688413602]
 layout_mode = 2
@@ -135,14 +148,134 @@ focus_next = NodePath("../MarginContainer/VBoxContainer/BackButton")
 focus_previous = NodePath("../MarginContainer/VBoxContainer/BackButton")
 focus_mode = 2
 
+[node name="RegisterPanel" type="MarginContainer" parent="." unique_id=1850791731]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 600
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 600
+theme_override_constants/margin_bottom = 300
+
+[node name="Panel" type="Panel" parent="RegisterPanel" unique_id=1294588257]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RegisterPanel" unique_id=1081639037]
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RegisterPanel/MarginContainer" unique_id=2102718420]
+layout_mode = 2
+
+[node name="RegisterTag" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1419015227]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Register"
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=428146829]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="UsernameTag" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1819106067]
+layout_mode = 2
+text = "USERNAME_TAG"
+
+[node name="Username" type="LineEdit" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1834472334]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=2057954815]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PasswordTag" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1417406496]
+layout_mode = 2
+text = "PASSWORD_TAG"
+
+[node name="Password" type="LineEdit" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1506971578]
+layout_mode = 2
+secret = true
+
+[node name="HSeparator" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=2133553372]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1644744425]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1709593908]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "BACK_BUTTON"
+
+[node name="Separator" type="VSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=769037603]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RegisterButton" type="Button" parent="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=374507107]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "REGISTER_BUTTON"
+
+[node name="Dummy" type="Control" parent="RegisterPanel" unique_id=1651955146]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 2
+
+[node name="LoginPanel" type="MarginContainer" parent="." unique_id=1449085151]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 600
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 600
+theme_override_constants/margin_bottom = 300
+
+[node name="Panel" type="Panel" parent="LoginPanel" unique_id=304404711]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LoginPanel" unique_id=1404259935]
+layout_mode = 2
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 70
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoginPanel/MarginContainer" unique_id=689498236]
+layout_mode = 2
+
+[node name="Dummy" type="Control" parent="LoginPanel" unique_id=1877076855]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 2
+
 [node name="HTTP" type="Node" parent="." unique_id=543820286]
 
 [node name="IdentifyClient" type="HTTPRequest" parent="HTTP" unique_id=877939769]
 
 [node name="PlayerData" type="HTTPRequest" parent="HTTP" unique_id=566841374]
 
+[node name="Register" type="HTTPRequest" parent="HTTP" unique_id=1463873292]
+
 [connection signal="visibility_changed" from="LoginOptions" to="LoginOptions" method="_on_visibility_changed"]
+[connection signal="pressed" from="LoginOptions/VBoxContainer/HBoxContainer/Register" to="." method="_on_register_pressed"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]
 [connection signal="visibility_changed" from="Login42Panel" to="Login42Panel" method="_on_visibility_changed"]
-[connection signal="pressed" from="Login42Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_login42_back_button_pressed"]
+[connection signal="pressed" from="Login42Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_panel_back_button_pressed"]
+[connection signal="visibility_changed" from="RegisterPanel" to="RegisterPanel" method="_on_visibility_changed"]
+[connection signal="pressed" from="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_panel_back_button_pressed"]
+[connection signal="pressed" from="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer/RegisterButton" to="." method="_on_register_enter_button_pressed"]
+[connection signal="visibility_changed" from="LoginPanel" to="LoginPanel" method="_on_visibility_changed"]
