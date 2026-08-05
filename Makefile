@@ -1,20 +1,20 @@
 COMPOSE = docker compose
 BUILDER = catjitsu-builder
 
-.PHONY: all cert export-web build up up-d down clean fclean re logs ps
+.PHONY: all cert export build up up-d down clean fclean re logs ps
 
 all: up
 
 cert:
 	./client/scripts/generate-dev-cert.sh
 
-export-web:
+export:
 	docker build -t $(BUILDER) -f Dockerfile.builder .
 	docker run --rm \
 		-v "$(PWD)":/workspace \
 		$(BUILDER)
 
-build: cert export-web
+build: cert export
 	$(COMPOSE) build
 
 up: build
@@ -31,6 +31,7 @@ clean:
 	docker builder prune -f
 	rm -rf client/certs
 	rm -rf client/web
+	rm -rf server/build
 
 fclean: clean
 	docker system prune -f -a
