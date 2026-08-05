@@ -15,6 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
             username = validated_data['username'],
             password = validated_data['password']
         )
+        Player.objects.create(
+            user=user,
+            deck=""
+        )
         return user
 
 class PlayerSerializer(serializers.ModelSerializer):

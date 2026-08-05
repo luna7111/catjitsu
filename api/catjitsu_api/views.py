@@ -215,12 +215,6 @@ class PlayerList(APIView):
             sanitized.append(entry)
         return Response({'players': sanitized})
 
-    def post(self, request):
-        serializer = PlayerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 class PlayerDetail(APIView):
     def get_object(self, pk):
         return shortcuts.get_object_or_404(Player, pk=pk)
