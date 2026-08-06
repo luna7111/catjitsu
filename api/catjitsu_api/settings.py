@@ -26,13 +26,20 @@ CLIENT_SECRET = ""
 REDIRECT_URI = "http://localhost:8000/auth/42/callback/"
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
+    "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
-    ),
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
         # "rest_framework_api_key.permissions.HasAPIKey",
         "rest_framework.permissions.IsAuthenticated",
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'login': '5/minute',       # Strict limit for login attempts
+        'register': '3/hour',      # Strict limit for new registrations
+    }
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

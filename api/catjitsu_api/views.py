@@ -24,17 +24,22 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 from rest_framework_api_key.permissions import HasAPIKey
+from rest_framework.throttling import ScopedRateThrottle
 from django import shortcuts
 
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
     permission_classes=[AllowAny]
+    throttle_classes=[ScopedRateThrottle]
+    throttle_scope='register'
 
     serializer_class = UserAuthSerializer
 
 class LoginUser(APIView):
     permission_classes=[AllowAny]
+    throttle_classes=[ScopedRateThrottle]
+    throttle_scope='login'
     
     def post(self, request):
         username = request.data.get('username')
@@ -78,6 +83,8 @@ class IdentifyClient(APIView):
 
 class OAuth42Login(APIView):
     permission_classes=[AllowAny]
+    throttle_classes=[ScopedRateThrottle]
+    throttle_scope='login'
     
     def get(self, request):
         exchange_uuid = request.GET.get('exchange_uuid', '')
