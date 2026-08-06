@@ -12,6 +12,8 @@ var tts_avaiable: bool = false
 
 var logged_in = false
 
+var token = ""
+
 var avatar_list = [
 		"Apolito",
 		"Apoloto",

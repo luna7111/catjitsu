@@ -84,13 +84,8 @@ func _uuid_sent(_result, response_code, _headers, body):
 	client_authorised = true
 	print("raw json: ", json)
 	print()
-	var access_token = json.get("access", "")
-	print("access token: ", access_token)
-	print()
-	var refresh_token = json.get("refresh", "")
-	print("refresh token: ", refresh_token)
-	Global.api.access_token = access_token
-	Global.api.refresh_token = refresh_token
+	
+	Global.token = json.get("token", "")
 	var player_id = json.get("player-id", "")
 	print("player id: ", player_id)
 	print()
@@ -98,9 +93,11 @@ func _uuid_sent(_result, response_code, _headers, body):
 
 
 func _request_player_data(player_id):
-	print("Request player data: ", player_id)
-	print("http://localhost:8080/player/", str(player_id).pad_decimals(0))
-	$HTTP/PlayerData.request("http://localhost:8000/player/" + str(player_id).pad_decimals(0))
+
+	var token = Global.token
+	var request_headers = ["Content-Type: application/json", "Authorization: Token " + token]
+	
+	$HTTP/GetPlayerData.request("http://localhost:8000/me/", request_headers, HTTPClient.METHOD_GET)
 
 func _fetch_player_data(result, response_code, headers, body):
 	print()
@@ -183,6 +180,7 @@ func _user_logged(result, response_code, headers, body):
 	print(json)
 	
 	var token = json.get("token", "")
+	Global.token = token
 	var request_headers = ["Content-Type: application/json", "Authorization: Token " + token]
 	
 	print (request_headers)
