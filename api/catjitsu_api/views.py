@@ -31,15 +31,15 @@ from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
     permission_classes=[AllowAny]
-    throttle_classes=[ScopedRateThrottle]
-    throttle_scope='register'
+    throttle_scope = 'register'
+    throttle_classes = (ScopedRateThrottle,)
 
     serializer_class = UserAuthSerializer
 
 class LoginUser(APIView):
     permission_classes=[AllowAny]
-    throttle_classes=[ScopedRateThrottle]
-    throttle_scope='login'
+    throttle_scope = 'login'
+    throttle_classes = (ScopedRateThrottle,)
     
     def post(self, request):
         username = request.data.get('username')
@@ -83,8 +83,8 @@ class IdentifyClient(APIView):
 
 class OAuth42Login(APIView):
     permission_classes=[AllowAny]
-    throttle_classes=[ScopedRateThrottle]
-    throttle_scope='login'
+    throttle_scope = 'login'
+    throttle_classes = (ScopedRateThrottle,)
     
     def get(self, request):
         exchange_uuid = request.GET.get('exchange_uuid', '')
