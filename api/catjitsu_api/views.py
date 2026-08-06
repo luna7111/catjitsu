@@ -24,7 +24,6 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 from rest_framework_api_key.permissions import HasAPIKey
-from rest_framework_simplejwt.tokens import RefreshToken #TODO temporarily disabled this token auth into settings
 from django import shortcuts
 
 from django.contrib.auth.forms import UserCreationForm
@@ -48,6 +47,8 @@ class LoginUser(APIView):
 
 
 class IdentifyClient(APIView):
+    permission_classes=[AllowAny]
+    
     def get(self, request):
         exchange_uuid = request.GET.get("exchange_uuid", '')
         if not exchange_uuid:
@@ -95,6 +96,8 @@ class OAuth42Login(APIView):
         return redirect(url)
 
 class OAuth42Callback(APIView):
+    permission_classes=[AllowAny]
+    
     def get(self, request):
         code = request.GET.get("code")
         exchange_uuid = request.GET.get("state", "")
