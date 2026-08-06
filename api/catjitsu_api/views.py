@@ -22,6 +22,7 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework_simplejwt.tokens import RefreshToken #TODO temporarily disabled this token auth into settings
 from django import shortcuts
@@ -29,9 +30,13 @@ from django import shortcuts
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
+    permission_classes=[AllowAny]
+
     serializer_class = UserAuthSerializer
 
 class LoginUser(APIView):
+    permission_classes=[AllowAny]
+    
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -71,6 +76,8 @@ class IdentifyClient(APIView):
         })
 
 class OAuth42Login(APIView):
+    permission_classes=[AllowAny]
+    
     def get(self, request):
         exchange_uuid = request.GET.get('exchange_uuid', '')
         print("exchange_uuid is: " + exchange_uuid)
@@ -215,15 +222,11 @@ class PlayerList(APIView):
         return Response({'players': sanitized})
 
 class CurrentPlayerDetail(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request):
         serializer = PlayerSerializer(request.user.player)
         return Response(serializer.data)
 
 class PlayerDetail(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get_object(self, pk):
         return shortcuts.get_object_or_404(Player, pk=pk)
 
