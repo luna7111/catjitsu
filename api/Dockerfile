@@ -40,7 +40,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1 
 
 # Make entry file executable
-RUN chmod +xw /app/entrypoint.prod.sh
+RUN chmod +x /app/entrypoint.prod.sh
  
 # Switch to non-root user
 USER appuser

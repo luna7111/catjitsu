@@ -19,8 +19,10 @@ load_dotenv('.env.prod')
 
 # 42 Oauth
 
-CLIENT_ID = ""
-CLIENT_SECRET = ""
+# CLIENT_ID = ""
+# CLIENT_SECRET = ""
+CLIENT_ID = os.getenv("DJANGO_OAUTH_CLIENT_ID")
+CLIENT_SECRET = os.getenv("DJANGO_OAUTH_CLIENT_SECRET")
 REDIRECT_URI = "http://localhost:8000/auth/42/callback/"
 
 REST_FRAMEWORK = {
@@ -28,9 +30,9 @@ REST_FRAMEWORK = {
         # "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": [
-        # "rest_framework_api_key.permissions.HasAPIKey",
-    ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework_api_key.permissions.HasAPIKey",
+    # ],
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -118,15 +120,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# Project-wide API Key restriction, to enforce auth across all project
-
-# REST_FRAMEWORK = {
-#     "DEFAULT_PERMISSION_CLASSES": [
-#         "rest_framework_api_key.permissions.HasAPIKey",
-#     ]
-# }
 
 
 # Password validation
