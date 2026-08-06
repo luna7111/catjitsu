@@ -27,7 +27,7 @@ func _on_back_button_pressed() -> void:
 	var url = "http://localhost:8000/player/" + str(Global.profile.id).pad_decimals(0) + "/avatar"
 	var token = Global.token
 	var headers = ["Content-Type: application/json", "Authorization: Token " + token]
-	var body = "{\"avatar\": \"" + Global.profile.avatar + "\""
+	var body = "{\"avatar\": \"" + Global.profile.avatar + "\"}"
 	if Global.logged_in:
 		$HTTP/UpdateAvatar.request(url, headers, HTTPClient.METHOD_PUT, body)
 	emit_signal("back_pressed")

@@ -16,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_061kd")
 
 [node name="LoginOptions" type="MarginContainer" parent="." unique_id=1013145333]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -148,13 +149,13 @@ focus_previous = NodePath("../MarginContainer/VBoxContainer/BackButton")
 focus_mode = 2
 
 [node name="RegisterPanel" type="MarginContainer" parent="." unique_id=1850791731]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_061kd")
 theme_override_constants/margin_left = 600
 theme_override_constants/margin_top = 300
 theme_override_constants/margin_right = 600
@@ -190,6 +191,11 @@ text = "USERNAME_TAG"
 [node name="Username" type="LineEdit" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1834472334]
 layout_mode = 2
 
+[node name="UsernameReason" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1124527117]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.21176471, 0.28235295, 1)
+theme_override_font_sizes/font_size = 24
+
 [node name="HSeparator2" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=2057954815]
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -201,6 +207,11 @@ text = "PASSWORD_TAG"
 [node name="Password" type="LineEdit" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1506971578]
 layout_mode = 2
 secret = true
+
+[node name="PasswordReason" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=150335333]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.21176471, 0.28235295, 1)
+theme_override_font_sizes/font_size = 24
 
 [node name="HSeparator" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=2133553372]
 layout_mode = 2
@@ -283,6 +294,11 @@ text = "PASSWORD_TAG"
 [node name="Password" type="LineEdit" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=2021200227]
 layout_mode = 2
 secret = true
+
+[node name="LoginReason" type="Label" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=326528846]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.21176471, 0.28235295, 1)
+theme_override_font_sizes/font_size = 24
 
 [node name="HSeparator" type="HSeparator" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=1983139599]
 layout_mode = 2

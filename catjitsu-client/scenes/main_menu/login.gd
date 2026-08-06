@@ -161,32 +161,48 @@ func _on_login_button_pressed() -> void:
 func _user_registered(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
-	print("User registered")
-	print(response_code)
-	print(json)
+	$RegisterPanel/MarginContainer/VBoxContainer/UsernameReason.text = ""
+	$RegisterPanel/MarginContainer/VBoxContainer/PasswordReason.text = ""
 	
-	var username = $RegisterPanel/MarginContainer/VBoxContainer/Username.text
-	var password = $RegisterPanel/MarginContainer/VBoxContainer/Password.text
-	var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
-	print(request_body)
-	var request_headers = ["Content-Type: application/json"]
-	$HTTP/Login.request("http://localhost:8000/login/", request_headers, HTTPClient.METHOD_POST, request_body)
+	if (response_code == 201 or response_code == 200):
+		print("User registered")
+		print(response_code)
+		print(json)
+		
+		var username = $RegisterPanel/MarginContainer/VBoxContainer/Username.text
+		var password = $RegisterPanel/MarginContainer/VBoxContainer/Password.text
+		var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
+		print(request_body)
+		var request_headers = ["Content-Type: application/json"]
+		$HTTP/Login.request("http://localhost:8000/login/", request_headers, HTTPClient.METHOD_POST, request_body)
+	else:
+		var username_reason = json.get("username", "")
+		var password_reason = json.get("password", "")
+		if username_reason is Array and username_reason.size() > 0:
+			$RegisterPanel/MarginContainer/VBoxContainer/UsernameReason.text = username_reason[0]
+		if password_reason is Array and password_reason.size() > 0:
+			$RegisterPanel/MarginContainer/VBoxContainer/PasswordReason.text = password_reason[0]
+
 
 func _user_logged(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
+	$LoginPanel/MarginContainer/VBoxContainer/LoginReason.text = ""
 	
-	print("User logged")
-	print(response_code)
-	print(json)
-	
-	var token = json.get("token", "")
-	Global.token = token
-	var request_headers = ["Content-Type: application/json", "Authorization: Token " + token]
-	
-	print (request_headers)
-	
-	$HTTP/GetPlayerData.request("http://localhost:8000/me/", request_headers, HTTPClient.METHOD_GET)
-	
+	if response_code == 200:
+		print ("LOGIN RES CODE ", response_code)
+		print("User logged")
+		print(response_code)
+		print(json)
+		
+		var token = json.get("token", "")
+		Global.token = token
+		var request_headers = ["Content-Type: application/json", "Authorization: Token " + token]
+		
+		print (request_headers)
+		
+		$HTTP/GetPlayerData.request("http://localhost:8000/me/", request_headers, HTTPClient.METHOD_GET)
+	else:
+		$LoginPanel/MarginContainer/VBoxContainer/LoginReason.text = "Invalid username or password"
 
 
 func _populate_player_data(result, response_code, headers, body):
