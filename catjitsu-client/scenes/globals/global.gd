@@ -12,6 +12,9 @@ var tts_avaiable: bool = false
 
 # URL access, as it is setted from NGINX
 var host
+var hostname
+var api_host
+var api_port = "8000"
 var websocket_url
 var api_base
 var logged_in = false
@@ -104,6 +107,8 @@ func configure_network() -> void:
 	if OS.has_feature("web"):
 		var protocol = JavaScriptBridge.eval("window.location.protocol")
 		host = JavaScriptBridge.eval("window.location.host")
+		hostname = JavaScriptBridge.eval("window.location.hostname")
+		api_host = protocol + "//" + hostname + ":" + api_port
 
 		var ws_protocol := "ws"
 		if protocol == "https:":
@@ -120,5 +125,6 @@ func configure_network() -> void:
 
 	else:
 		host = "localhost:9000"
+		api_host = "http://localhost:" + api_port
 		websocket_url = "ws://localhost:9000"
 		api_base = "http://localhost:9000/api"

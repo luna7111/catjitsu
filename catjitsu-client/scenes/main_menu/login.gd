@@ -5,6 +5,7 @@ var client_authorised = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	$HTTP/PlayerData.request_completed.connect(_fetch_player_data)
 	$HTTP/Register.request_completed.connect(_user_registered)
 	$HTTP/Login.request_completed.connect(_user_logged)
@@ -55,7 +56,7 @@ func _on_login_intra_pressed() -> void:
 	var exchange_uuid = UUID.v4()
 	var query_param = "?exchange_uuid=" + exchange_uuid
 	print(exchange_uuid)
-	OS.shell_open("http://localhost:8000/auth/42/login/" + query_param)
+	OS.shell_open(Global.api_host + "/auth/42/login/" + query_param)
 	$LoginOptions.hide()
 	$Login42Panel.show()
 	$LoginPanel.hide()
@@ -66,7 +67,7 @@ func _on_login_intra_pressed() -> void:
 func request_tokens(query_param):
 	$HTTP/IdentifyClient.request_completed.connect(_uuid_sent)
 	while ($Login42Panel.visible and client_authorised == false):
-		$HTTP/IdentifyClient.request("http://localhost:8000/identify-client/" + query_param)
+		$HTTP/IdentifyClient.request(Global.api_host + "/identify-client/" + query_param)
 		await get_tree().create_timer(2.0).timeout
 
 
@@ -97,7 +98,7 @@ func _request_player_data(player_id):
 	var token = Global.token
 	var request_headers = ["Content-Type: application/json", "Authorization: Token " + token]
 	
-	$HTTP/GetPlayerData.request("http://localhost:8000/me/", request_headers, HTTPClient.METHOD_GET)
+	$HTTP/GetPlayerData.request(Global.api_host + "/me/", request_headers, HTTPClient.METHOD_GET)
 
 func _fetch_player_data(result, response_code, headers, body):
 	print()
@@ -146,7 +147,7 @@ func _on_register_enter_button_pressed() -> void:
 	var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
 	print(request_body)
 	var request_headers = ["Content-Type: application/json"]
-	$HTTP/Register.request("http://localhost:8000/register/", request_headers, HTTPClient.METHOD_POST, request_body)
+	$HTTP/Register.request(Global.api_host + "/register/", request_headers, HTTPClient.METHOD_POST, request_body)
 
 
 func _on_login_button_pressed() -> void:
@@ -155,7 +156,8 @@ func _on_login_button_pressed() -> void:
 	var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
 	print(request_body)
 	var request_headers = ["Content-Type: application/json"]
-	$HTTP/Login.request("http://localhost:8000/login/", request_headers, HTTPClient.METHOD_POST, request_body)
+	print("API HOST ", Global.api_host)
+	$HTTP/Login.request(Global.api_host + "/login/", request_headers, HTTPClient.METHOD_POST, request_body)
 
 
 func _user_registered(result, response_code, headers, body):
@@ -174,7 +176,7 @@ func _user_registered(result, response_code, headers, body):
 		var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
 		print(request_body)
 		var request_headers = ["Content-Type: application/json"]
-		$HTTP/Login.request("http://localhost:8000/login/", request_headers, HTTPClient.METHOD_POST, request_body)
+		$HTTP/Login.request(Global.api_host + "/login/", request_headers, HTTPClient.METHOD_POST, request_body)
 	else:
 		var username_reason = json.get("username", "")
 		var password_reason = json.get("password", "")
@@ -200,7 +202,7 @@ func _user_logged(result, response_code, headers, body):
 		
 		print (request_headers)
 		
-		$HTTP/GetPlayerData.request("http://localhost:8000/me/", request_headers, HTTPClient.METHOD_GET)
+		$HTTP/GetPlayerData.request(Global.api_host + "/me/", request_headers, HTTPClient.METHOD_GET)
 	else:
 		$LoginPanel/MarginContainer/VBoxContainer/LoginReason.text = "Invalid username or password"
 

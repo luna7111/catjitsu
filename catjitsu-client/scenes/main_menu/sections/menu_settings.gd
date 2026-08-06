@@ -43,7 +43,7 @@ func _on_apply_button_pressed() -> void:
 	Global.update_config()
 
 	# send preferences to server with default values (English, screenreader=0)
-	var url = "http://localhost:8000/player/" + str(Global.profile.id).pad_decimals(0) + "/preferences"
+	var url = Global.api_host + "/player/" + str(Global.profile.id).pad_decimals(0) + "/preferences"
 	var token = Global.token
 	var headers = ["Content-Type: application/json", "Authorization: Token " + token]
 	var body = "{\"language\": \"" + Global.config.language + "\", \"screenreader\": 0, \"volume\": " + str(Global.config.volume) + "}"

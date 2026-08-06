@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func _on_back_button_pressed() -> void:
-	var url = "http://localhost:8000/player/" + str(Global.profile.id).pad_decimals(0) + "/avatar"
+	var url = Global.api_host + "/player/" + str(Global.profile.id).pad_decimals(0) + "/avatar"
 	var token = Global.token
 	var headers = ["Content-Type: application/json", "Authorization: Token " + token]
 	var body = "{\"avatar\": \"" + Global.profile.avatar + "\"}"
