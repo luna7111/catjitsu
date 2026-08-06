@@ -20,8 +20,8 @@ REDIRECT_URI = "http://localhost:8000/auth/42/callback/"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        # "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
 
@@ -163,6 +163,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Remove these settings when the frontend is served from the same origin as the API.
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
+    "http://localhost:8060",
 ]
 
 # If more permissive behavior is needed during dev, uncomment the following instead and remove before production:

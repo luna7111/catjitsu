@@ -9,6 +9,7 @@ extends Node
 @export var startup_scene: PackedScene
 @export var server_scene: PackedScene
 var _current_scene: Node
+var music_player
 
 
 signal input_mode_changed(mode, previous)
@@ -18,6 +19,9 @@ signal input_mode_changed(mode, previous)
 func _ready() -> void:
 	preload("res://scenes/main_menu/menu_home.tscn")
 	preload("res://scenes/main_menu/background/main_menu_background.tscn")
+	var music_player_scene = load("res://scenes/music_player.tscn")
+	music_player = music_player_scene.instantiate()
+	add_child(music_player)
 	Global.scene_manager = self
 	if OS.has_feature("dedicated_server"):
 		print("Dedicated:", OS.has_feature("dedicated_server"))
