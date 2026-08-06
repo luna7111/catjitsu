@@ -1,0 +1,44 @@
+Terms of Service
+CatJitsu Terms of Service
+
+Last updated: August 2026
+
+1. Acceptance
+
+By using CatJitsu, you agree to these Terms of Service.
+
+2. Description of the Service
+
+CatJitsu is an online multiplayer card game that allows registered users to play matches against other players.
+
+3. User Accounts
+
+Users are responsible for:
+
+keeping their credentials secure;
+providing accurate profile information;
+using the service in good faith.
+4. Acceptable Use
+
+Users agree not to:
+
+exploit bugs or vulnerabilities;
+interfere with other players' matches;
+impersonate another user;
+attempt to disrupt the servers;
+use automated tools to gain an unfair advantage.
+5. Availability
+
+CatJitsu is provided "as is." We do not guarantee uninterrupted availability and reserve the right to perform maintenance or modify the service.
+
+6. Intellectual Property
+
+The CatJitsu source code, artwork, and original content remain the property of the project authors unless otherwise stated.
+
+7. Termination
+
+Accounts may be suspended or removed if these Terms are violated.
+
+8. Contact
+
+For questions regarding these Terms, contact the project maintainers.

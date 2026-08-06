@@ -1,0 +1,54 @@
+Privacy Policy
+CatJitsu Privacy Policy
+
+Last updated: August 2026
+
+1. Information We Collect
+
+CatJitsu stores only the information necessary to provide the service, including:
+
+username;
+email address;
+encrypted password;
+avatar selection;
+language preference;
+accessibility preferences;
+audio volume preferences.
+
+Gameplay information such as current matches may also be temporarily stored while games are in progress.
+
+2. How We Use Your Information
+
+We use this information to:
+
+authenticate users;
+personalize the application;
+manage multiplayer matches;
+save user preferences.
+3. Password Security
+
+Passwords are never stored in plain text. They are securely hashed using Django's authentication system.
+
+4. Cookies
+
+CatJitsu may use authentication cookies or session tokens required for login. No advertising or tracking cookies are used.
+
+5. Third-Party Services
+
+CatJitsu does not sell personal information to third parties.
+
+If external authentication or third-party services are added in the future, this policy will be updated.
+
+6. Data Retention
+
+Account information is retained while the account exists.
+
+Users may request account deletion, after which personal information will be removed where technically possible.
+
+7. Security
+
+Reasonable technical measures are taken to protect user information, but no Internet service can guarantee absolute security.
+
+8. Contact
+
+Questions regarding this Privacy Policy may be directed to the project maintainers.
