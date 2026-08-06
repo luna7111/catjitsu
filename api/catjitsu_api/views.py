@@ -9,7 +9,7 @@ from django.utils import timezone
 from rest_framework.authtoken.models import Token
 from .models import Player, AuthIdentity
 from .models import Match
-from .serializers import UserSerializer
+from .serializers import UserAuthSerializer
 from .serializers import PlayerSerializer
 from .serializers import MatchSerializer
 from django.http import HttpResponse
@@ -21,14 +21,15 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_api_key.permissions import HasAPIKey
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken #TODO temporarily disabled this token auth into settings
 from django import shortcuts
 
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserAuthSerializer
 
 class LoginUser(APIView):
     def post(self, request):
@@ -40,8 +41,7 @@ class LoginUser(APIView):
             return Response({'token':token.key}, status=status.HTTP_200_OK)
         return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
-#TODO: maybe this sould be a POST or something idk
-#TODO: cleanly manage timeout (this is a Godot thing but maybe there is a response code or something idk)
+
 class IdentifyClient(APIView):
     def get(self, request):
         exchange_uuid = request.GET.get("exchange_uuid", '')
@@ -58,16 +58,16 @@ class IdentifyClient(APIView):
             player.save()
             return Response({"error": "Invalid or expired exchange_uuid"}, status=status.HTTP_401_UNAUTHORIZED)
         
-        refresh = RefreshToken.for_user(player.user)
+        # return the standard DRF token used for authorization elsewhere
+        token, created = Token.objects.get_or_create(user=player.user)
         
         player.current_session_uuid = None
         player.current_session_uuid_set_at = None
         player.save()
         
         return Response({
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
-            'nickname': player.user.get_username(),
+            'token': token.key,
+            'player-id': player.id,
         })
 
 class OAuth42Login(APIView):
@@ -103,9 +103,19 @@ class OAuth42Callback(APIView):
             }
         )
 
-        token = token_response.json()
-        access_token = token["access_token"]
+        # defensively parse the token response and handle errors
+        try:
+            token = token_response.json()
+        except ValueError:
+            return Response({'error': 'Invalid token response from provider'}, status=status.HTTP_502_BAD_GATEWAY)
 
+        if token_response.status_code != 200 or 'access_token' not in token:
+            # include provider JSON in details for debugging
+            return Response({'error': 'OAuth token exchange failed', 'details': token}, status=status.HTTP_400_BAD_REQUEST)
+
+        access_token = token.get("access_token")
+
+        # fetch user info using the received access token
         user_response = requests.get(
             "https://api.intra.42.fr/v2/me",
             headers={
@@ -113,7 +123,10 @@ class OAuth42Callback(APIView):
             }
         )
 
-        user_data = user_response.json()
+        try:
+            user_data = user_response.json()
+        except ValueError:
+            return Response({'error': 'Invalid user info response from provider'}, status=status.HTTP_502_BAD_GATEWAY)
 
         identity = AuthIdentity.objects.filter(
             provider="42",
@@ -134,8 +147,6 @@ class OAuth42Callback(APIView):
             if not player:
                 player = Player.objects.create(
                     user=user,
-                    name=user_data["displayname"],
-                    nickname=user_data["login"],
                     deck=""
                 )
 
@@ -151,7 +162,7 @@ class OAuth42Callback(APIView):
             player.save()
 
         auth_code = secrets.token_urlsafe(32)
-        cache_data = {"player_id": player.user.id}
+        cache_data = {"player_id": player.id}
         if exchange_uuid:
             cache_data["exchange_uuid"] = exchange_uuid
         cache.set(f"auth_code_{auth_code}", cache_data, timeout=300)
@@ -159,8 +170,7 @@ class OAuth42Callback(APIView):
         print("uuid from callback: " + exchange_uuid)
 
         return redirect("http://127.0.0.1:8000/auth/completed")
- 
- 
+
 def auth_completed(request):
     return shortcuts.render(request, 'catjitsu_api/auth_completed.html', {})
 
@@ -195,22 +205,43 @@ class PlayerList(APIView):
     def get(self, request):
         players = Player.objects.all()
         serializer = PlayerSerializer(players, many=True)
-        return Response({'players': serializer.data})
+        # remove transient/session fields just in case
+        sanitized = []
+        for item in serializer.data:
+            entry = dict(item)
+            entry.pop('current_session_uuid', None)
+            entry.pop('current_session_uuid_set_at', None)
+            sanitized.append(entry)
+        return Response({'players': sanitized})
 
-    def post(self, request):
-        serializer = PlayerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+class CurrentPlayerDetail(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = PlayerSerializer(request.user.player)
+        return Response(serializer.data)
 
 class PlayerDetail(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         return shortcuts.get_object_or_404(Player, pk=pk)
 
     def get(self, request, pk):
         player = self.get_object(pk)
         serializer = PlayerSerializer(player)
-        return Response(serializer.data)
+        data = dict(serializer.data)
+        # remove sensitive/transient fields
+        data.pop('current_session_uuid', None)
+        data.pop('current_session_uuid_set_at', None)
+        # build preferences using serializer fields so logic stays consistent
+        prefs = {
+            'language': data.pop('language', serializer.data.get('language', '')),
+            'screenreader': data.pop('screenreader', serializer.data.get('screenreader', False)),
+            'volume': data.pop('volume', serializer.data.get('volume', 50)),
+        }
+        data['preferences'] = prefs
+        return Response(data)
     
     def put(self, request, pk):
         player = self.get_object(pk)
@@ -261,3 +292,56 @@ class MatchDetail(APIView):
         match.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class PlayerAvatar(APIView):
+    """Endpoint to update a player's avatar string. Supports PUT and POST."""
+    def put(self, request, pk):
+        player = shortcuts.get_object_or_404(Player, pk=pk)
+        avatar = request.data.get('avatar')
+        if avatar is None:
+            return Response({'error': 'avatar required'}, status=status.HTTP_400_BAD_REQUEST)
+        player.avatar = avatar
+        player.save()
+        serializer = PlayerSerializer(player)
+        return Response(serializer.data)
+
+    def post(self, request, pk):
+        return self.put(request, pk)
+
+
+class PlayerPreferences(APIView):
+    """Endpoint to update player's language, screenreader and volume preference."""
+    def put(self, request, pk):
+        player = shortcuts.get_object_or_404(Player, pk=pk)
+        updated = False
+        language = request.data.get('language')
+        if language is not None:
+            player.language = language
+            updated = True
+        # screenreader may come as bool or string
+        if 'screenreader' in request.data:
+            sr = request.data.get('screenreader')
+            # coerce to bool
+            if isinstance(sr, bool):
+                player.screenreader = sr
+            else:
+                # accept "true"/"false" or "1"/"0"
+                player.screenreader = str(sr).lower() in ['1','true','yes']
+            updated = True
+        # volume: accept int-like values and clamp
+        if 'volume' in request.data:
+            try:
+                vol = int(request.data.get('volume'))
+            except (TypeError, ValueError):
+                return Response({'error': 'volume must be an integer between 0 and 100'}, status=status.HTTP_400_BAD_REQUEST)
+            vol = max(0, min(100, vol))
+            player.volume = vol
+            updated = True
+        if not updated:
+            return Response({'error': 'language, screenreader or volume required'}, status=status.HTTP_400_BAD_REQUEST)
+        player.save()
+        serializer = PlayerSerializer(player)
+        return Response(serializer.data)
+
+    def post(self, request, pk):
+        return self.put(request, pk)

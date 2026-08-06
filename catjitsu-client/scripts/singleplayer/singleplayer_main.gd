@@ -26,6 +26,9 @@ const DEFAULT_DECK = [
 @onready var battle_manager = $BattleLogic/BattleManager
 
 func _ready():
+	var lowpass_effect: AudioEffect = AudioServer.get_bus_effect(1, 0)
+	lowpass_effect.set("cutoff_hz", 10000)
+
 	battle_manager.opponent = opponent
 	opponent.controller = opponent.controller_ai
 	battle_manager.player = player
@@ -43,6 +46,6 @@ func _ready():
 
 func _on_game_finished():
 	Global.scene_manager.switch_scene(
-		"res://scenes/scene_manager.tscn",
+		"res://scenes/main_menu/menu_home.tscn",
 		false
 	)

@@ -7,6 +7,10 @@ func _ready() -> void:
 	$Multiplayer.hide()
 	$Profile.hide()
 	$Main.show()
+	Global.settings_changed.emit()
+	Global.update_config()
+	var lowpass_effect: AudioEffect = AudioServer.get_bus_effect(1, 0)
+	lowpass_effect.set("cutoff_hz", 500)
 	pass
 
 

@@ -213,6 +213,7 @@ focus_next = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
 focus_previous = NodePath("../PanelContainer/MarginContainer/Buttons/Singleplayer")
 focus_mode = 2
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Singleplayer" to="." method="_on_singleplayer_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Multiplayer" to="." method="_on_multiplayer_pressed"]

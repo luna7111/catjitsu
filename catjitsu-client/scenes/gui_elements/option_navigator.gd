@@ -29,7 +29,7 @@ func get_item_text(id: int) -> String:
 
 func select(id: int):
 	if id >= 0 and id < item_count:
-		selected = 0
+		selected = id
 	update_text()
 
 
