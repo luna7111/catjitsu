@@ -7,10 +7,9 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
-# from yaml import serialize
 from .models import Player, AuthIdentity
 from .models import Match
-from .serializers import UserSerializer
+from .serializers import UserAuthSerializer
 from .serializers import PlayerSerializer
 from .serializers import MatchSerializer
 from django.http import HttpResponse
@@ -24,13 +23,13 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_api_key.permissions import HasAPIKey
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken #TODO temporarily disabled this token auth into settings
 from django import shortcuts
 
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterUser(generics.CreateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserAuthSerializer
 
 class LoginUser(APIView):
     def post(self, request):
@@ -59,15 +58,15 @@ class IdentifyClient(APIView):
             player.save()
             return Response({"error": "Invalid or expired exchange_uuid"}, status=status.HTTP_401_UNAUTHORIZED)
         
-        refresh = RefreshToken.for_user(player.user)
+        # return the standard DRF token used for authorization elsewhere
+        token, created = Token.objects.get_or_create(user=player.user)
         
         player.current_session_uuid = None
         player.current_session_uuid_set_at = None
         player.save()
         
         return Response({
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
+            'token': token.key,
             'player-id': player.id,
         })
 
@@ -92,7 +91,6 @@ class OAuth42Callback(APIView):
     def get(self, request):
         code = request.GET.get("code")
         exchange_uuid = request.GET.get("state", "")
-
 
         token_response = requests.post(
             "https://api.intra.42.fr/oauth/token",
@@ -219,12 +217,14 @@ class PlayerList(APIView):
 
 class CurrentPlayerDetail(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def get(self, request):
         serializer = PlayerSerializer(request.user.player)
         return Response(serializer.data)
 
 class PlayerDetail(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get_object(self, pk):
         return shortcuts.get_object_or_404(Player, pk=pk)
 
