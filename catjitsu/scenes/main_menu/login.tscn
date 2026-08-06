@@ -255,6 +255,56 @@ theme_override_constants/margin_bottom = 70
 [node name="VBoxContainer" type="VBoxContainer" parent="LoginPanel/MarginContainer" unique_id=689498236]
 layout_mode = 2
 
+[node name="LoginTag" type="Label" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=1260780046]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "LOGIN_TAG"
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=210310197]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="UsernameTag" type="Label" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=85799785]
+layout_mode = 2
+text = "USERNAME_TAG"
+
+[node name="Username" type="LineEdit" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=1743491770]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=253238133]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PasswordTag" type="Label" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=161098119]
+layout_mode = 2
+text = "PASSWORD_TAG"
+
+[node name="Password" type="LineEdit" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=2021200227]
+layout_mode = 2
+secret = true
+
+[node name="HSeparator" type="HSeparator" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=1983139599]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=1227349600]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1459273862]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "BACK_BUTTON"
+
+[node name="Separator" type="VSeparator" parent="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=184118770]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LoginButton" type="Button" parent="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=115012773]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LOGIN_BUTTON"
+
 [node name="Dummy" type="Control" parent="LoginPanel" unique_id=1877076855]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -269,7 +319,12 @@ focus_mode = 2
 
 [node name="Register" type="HTTPRequest" parent="HTTP" unique_id=1463873292]
 
+[node name="Login" type="HTTPRequest" parent="HTTP" unique_id=512221026]
+
+[node name="GetPlayerData" type="HTTPRequest" parent="HTTP" unique_id=292336278]
+
 [connection signal="visibility_changed" from="LoginOptions" to="LoginOptions" method="_on_visibility_changed"]
+[connection signal="pressed" from="LoginOptions/VBoxContainer/HBoxContainer/Login" to="." method="_on_login_pressed"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/HBoxContainer/Register" to="." method="_on_register_pressed"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]
@@ -279,3 +334,5 @@ focus_mode = 2
 [connection signal="pressed" from="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_panel_back_button_pressed"]
 [connection signal="pressed" from="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer/RegisterButton" to="." method="_on_register_enter_button_pressed"]
 [connection signal="visibility_changed" from="LoginPanel" to="LoginPanel" method="_on_visibility_changed"]
+[connection signal="pressed" from="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_panel_back_button_pressed"]
+[connection signal="pressed" from="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]

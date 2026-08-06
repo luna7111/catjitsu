@@ -1,12 +1,17 @@
 [gd_resource type="Theme" format=3 uid="uid://bqxnag2rlymbi"]
 
 [ext_resource type="FontFile" uid="uid://bp1vilqhd2vyn" path="res://fonts/Chi-Regular.otf" id="1_06w41"]
+[ext_resource type="FontFile" uid="uid://bas0fuh51i1ya" path="res://fonts/BalsamiqSans-Bold.ttf" id="1_sbq78"]
 [ext_resource type="Texture2D" uid="uid://dhu1nc6djxodu" path="res://assets/gui/empty_checkbox.png" id="2_6oill"]
 [ext_resource type="Texture2D" uid="uid://hkfqotbmdbka" path="res://assets/gui/checked_checkbox.png" id="2_gl82e"]
 [ext_resource type="Texture2D" uid="uid://c8ux667dnb6gw" path="res://assets/gui/slider_grabber.png" id="4_wyc3a"]
 [ext_resource type="Texture2D" uid="uid://xc563i3rw5j1" path="res://assets/gui/slider_grabber_highlighted.png" id="5_olk7t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xc41h"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
 bg_color = Color(0.972678, 0.9305102, 0.9450205, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
@@ -20,6 +25,10 @@ shadow_color = Color(0, 0, 0, 0.06666667)
 shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06w41"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
 bg_color = Color(0.9486267, 0.872358, 0.8978954, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
@@ -40,6 +49,10 @@ shadow_color = Color(0, 0, 0, 0.06666667)
 shadow_size = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyc3a"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
 bg_color = Color(0.56, 0.4648, 0.49177334, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
@@ -94,8 +107,19 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifuw5"]
+bg_color = Color(0.91764706, 0.8, 0.91764706, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xr0q"]
-bg_color = Color(0.9878499, 0.2356511, 0.7249271, 1)
+bg_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gl82e"]
 bg_color = Color(0.98039216, 0.98039216, 0.98039216, 1)
@@ -140,7 +164,7 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 35
-Button/fonts/font = ExtResource("1_06w41")
+Button/fonts/font = ExtResource("1_sbq78")
 Button/styles/focus = SubResource("StyleBoxFlat_xc41h")
 Button/styles/hover = SubResource("StyleBoxFlat_06w41")
 Button/styles/normal = SubResource("StyleBoxFlat_6oill")
@@ -160,15 +184,19 @@ HSlider/icons/grabber_highlight = ExtResource("5_olk7t")
 HSlider/styles/slider = SubResource("StyleBoxFlat_u4rtn")
 Label/colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
 Label/font_sizes/font_size = 32
-Label/fonts/font = ExtResource("1_06w41")
+Label/fonts/font = ExtResource("1_sbq78")
 Label/styles/focus = SubResource("StyleBoxFlat_gspjh")
 LineEdit/colors/font_color = Color(0.8, 0.35686275, 0.4862745, 1)
 LineEdit/colors/font_placeholder_color = Color(0.8, 0.35686275, 0.4862745, 0.2784314)
 LineEdit/font_sizes/font_size = 32
-LineEdit/fonts/font = ExtResource("1_06w41")
+LineEdit/fonts/font = ExtResource("1_sbq78")
 LineEdit/styles/focus = SubResource("StyleBoxFlat_wapmr")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_xg63x")
 Panel/styles/panel = SubResource("StyleBoxFlat_kgwqs")
+PopupMenu/colors/font_color = Color(0.81960785, 0.46666667, 0.5686275, 1)
+PopupMenu/colors/font_hover_color = Color(0.7372549, 0.15686275, 0.31764707, 1)
+PopupMenu/font_sizes/font_size = 32
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_ifuw5")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_6xr0q")
 RichTextLabel/colors/default_color = Color(0.8352941, 0.46666667, 0.57254905, 1)
 RichTextLabel/font_sizes/bold_font_size = 42

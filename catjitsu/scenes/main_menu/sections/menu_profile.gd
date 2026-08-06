@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 	get_tree().current_scene.input_mode_changed.connect(_on_input_mode_changed)
 	
-	$MarginContainer/VBoxContainer/DisplayName.text = Global.profile.name
+	$MarginContainer/VBoxContainer/DisplayName.text = Global.profile.username
 	
 	profile_selection = $MarginContainer/VBoxContainer/AvatarSelection
 	

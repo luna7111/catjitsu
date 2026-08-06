@@ -7,6 +7,8 @@ var client_authorised = false
 func _ready() -> void:
 	$HTTP/PlayerData.request_completed.connect(_fetch_player_data)
 	$HTTP/Register.request_completed.connect(_user_registered)
+	$HTTP/Login.request_completed.connect(_user_logged)
+	$HTTP/GetPlayerData.request_completed.connect(_populate_player_data)
 	Global.scene_manager.music_player.volume_db = -80
 	$Login42Panel.hide()
 	$LoginOptions.show()
@@ -134,10 +136,64 @@ func _on_register_pressed() -> void:
 func _on_register_enter_button_pressed() -> void:
 	var username = $RegisterPanel/MarginContainer/VBoxContainer/Username.text
 	var password = $RegisterPanel/MarginContainer/VBoxContainer/Password.text
-	var request_body = "{\"username\": \""+ username + "\", \"password\":\"" + password + "\"}"
-	var request_headers = []
-	$HTTP/Register.request("http://localhost:8000/register/", request_headers, HTTPClient.METHOD_PUT, request_body)
+	var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
+	print(request_body)
+	var request_headers = ["Content-Type: application/json"]
+	$HTTP/Register.request("http://localhost:8000/register/", request_headers, HTTPClient.METHOD_POST, request_body)
+
+
+func _on_login_button_pressed() -> void:
+	var username = $LoginPanel/MarginContainer/VBoxContainer/Username.text
+	var password = $LoginPanel/MarginContainer/VBoxContainer/Password.text
+	var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
+	print(request_body)
+	var request_headers = ["Content-Type: application/json"]
+	$HTTP/Login.request("http://localhost:8000/login/", request_headers, HTTPClient.METHOD_POST, request_body)
 
 
 func _user_registered(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
+	
+	print("User registered")
+	print(response_code)
+	print(json)
+
+func _user_logged(result, response_code, headers, body):
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	
+	print("User logged")
+	print(response_code)
+	print(json)
+	
+	var token = json.get("token", "")
+	var request_headers = ["Content-Type: application/json", "Authorization: Token " + token]
+	
+	print (request_headers)
+	
+	$HTTP/GetPlayerData.request("http://localhost:8000/me/", request_headers, HTTPClient.METHOD_GET)
+	
+
+
+func _populate_player_data(result, response_code, headers, body):
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	
+	Global.profile.id = json.get("id", "")
+	Global.profile.username = json.get("username", "")
+	print(Global.profile.username)
+	Global.profile.avatar = json.get("avatar", "")
+	
+	Global.config.volume = json.get("volume", "")
+	Global.config.screenreader = json.get("screenreader", "")
+	Global.config.language = json.get("language", "")
+	
+	
+	Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
+	
+	print (json)
+
+
+func _on_login_pressed() -> void:
+	$Login42Panel.hide()
+	$LoginPanel.show()
+	$RegisterPanel.hide()
+	$LoginOptions.hide()
