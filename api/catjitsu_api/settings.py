@@ -30,16 +30,15 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": [
-        # "rest_framework_api_key.permissions.HasAPIKey",
         "rest_framework.permissions.IsAuthenticated",
     ],
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.ScopedRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '5/minute',       # Strict limit for login attempts
-        'register': '3/hour',      # Strict limit for new registrations
-    }
+        'login': '5/minute',
+        'register': '3/hour',
+    },
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
