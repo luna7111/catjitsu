@@ -197,7 +197,7 @@ func _populate_player_data(result, response_code, headers, body):
 	print(Global.profile.username)
 	Global.profile.avatar = json.get("avatar", "")
 	
-	Global.config.volume = json.get("volume", "")
+	Global.config.volume = int(json.get("volume", ""))
 	Global.config.screenreader = json.get("screenreader", "")
 	Global.config.language = json.get("language", "")
 	

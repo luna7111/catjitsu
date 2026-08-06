@@ -44,9 +44,8 @@ func _on_apply_button_pressed() -> void:
 
 	# send preferences to server with default values (English, screenreader=0)
 	var url = "http://localhost:8000/player/" + str(Global.profile.id).pad_decimals(0) + "/preferences"
-	var headers = ["Content-Type: application/json"]
-	if Global.api.access_token != "":
-		headers.append("Authorization: Bearer " + Global.api.access_token)
+	var token = Global.token
+	var headers = ["Content-Type: application/json", "Authorization: Token " + token]
 	var body = "{\"language\": \"" + Global.config.language + "\", \"screenreader\": 0, \"volume\": " + str(Global.config.volume) + "}"
 	if Global.logged_in:
 		$HTTP/UpdatePreferences.request(url, headers, HTTPClient.METHOD_PUT, body)

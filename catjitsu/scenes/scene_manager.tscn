@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://7phle27j3ok3" path="res://scenes/scene_manager.gd" id="1_jo5df"]
 [ext_resource type="PackedScene" uid="uid://j6msvof418ix" path="res://scenes/main_menu/login.tscn" id="2_65mdo"]
+[ext_resource type="PackedScene" uid="uid://gkwnhtv6m46v" path="res://scenes/music_player.tscn" id="3_b81s6"]
 
 [node name="SceneManager" type="Node" unique_id=951934427]
 script = ExtResource("1_jo5df")
@@ -13,3 +14,6 @@ layer = 10
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=354712175]
 offset_right = 40.0
 offset_bottom = 39.0
+
+[node name="MusicPlayer" parent="." unique_id=345147367 instance=ExtResource("3_b81s6")]
+playback_type = 1
