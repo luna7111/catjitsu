@@ -11,6 +11,10 @@ func _ready() -> void:
 	get_tree().current_scene.input_mode_changed.connect(_on_input_mode_changed)
 	if visible and Global.current_input_mode != Global.InputMode.MOUSE:
 		$Dummy.grab_focus()
+	if (Global.logged_in == false):
+		$PanelContainer/MarginContainer/Buttons/Multiplayer.hide()
+	else:
+		$PanelContainer/MarginContainer/Buttons/Multiplayer.show()
 
 
 func _on_multiplayer_pressed() -> void:
@@ -50,5 +54,16 @@ func _on_input_mode_changed(mode: Variant, previous: Variant) -> void:
 
 
 func _on_visibility_changed() -> void:
+	if (Global.logged_in == false):
+		$PanelContainer/MarginContainer/Buttons/Multiplayer.hide()
+	else:
+		$PanelContainer/MarginContainer/Buttons/Multiplayer.show()
 	if visible and Global.current_input_mode != Global.InputMode.MOUSE:
 		$Dummy.grab_focus()
+
+
+func _on_tree_entered() -> void:
+	if (Global.logged_in == false):
+		$PanelContainer/MarginContainer/Buttons/Multiplayer.hide()
+	else:
+		$PanelContainer/MarginContainer/Buttons/Multiplayer.show()

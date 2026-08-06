@@ -46,6 +46,6 @@ func _ready():
 
 func _on_game_finished():
 	Global.scene_manager.switch_scene(
-		"res://scenes/scene_manager.tscn",
+		"res://scenes/main_menu/menu_home.tscn",
 		false
 	)

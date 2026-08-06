@@ -8,6 +8,7 @@ var profile_selection
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$HTTP/UpdateAvatar.request_completed.connect(_on_update_avatar_completed)
 	
 	get_tree().current_scene.input_mode_changed.connect(_on_input_mode_changed)
 	
@@ -27,9 +28,9 @@ func _on_back_button_pressed() -> void:
 	var headers = ["Content-Type: application/json"]
 	if Global.api.access_token != "":
 		headers.append("Authorization: Bearer " + Global.api.access_token)
-	var body = "{\"avatar\": \"" + Global.profile.avatar + "\"}"
-	$HTTP/UpdateAvatar.request_completed.connect(_on_update_avatar_completed)
-	$HTTP/UpdateAvatar.request(url, headers, HTTPClient.METHOD_PUT, body)
+	var body = "{\"avatar\": \"" + Global.profile.avatar + "\""
+	if Global.logged_in:
+		$HTTP/UpdateAvatar.request(url, headers, HTTPClient.METHOD_PUT, body)
 	emit_signal("back_pressed")
 
 func _on_update_avatar_completed(result, response_code, headers, body):

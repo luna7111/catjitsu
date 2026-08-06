@@ -9,6 +9,8 @@ func _ready() -> void:
 	Global.settings_changed.connect(_update_settings)
 	get_tree().current_scene.input_mode_changed.connect(_on_input_mode_changed)
 	
+	$HTTP/UpdatePreferences.request_completed.connect(_on_preferences_request_completed)
+	
 	match  Global.config.language:
 		"English":
 			$MarginContainer/Buttons/LanguageMenu/LanguageOptions.select(0)
@@ -46,8 +48,8 @@ func _on_apply_button_pressed() -> void:
 	if Global.api.access_token != "":
 		headers.append("Authorization: Bearer " + Global.api.access_token)
 	var body = "{\"language\": \"" + Global.config.language + "\", \"screenreader\": 0, \"volume\": " + str(Global.config.volume) + "}"
-	$HTTP/UpdatePreferences.request_completed.connect(_on_preferences_request_completed)
-	$HTTP/UpdatePreferences.request(url, headers, HTTPClient.METHOD_PUT, body)
+	if Global.logged_in:
+		$HTTP/UpdatePreferences.request(url, headers, HTTPClient.METHOD_PUT, body)
 
 func _on_preferences_request_completed(result, response_code, headers, body):
 	print("preferences update response:")

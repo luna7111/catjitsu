@@ -9,7 +9,9 @@ func _ready() -> void:
 	$HTTP/Register.request_completed.connect(_user_registered)
 	$HTTP/Login.request_completed.connect(_user_logged)
 	$HTTP/GetPlayerData.request_completed.connect(_populate_player_data)
+	
 	Global.scene_manager.music_player.volume_db = -80
+	
 	$Login42Panel.hide()
 	$LoginOptions.show()
 	$RegisterPanel.hide()
@@ -41,6 +43,11 @@ func parse_auth_code_from_request(request: String) -> String:
 
 
 func _on_skip_login_pressed() -> void:
+	Global.logged_in = false
+	
+	Global.profile = Global.default_profile
+	Global.config = Global.default_config
+	
 	Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 
 
@@ -109,12 +116,15 @@ func _fetch_player_data(result, response_code, headers, body):
 		Global.profile.id = json.get("id", "")
 		Global.profile.avatar = json.get("avatar", "")
 		Global.profile.name = json.get("username", "")
-		Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 		
 		Global.config.language = json.get("preferences").get("language")
 		Global.config.volume = json.get("preferences").get("volume")
 		print("g c v ", Global.config.volume)
 		Global.update_config()
+		
+		Global.logged_in = true
+		print("LOGED IN? : ", Global.logged_in)
+		Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 	else:
 		print ("player doesnt exist")
 
@@ -157,6 +167,13 @@ func _user_registered(result, response_code, headers, body):
 	print("User registered")
 	print(response_code)
 	print(json)
+	
+	var username = $RegisterPanel/MarginContainer/VBoxContainer/Username.text
+	var password = $RegisterPanel/MarginContainer/VBoxContainer/Password.text
+	var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
+	print(request_body)
+	var request_headers = ["Content-Type: application/json"]
+	$HTTP/Login.request("http://localhost:8000/login/", request_headers, HTTPClient.METHOD_POST, request_body)
 
 func _user_logged(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
@@ -186,7 +203,7 @@ func _populate_player_data(result, response_code, headers, body):
 	Global.config.screenreader = json.get("screenreader", "")
 	Global.config.language = json.get("language", "")
 	
-	
+	Global.logged_in = true
 	Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 	
 	print (json)

@@ -16,7 +16,6 @@ grow_vertical = 2
 script = ExtResource("1_061kd")
 
 [node name="LoginOptions" type="MarginContainer" parent="." unique_id=1013145333]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,7 +72,7 @@ focus_neighbor_bottom = NodePath("../LoginIntra")
 focus_next = NodePath("../LoginIntra")
 focus_previous = NodePath("../LoginIntra")
 theme = ExtResource("2_061kd")
-text = "Skip login"
+text = "Play offline"
 
 [node name="Dummy" type="Control" parent="LoginOptions" unique_id=1301061980]
 layout_mode = 2
@@ -149,6 +148,7 @@ focus_previous = NodePath("../MarginContainer/VBoxContainer/BackButton")
 focus_mode = 2
 
 [node name="RegisterPanel" type="MarginContainer" parent="." unique_id=1850791731]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

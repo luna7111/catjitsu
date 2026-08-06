@@ -10,6 +10,8 @@ var current_input_mode = InputMode.MOUSE
 var tts_voice
 var tts_avaiable: bool = false
 
+var logged_in = false
+
 var avatar_list = [
 		"Apolito",
 		"Apoloto",
@@ -19,9 +21,21 @@ var avatar_list = [
 		"Riku"
 ]
 
+var default_profile = {
+	id = -1,
+	username = "Guest",
+	avatar = "Apolito"
+}
+
+
+var default_config = {
+	volume = 50,
+	language = "English"
+}
+
 var profile = {
-	id = 0,
-	name = "Guest123",
+	id = -1,
+	username = "Guest",
 	avatar = "Apolito"
 }
 

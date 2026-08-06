@@ -10,6 +10,6 @@ startup_scene = ExtResource("2_65mdo")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=863468556]
 layer = 10
 
-[node name="Notifications" type="VBoxContainer" parent="CanvasLayer" unique_id=1602272929]
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=354712175]
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 39.0
