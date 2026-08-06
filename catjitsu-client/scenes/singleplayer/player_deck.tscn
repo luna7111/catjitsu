@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://bxe88x137lrsk"]
+
+[ext_resource type="Script" uid="uid://co53g312prgg6" path="res://scripts/singleplayer/player_deck.gd" id="1_io7pv"]
+[ext_resource type="Texture2D" uid="uid://twcf25u4c51e" path="res://assets/singleplayer/other_assets/caitjitsu_icon_500x223.png" id="2_dbtu4"]
+[ext_resource type="FontFile" uid="uid://bp1vilqhd2vyn" path="res://fonts/Chi-Regular.otf" id="3_tdnal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_io7pv"]
+size = Vector2(150, 200)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdnal"]
+bg_color = Color(0.94509804, 0.44313726, 0.75686276, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Deck" type="Node2D" unique_id=64516707]
+script = ExtResource("1_io7pv")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=970831304]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=23323604]
+shape = SubResource("RectangleShape2D_io7pv")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1966387210]
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 60.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(20, 20)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_tdnal")
+theme_override_font_sizes/normal_font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardBack" type="Panel" parent="." unique_id=1195380585]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -100.0
+offset_right = 75.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_tdnal")
+
+[node name="CardBackLogo" type="Sprite2D" parent="CardBack" unique_id=1156278479]
+position = Vector2(75, 100.00001)
+scale = Vector2(0.2443946, 0.24439462)
+texture = ExtResource("2_dbtu4")

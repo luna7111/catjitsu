@@ -1,8 +1,0 @@
-{
-    "name": "Trufi",
-    "type": "Fire",
-    "value": 10,
-    "author": "name",
-    "img": "res://cards/images/trufi.png",
-    "script": "res://cards/scripts/trufi.gd"
-}

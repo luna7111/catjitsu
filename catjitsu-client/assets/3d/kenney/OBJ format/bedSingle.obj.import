@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bhustadveev20"
+path="res://.godot/imported/bedSingle.obj-12b9bdf52c058f2b077152bcd061c9ad.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bedSingle.obj-12b9bdf52c058f2b077152bcd061c9ad.mesh"]
+
+source_file="res://assets/3d/kenney/OBJ format/bedSingle.obj"
+dest_files=["res://.godot/imported/bedSingle.obj-12b9bdf52c058f2b077152bcd061c9ad.mesh", "res://.godot/imported/bedSingle.obj-12b9bdf52c058f2b077152bcd061c9ad.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

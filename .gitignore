@@ -29,4 +29,7 @@ db.sqlite3
 media
 .venv
 
-.env*
+# ALEX Client files
+client/certs/
+client/web/
+server/build/
