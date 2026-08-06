@@ -170,8 +170,7 @@ class OAuth42Callback(APIView):
         print("uuid from callback: " + exchange_uuid)
 
         return redirect("http://127.0.0.1:8000/auth/completed")
- 
- 
+
 def auth_completed(request):
     return shortcuts.render(request, 'catjitsu_api/auth_completed.html', {})
 
