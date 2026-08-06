@@ -8,10 +8,11 @@ var profile_selection
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$HTTP/UpdateAvatar.request_completed.connect(_on_update_avatar_completed)
 	
 	get_tree().current_scene.input_mode_changed.connect(_on_input_mode_changed)
 	
-	$MarginContainer/VBoxContainer/ChangeName.text = Global.profile.name
+	$MarginContainer/VBoxContainer/DisplayName.text = Global.profile.username
 	
 	profile_selection = $MarginContainer/VBoxContainer/AvatarSelection
 	
@@ -23,7 +24,25 @@ func _ready() -> void:
 
 
 func _on_back_button_pressed() -> void:
+	var url = "http://localhost:8000/player/" + str(Global.profile.id).pad_decimals(0) + "/avatar"
+	var headers = ["Content-Type: application/json"]
+	if Global.api.access_token != "":
+		headers.append("Authorization: Bearer " + Global.api.access_token)
+	var body = "{\"avatar\": \"" + Global.profile.avatar + "\""
+	if Global.logged_in:
+		$HTTP/UpdateAvatar.request(url, headers, HTTPClient.METHOD_PUT, body)
 	emit_signal("back_pressed")
+
+func _on_update_avatar_completed(result, response_code, headers, body):
+	print("update avatar response:")
+	print(response_code)
+	var pr = JSON.parse_string(body.get_string_from_utf8())
+	if typeof(pr) == TYPE_DICTIONARY:
+		print(pr)
+	elif pr.error == OK:
+		print(pr.result)
+	else:
+		print("could not parse response")
 
 
 func _on_input_mode_changed(mode: Variant, previous: Variant) -> void:

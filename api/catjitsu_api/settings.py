@@ -21,14 +21,14 @@ load_dotenv('.env.prod')
 
 # CLIENT_ID = ""
 # CLIENT_SECRET = ""
-CLIENT_ID = os.getenv("DJANGO_OAUTH_CLIENT_ID")
-CLIENT_SECRET = os.getenv("DJANGO_OAUTH_CLIENT_SECRET")
+CLIENT_ID = os.getenv("DJANGO_OAUTH_CLIENT_ID", "").split(",")
+CLIENT_SECRET = os.getenv("DJANGO_OAUTH_CLIENT_SECRET", "").split(",")
 REDIRECT_URI = "http://localhost:8000/auth/42/callback/"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        # "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     # "DEFAULT_PERMISSION_CLASSES": [
     #     "rest_framework_api_key.permissions.HasAPIKey",
@@ -43,15 +43,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32").split(",")
 # SECRET_KEY = 'django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DEBUG", default=0))
+DEBUG = bool(os.getenv("DEBUG", default=1))
 # DEBUG = True
 
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 # ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "https://127.0.0.1").split(",")
 
@@ -169,6 +169,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Remove these settings when the frontend is served from the same origin as the API.
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
+    "http://localhost:8060",
 ]
 
 # If more permissive behavior is needed during dev, uncomment the following instead and remove before production:

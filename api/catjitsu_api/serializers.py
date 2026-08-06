@@ -24,6 +24,16 @@ class UserAuthSerializer(serializers.ModelSerializer):
             username = validated_data['username'],
             password = validated_data['password']
         )
+        Player.objects.create(
+            user = user,
+            deck = 'defaultdeck',
+            avatar = 'Apolito',
+            language = 'en',
+            screenreader = False,
+            volume = 100,
+            current_session_uuid = None,
+            current_session_uuid_set_at = None,
+        )
         return user
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,11 +42,13 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'first_name']
 
 class PlayerSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    # expose username from related User for convenience
+    username = serializers.CharField(source='user.username', read_only=True)
+
     class Meta:
         model = Player
-        fields = ['id', 'user', 'deck', 'current_session_uuid', 'current_session_uuid_set_at']
-        # fields = '__all__' #TODO remove for prod and update line above
+        # keep fields explicit to avoid exposing transient/session data
+        fields = ['id', 'user', 'username', 'deck', 'avatar', 'language', 'screenreader', 'volume']
     
 class MatchSerializer(serializers.ModelSerializer):
     class Meta:

@@ -33,7 +33,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Quit game
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
+		#Game lost
+		Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 	# Iterate player hand
 	if Input.is_action_just_pressed("ui_right"):
 		iterate_right_player_hand()

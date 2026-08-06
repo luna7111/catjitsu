@@ -3,13 +3,16 @@
 [ext_resource type="Script" uid="uid://bfg0jlwfdcbqy" path="res://scenes/main_menu/sections/menu_settings.gd" id="1_2k5y2"]
 [ext_resource type="Theme" uid="uid://bqxnag2rlymbi" path="res://themes/Default.tres" id="1_rrw0a"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w74sn"]
+
 [node name="Settings" type="CanvasLayer" unique_id=181492464]
 script = ExtResource("1_2k5y2")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1882656402]
 anchors_preset = -1
-anchor_right = 0.1265625
-anchor_bottom = 1.0
+anchor_left = 0.065625
+anchor_right = 0.23697917
+anchor_bottom = 0.7824074
 offset_right = 509.0
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -31,7 +34,7 @@ layout_mode = 2
 
 [node name="LanguageTag" type="Label" parent="MarginContainer/Buttons/LanguageMenu" unique_id=1028751344]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 6
 text = "LANGUAGE_TAG"
 
 [node name="LanguageOptions" type="OptionButton" parent="MarginContainer/Buttons/LanguageMenu" unique_id=393612963]
@@ -47,6 +50,7 @@ popup/item_2/text = "LANGUAGE_FRENCH"
 popup/item_2/id = 2
 
 [node name="ScreenReaderMenu" type="HBoxContainer" parent="MarginContainer/Buttons" unique_id=597324483]
+visible = false
 layout_mode = 2
 
 [node name="ScreenreaderTag" type="Label" parent="MarginContainer/Buttons/ScreenReaderMenu" unique_id=1204792413]
@@ -58,12 +62,34 @@ text = "SCREENREADER_TAG"
 layout_mode = 2
 size_flags_horizontal = 6
 
+[node name="VolumeMenu" type="HBoxContainer" parent="MarginContainer/Buttons" unique_id=825482989]
+layout_mode = 2
+
+[node name="VolumeTag" type="Label" parent="MarginContainer/Buttons/VolumeMenu" unique_id=1487498232]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "VOLUME_TAG"
+
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/Buttons/VolumeMenu" unique_id=536137463]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme = ExtResource("1_rrw0a")
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Buttons" unique_id=2086553525]
+layout_mode = 2
+theme_override_constants/separation = 32
+theme_override_styles/separator = SubResource("StyleBoxEmpty_w74sn")
+
 [node name="ApplyButton" type="Button" parent="MarginContainer/Buttons" unique_id=1282936486]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "APPLY_BUTTON"
 
 [node name="BackButton" type="Button" parent="MarginContainer/Buttons" unique_id=758640745]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "BACK_BUTTON"
 
 [node name="Dummy" type="Control" parent="." unique_id=1573132258]
@@ -78,6 +104,10 @@ focus_neighbor_bottom = NodePath("../MarginContainer/Buttons/LanguageMenu/Langua
 focus_next = NodePath("../MarginContainer/Buttons/LanguageMenu/LanguageTag")
 focus_previous = NodePath("../MarginContainer/Buttons/LanguageMenu/LanguageTag")
 focus_mode = 2
+
+[node name="HTTP" type="Node" parent="." unique_id=1310178900]
+
+[node name="UpdatePreferences" type="HTTPRequest" parent="HTTP" unique_id=2050512411]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="MarginContainer/Buttons/ApplyButton" to="." method="_on_apply_button_pressed"]
