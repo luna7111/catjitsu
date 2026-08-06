@@ -33,7 +33,14 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin/
 WORKDIR /app
  
 # Copy application code
-COPY --chown=appuser:appuser . .
+# COPY --chown=appuser:appuser . .
+COPY --chown=appuser:appuser catjitsu_api/ catjitsu_api/
+COPY --chown=appuser:appuser static/ static/
+COPY --chown=appuser:appuser .env.prod .env.prod
+COPY --chown=appuser:appuser db.sqlite3 db.sqlite3
+COPY --chown=appuser:appuser entrypoint.prod.sh entrypoint.prod.sh
+COPY --chown=appuser:appuser manage.py manage.py
+COPY --chown=appuser:appuser requirements.txt requirements.txt
  
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
