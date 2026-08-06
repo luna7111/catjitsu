@@ -32,3 +32,4 @@ media
 # ALEX Client files
 client/certs/
 client/web/
+server/build/
