@@ -20,8 +20,7 @@ func _ready() -> void:
 	preload("res://scenes/main_menu/menu_home.tscn")
 	preload("res://scenes/main_menu/background/main_menu_background.tscn")
 	var music_player_scene = load("res://scenes/music_player.tscn")
-	music_player = music_player_scene.instantiate()
-	add_child(music_player)
+	music_player = $MusicPlayer
 	Global.scene_manager = self
 	if OS.has_feature("dedicated_server"):
 		print("Dedicated:", OS.has_feature("dedicated_server"))

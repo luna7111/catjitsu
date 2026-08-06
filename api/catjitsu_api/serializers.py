@@ -28,7 +28,7 @@ class UserAuthSerializer(serializers.ModelSerializer):
             user = user,
             deck = 'defaultdeck',
             avatar = 'Apolito',
-            language = 'en',
+            language = 'English',
             screenreader = False,
             volume = 100,
             current_session_uuid = None,
