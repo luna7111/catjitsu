@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://vmourylyrbm7"]
+
+[ext_resource type="Script" uid="uid://co5sd17gmxo2j" path="res://scripts/singleplayer/player_card_slot.gd" id="1_dd0t8"]
+[ext_resource type="Shader" uid="uid://cy1dsgoft8roj" path="res://assets/singleplayer/shaders/player_card_slot.gdshader" id="2_1g6n3"]
+[ext_resource type="Texture2D" uid="uid://cf4y181qpca51" path="res://assets/singleplayer/slot/card_tap_outline_down.png" id="3_1g6n3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2w1hs"]
+shader = ExtResource("2_1g6n3")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/direction = -1.0
+shader_parameter/frequency = 15.0
+shader_parameter/speed = 3.0
+shader_parameter/radius = 1.0
+shader_parameter/line_thickness = 0.03
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wcpbq"]
+bg_color = Color(0.9452769, 0.44297108, 0.75668746, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_usdqn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1g6n3"]
+resource_name = "pulse"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.73333335, 0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.05, 1.05), Vector2(0.95, 0.95), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wcpbq"]
+_data = {
+&"RESET": SubResource("Animation_usdqn"),
+&"pulse": SubResource("Animation_1g6n3")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2yd5i"]
+size = Vector2(151, 199)
+
+[node name="CardSlot" type="Node2D" unique_id=1332720918]
+script = ExtResource("1_dd0t8")
+
+[node name="Border" type="Panel" parent="." unique_id=1085253176]
+z_index = -1
+material = SubResource("ShaderMaterial_2w1hs")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -100.0
+offset_right = 75.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 0)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wcpbq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Border" unique_id=2049922952]
+libraries/ = SubResource("AnimationLibrary_wcpbq")
+
+[node name="TextureRect" type="TextureRect" parent="Border" unique_id=2042602161]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_1g6n3")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1831419743]
+visible = false
+position = Vector2(0, -1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1920578773]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_2yd5i")

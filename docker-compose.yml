@@ -1,0 +1,21 @@
+services:
+
+  server:
+    image: catjitsu-server
+    environment:
+      PORT: "8080"
+    build:
+      context: ./server
+    container_name: catjitsu-server
+    ports:
+      - "9000:8080"
+
+  client:
+    image: catjitsu-client
+    build:
+      context: ./client
+    container_name: catjitsu-client
+    ports:
+      - "8443:443"
+    depends_on:
+      - server

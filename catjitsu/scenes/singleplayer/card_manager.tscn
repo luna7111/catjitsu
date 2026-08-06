@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://gswm1iltm4s0"]
-
-[ext_resource type="Script" uid="uid://b4e5dwrsdo13y" path="res://scripts/singleplayer/card_manager.gd" id="1_pikqg"]
-
-[node name="CardManager" type="Node2D" unique_id=473152497]
-script = ExtResource("1_pikqg")
