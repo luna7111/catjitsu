@@ -10,12 +10,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from django.conf.global_settings import CSRF_TRUSTED_ORIGINS, STATIC_ROOT
+from dotenv import load_dotenv
+
+load_dotenv('.env.prod')
 
 # 42 Oauth
 
-CLIENT_ID = ""
-CLIENT_SECRET = ""
+# CLIENT_ID = ""
+# CLIENT_SECRET = ""
+CLIENT_ID = os.getenv("DJANGO_OAUTH_CLIENT_ID", "").split(",")
+CLIENT_SECRET = os.getenv("DJANGO_OAUTH_CLIENT_SECRET", "").split(",")
 REDIRECT_URI = "http://localhost:8000/auth/42/callback/"
 
 REST_FRAMEWORK = {
@@ -23,6 +30,9 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework_api_key.permissions.HasAPIKey",
+    # ],
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,13 +43,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32").split(",")
+# SECRET_KEY = 'django-insecure-6!2s7zh4$dbjeh@j=n3a6%a-ye0*9h74%pa+*gvn-a380vwn32'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG", default=1))
+# DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+# ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "https://127.0.0.1").split(",")
 
 
 # Application definition
@@ -108,15 +122,6 @@ DATABASES = {
 }
 
 
-# Project-wide API Key restriction, to enforce auth across all project
-
-# REST_FRAMEWORK = {
-#     "DEFAULT_PERMISSION_CLASSES": [
-#         "rest_framework_api_key.permissions.HasAPIKey",
-#     ]
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -152,6 +157,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
