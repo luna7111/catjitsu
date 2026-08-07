@@ -6,7 +6,10 @@ RUN apt update && \
 
 RUN rm -rf /var/www/html/*
 
-COPY web/ /var/www/html/
+COPY web/ /var/www/html/web/
+COPY wrapper/ /var/www/html/
+COPY tos/ /var/www/html/tos/
+COPY privacy/ /var/www/html/privacy/
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY certs/ /etc/nginx/certs/
 

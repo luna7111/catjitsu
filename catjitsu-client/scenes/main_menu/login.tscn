@@ -126,6 +126,7 @@ focus_previous = NodePath("../VBoxContainer/HBoxContainer/Login")
 focus_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoginOptions" unique_id=1375715179]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
