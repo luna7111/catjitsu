@@ -13,12 +13,12 @@ var music_player
 
 
 signal input_mode_changed(mode, previous)
+signal api_up
+signal api_down
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	preload("res://scenes/main_menu/menu_home.tscn")
-	preload("res://scenes/main_menu/background/main_menu_background.tscn")
 	var music_player_scene = load("res://scenes/music_player.tscn")
 	music_player = $MusicPlayer
 	Global.scene_manager = self
@@ -29,9 +29,13 @@ func _ready() -> void:
 		_set_startup_scene(startup_scene)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _ping(result, response_code, headers, body):
+	if (response_code != 0 and Global.api_working == false):
+		api_up.emit()
+		Global.api_working = true
+	if (response_code == 0 and Global.api_working == true):
+		api_down.emit()
+		Global.api_working = false
 
 
 func _set_startup_scene(scene):

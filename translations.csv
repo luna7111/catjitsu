@@ -2,16 +2,37 @@ key	en	es	fr
 LOGGIN MENU			
 COULDNT_CONNECT_TO_SERVER	Couldn’t connect to server	No se ha podido conectar con el servidor	…
 LOGIN_BUTTON	Log in	Iniciar sesión	…
-REGISTER_BUTTON	Register	Registrarse	
+REGISTER_BUTON	Register	Registrarse	
 CONTINUE_WITH_42	Continue with 42 Intra	Conectarse a través de 42	
 PLAY_OFFLINE	Play offline	Jugar offline	
 WAITING_INTRA_MSG	Waiting for 42 Intra Login…	Esperando inicio de sesión…	
-CHECK_BROWSER_MSG	Please check your browser	Comprueba el navegador	
+CHECK_BROSWER_MSG	Please check your browser	Comprueba el navegador	
 REGISTER_TAG	Register	Registrarse	
 LOGIN_TAG	Log in	Iniciar sesión	
 USERAME_TAG	Username	Usuario	
 PASSWORD_TAG	Password	Contraseña	
 TOS_BUTTON	Terms of service	Terminos de servicio	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 MAIN MENU			
 BACK_BUTTON	Back	Atrás	Arriere
@@ -22,6 +43,12 @@ SETTINGS_BUTTON	Settings	Ajustes	Paramètres
 SANDBOX_BUTTON	Sandbox	Sandbox	Sandbox
 EXIT_BUTTON	Exit	Salir	Sortir
 			
+			
+			
+			
+			
+			
+			
 SETTINGS			
 VOLUME_TAG	Volume	Volumen	Volume f
 MUSIC_TAG	Music	Musica	Music f
@@ -31,6 +58,8 @@ APPLY_BUTTON	Apply	Aplicar	Apply f
 LANGUAGE_ENGLISH	English	Inglés	Anglais
 LANGUAGE_SPANISH	Spanish	Español	Spaniel
 LANGUAGE_FRENCH	French	Francés	Français
+			
+			
 			
 MULTIPLAYER			
 CREATE_ROOM_BUTTON	Create room	Crear sala	Create room f

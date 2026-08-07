@@ -6,6 +6,14 @@ var client_authorised = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
+	Global.scene_manager.api_up.connect(_show_login_buttons)
+	Global.scene_manager.api_down.connect(_hide_login_buttons)
+	
+	if (Global.api_working == true):
+		_show_login_buttons()
+	else:
+		_hide_login_buttons()
+	
 	$HTTP/PlayerData.request_completed.connect(_fetch_player_data)
 	$HTTP/Register.request_completed.connect(_user_registered)
 	$HTTP/Login.request_completed.connect(_user_logged)
@@ -230,3 +238,14 @@ func _on_login_pressed() -> void:
 	$LoginPanel.show()
 	$RegisterPanel.hide()
 	$LoginOptions.hide()
+
+
+func _show_login_buttons():
+	$LoginOptions/VBoxContainer/HBoxContainer.show()
+	$LoginOptions/VBoxContainer/LoginIntra.show()
+	$LoginOptions/VBoxContainer/ServerMsg.hide()
+
+func _hide_login_buttons():
+	$LoginOptions/VBoxContainer/HBoxContainer.hide()
+	$LoginOptions/VBoxContainer/LoginIntra.hide()
+	$LoginOptions/VBoxContainer/ServerMsg.show()

@@ -17,6 +17,8 @@ var api_host
 var api_port = "8000"
 var websocket_url
 var api_base
+
+var api_working = false
 var logged_in = false
 
 var token = ""

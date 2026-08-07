@@ -47,7 +47,7 @@ func _on_apply_button_pressed() -> void:
 	var token = Global.token
 	var headers = ["Content-Type: application/json", "Authorization: Token " + token]
 	var body = "{\"language\": \"" + Global.config.language + "\", \"screenreader\": 0, \"volume\": " + str(Global.config.volume) + "}"
-	if Global.logged_in:
+	if Global.logged_in and Global.api_working:
 		$HTTP/UpdatePreferences.request(url, headers, HTTPClient.METHOD_PUT, body)
 
 func _on_preferences_request_completed(result, response_code, headers, body):

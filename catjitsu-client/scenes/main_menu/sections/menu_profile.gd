@@ -28,7 +28,7 @@ func _on_back_button_pressed() -> void:
 	var token = Global.token
 	var headers = ["Content-Type: application/json", "Authorization: Token " + token]
 	var body = "{\"avatar\": \"" + Global.profile.avatar + "\"}"
-	if Global.logged_in:
+	if Global.logged_in and Global.api_working:
 		$HTTP/UpdateAvatar.request(url, headers, HTTPClient.METHOD_PUT, body)
 	emit_signal("back_pressed")
 

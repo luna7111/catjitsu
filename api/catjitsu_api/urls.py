@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import CurrentPlayerDetail, LoginUser, PlayerList, PlayerDetail, MatchList, MatchDetail, OAuth42Login, OAuth42Callback, IdentifyClient, auth_completed, RegisterUser, PlayerAvatar, PlayerPreferences
+from .views import CurrentPlayerDetail, LoginUser, PlayerList, PlayerDetail, MatchList, MatchDetail, OAuth42Login, \
+    OAuth42Callback, IdentifyClient, auth_completed, RegisterUser, PlayerAvatar, PlayerPreferences, Ping
 
 urlpatterns = [
+    path('ping/', Ping.as_view(), name='ping'),
     path('me/', CurrentPlayerDetail().as_view(), name='me'),
     path('register/', RegisterUser().as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
