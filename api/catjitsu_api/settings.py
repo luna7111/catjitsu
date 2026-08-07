@@ -150,10 +150,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Allow the Godot HTML5 export during local development at http://localhost to access this API.
 # Remove these settings when the frontend is served from the same origin as the API.
 cors_origins = os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "")
-CORS_ALLOWED_ORIGINS = [
-    # origin.strip() for origin in cors_origins.split(",") if origin.strip()
-    "https://10.12.19.1",
-    "https://10.12.19.1:8060",
-    "https://10.12.19.1:8080",
-    "https://10.12.19.1:8001",
-]
+# CORS_ALLOWED_ORIGINS = [
+
+#     # # origin.strip() for origin in cors_origins.split(",") if origin.strip()
+#     # "https://10.12.19.1",
+#     # "https://10.12.19.1:8060",
+#     # "https://10.12.19.1:8080",
+#     # "https://10.12.19.1:8001",
+#     # "https://172.18.0.5"
+#     # "https://localhost:8443"
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
