@@ -18,7 +18,6 @@ grow_vertical = 2
 script = ExtResource("1_061kd")
 
 [node name="LoginOptions" type="MarginContainer" parent="." unique_id=1013145333]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,10 +37,16 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 32
 
+[node name="ServerMsg" type="Label" parent="LoginOptions/VBoxContainer" unique_id=1779113035]
+layout_mode = 2
+text = "COULDNT_CONNECT_TO_SERVER"
+horizontal_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="LoginOptions/VBoxContainer" unique_id=1241021805]
 layout_mode = 2
 theme = ExtResource("2_061kd")
 theme_override_constants/separation = 16
+alignment = 1
 
 [node name="Login" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=1805959836]
 layout_mode = 2
@@ -51,6 +56,7 @@ focus_neighbor_right = NodePath("../Register")
 focus_neighbor_bottom = NodePath("../../LoginIntra")
 focus_next = NodePath("../Register")
 focus_previous = NodePath("../../SkipLogin")
+accessibility_name = "LOGIN_BUTTON"
 text = "LOGIN_BUTTON"
 
 [node name="Register" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=222153644]
@@ -61,6 +67,7 @@ focus_neighbor_right = NodePath("../Login")
 focus_neighbor_bottom = NodePath("../../LoginIntra")
 focus_next = NodePath("../../LoginIntra")
 focus_previous = NodePath("../Login")
+accessibility_name = "REGISTER_BUTTON"
 text = "REGISTER_BUTTON"
 
 [node name="LoginIntra" type="Button" parent="LoginOptions/VBoxContainer" unique_id=1582211784]
@@ -73,9 +80,9 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../SkipLogin")
 focus_next = NodePath("../SkipLogin")
 focus_previous = NodePath("../HBoxContainer/Register")
-accessibility_name = "Login with 42 Intra"
+accessibility_name = "CONTINUE_WITH_42"
 theme = ExtResource("2_061kd")
-text = "Continue with 42 Intra"
+text = "CONTINUE_WITH_42"
 
 [node name="SkipLogin" type="Button" parent="LoginOptions/VBoxContainer" unique_id=688413602]
 layout_mode = 2
@@ -88,7 +95,7 @@ focus_neighbor_bottom = NodePath("../HBoxContainer/Login")
 focus_next = NodePath("../HBoxContainer/Login")
 focus_previous = NodePath("../LoginIntra")
 theme = ExtResource("2_061kd")
-text = "Play offline"
+text = "PLAY_OFFLINE"
 
 [node name="Dummy" type="Control" parent="LoginOptions" unique_id=1301061980]
 layout_mode = 2
@@ -129,16 +136,16 @@ theme_override_constants/margin_bottom = 70
 [node name="VBoxContainer" type="VBoxContainer" parent="Login42Panel/MarginContainer" unique_id=248374083]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=699160970]
+[node name="WaitingIntra" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=699160970]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Waiting for 42 Intra Login..."
+text = "WAITING_INTRA_MSG"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=1081544966]
+[node name="CheckBrowser" type="Label" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=1081544966]
 layout_mode = 2
 size_flags_vertical = 6
-text = "Please check your browser"
+text = "CHECK_BROWSER_MSG"
 horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="Login42Panel/MarginContainer/VBoxContainer" unique_id=1408721116]
@@ -288,6 +295,7 @@ focus_previous = NodePath("../MarginContainer/VBoxContainer/Username")
 focus_mode = 2
 
 [node name="LoginPanel" type="MarginContainer" parent="." unique_id=1449085151]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -418,15 +426,23 @@ focus_mode = 2
 [node name="GetPlayerData" type="HTTPRequest" parent="HTTP" unique_id=292336278]
 
 [connection signal="visibility_changed" from="LoginOptions" to="LoginOptions" method="_on_visibility_changed"]
+[connection signal="focus_entered" from="LoginOptions/VBoxContainer/HBoxContainer/Login" to="." method="_on_login_focus_entered"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/HBoxContainer/Login" to="." method="_on_login_pressed"]
+[connection signal="focus_entered" from="LoginOptions/VBoxContainer/HBoxContainer/Register" to="." method="_on_register_focus_entered"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/HBoxContainer/Register" to="." method="_on_register_pressed"]
+[connection signal="focus_entered" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_focus_entered"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]
+[connection signal="focus_entered" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_focus_entered"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]
+[connection signal="visibility_changed" from="Login42Panel" to="." method="_on_login_42_panel_visibility_changed"]
 [connection signal="visibility_changed" from="Login42Panel" to="Login42Panel" method="_on_visibility_changed"]
+[connection signal="focus_entered" from="Login42Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_focus_entered"]
 [connection signal="pressed" from="Login42Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_panel_back_button_pressed"]
 [connection signal="visibility_changed" from="RegisterPanel" to="RegisterPanel" method="_on_visibility_changed"]
+[connection signal="focus_entered" from="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_focus_entered"]
 [connection signal="pressed" from="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_panel_back_button_pressed"]
 [connection signal="pressed" from="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer/RegisterButton" to="." method="_on_register_enter_button_pressed"]
 [connection signal="visibility_changed" from="LoginPanel" to="LoginPanel" method="_on_visibility_changed"]
+[connection signal="focus_entered" from="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_focus_entered"]
 [connection signal="pressed" from="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_panel_back_button_pressed"]
 [connection signal="pressed" from="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]

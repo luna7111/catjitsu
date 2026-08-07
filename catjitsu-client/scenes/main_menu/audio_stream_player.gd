@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func _change_volume():
 	print(Global.config.volume)
-	if (Global.config.volume == 0):
+	if (int(Global.config.volume) == 0):
 		volume_db = -80
 	else:
-		volume_db = (Global.config.volume - 70) / 5
+		volume_db = (int(Global.config.volume) - 70) / 5

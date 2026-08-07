@@ -67,3 +67,27 @@ func _on_tree_entered() -> void:
 		$PanelContainer/MarginContainer/Buttons/Multiplayer.hide()
 	else:
 		$PanelContainer/MarginContainer/Buttons/Multiplayer.show()
+
+
+func _on_singleplayer_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($PanelContainer/MarginContainer/Buttons/Singleplayer.text), Global.tts_voice)
+
+
+func _on_multiplayer_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($PanelContainer/MarginContainer/Buttons/Multiplayer.text), Global.tts_voice)
+
+
+func _on_profile_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($PanelContainer/MarginContainer/Buttons/Profile.text), Global.tts_voice)
+
+
+func _on_settings_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($PanelContainer/MarginContainer/Buttons/Settings.text), Global.tts_voice)

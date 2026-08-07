@@ -29,6 +29,10 @@ from django import shortcuts
 
 from django.contrib.auth.forms import UserCreationForm
 
+class Ping(APIView):
+    def get(self, request):
+        return Response({"status":"ok"})
+
 class RegisterUser(generics.CreateAPIView):
     permission_classes=[AllowAny]
     throttle_scope = 'register'

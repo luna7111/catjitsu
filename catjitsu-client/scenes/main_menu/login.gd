@@ -6,6 +6,14 @@ var client_authorised = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
+	Global.scene_manager.api_up.connect(_show_login_buttons)
+	Global.scene_manager.api_down.connect(_hide_login_buttons)
+	
+	if (Global.api_working == true):
+		_show_login_buttons()
+	else:
+		_hide_login_buttons()
+	
 	$HTTP/PlayerData.request_completed.connect(_fetch_player_data)
 	$HTTP/Register.request_completed.connect(_user_registered)
 	$HTTP/Login.request_completed.connect(_user_logged)
@@ -220,6 +228,7 @@ func _populate_player_data(result, response_code, headers, body):
 	Global.config.language = json.get("language", "")
 	
 	Global.logged_in = true
+	print("LOGGED IN")
 	Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 	
 	print (json)
@@ -230,3 +239,51 @@ func _on_login_pressed() -> void:
 	$LoginPanel.show()
 	$RegisterPanel.hide()
 	$LoginOptions.hide()
+
+
+func _show_login_buttons():
+	$LoginOptions/VBoxContainer/HBoxContainer.show()
+	$LoginOptions/VBoxContainer/LoginIntra.show()
+	$LoginOptions/VBoxContainer/ServerMsg.hide()
+
+func _hide_login_buttons():
+	$LoginOptions/VBoxContainer/HBoxContainer.hide()
+	$LoginOptions/VBoxContainer/LoginIntra.hide()
+	$LoginOptions/VBoxContainer/ServerMsg.show()
+
+
+func _on_login_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($LoginOptions/VBoxContainer/HBoxContainer/Login.text), Global.tts_voice)
+
+
+func _on_register_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($LoginOptions/VBoxContainer/HBoxContainer/Register.text), Global.tts_voice)
+
+
+func _on_login_intra_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($LoginOptions/VBoxContainer/LoginIntra.text), Global.tts_voice)
+
+
+func _on_skip_login_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($LoginOptions/VBoxContainer/SkipLogin.text), Global.tts_voice)
+
+
+func _on_back_button_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($Login42Panel/MarginContainer/VBoxContainer/BackButton.text), Global.tts_voice)
+
+
+func _on_login_42_panel_visibility_changed() -> void:
+	if $Login42Panel.visible and DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($Login42Panel/MarginContainer/VBoxContainer/WaitingIntra.text), Global.tts_voice)
+		DisplayServer.tts_speak(TranslationServer.tr($Login42Panel/MarginContainer/VBoxContainer/CheckBrowser.text), Global.tts_voice)
