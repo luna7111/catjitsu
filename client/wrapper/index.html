@@ -27,6 +27,12 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+
+	  /* iframe container sizing: keep 1280px visually on 1080p but scale up on larger viewports */
+	  .iframe-container {
+	    /* keep at least 1280px on small/normal screens, scale with viewport (vw) on large screens, cap at 2560px */
+	    width: clamp(1280px, 66vw, 2560px);
+	  }
     </style>
 
 
@@ -42,7 +48,7 @@
         <div class="container-fluid px-0">
             <div class="row justify-content-center gx-0">
                 <div class="col-12 d-flex justify-content-center">
-                    <div class="mx-auto" style="max-width: 1280px; width: 100%;">
+                    <div class="mx-auto iframe-container">
                         <div class="ratio ratio-16x9">
                             <iframe
                                 src="/web/catjitsu.html"
