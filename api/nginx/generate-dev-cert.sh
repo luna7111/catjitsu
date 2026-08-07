@@ -6,8 +6,8 @@ CERT_DIR="./api/nginx/certs"
 
 mkdir -p "$CERT_DIR"
 
-IP="127.0.0.1"
-# IP=$(hostname -I | awk '{print $1}')
+# IP="127.0.0.1"
+IP=$(hostname -I | awk '{print $1}')
 
 echo "Generating development certificate for $IP"
 
