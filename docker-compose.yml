@@ -3,7 +3,7 @@ services:
   api:
     build:
       context: ./api
-    container_name: django-docker
+    container_name: catjitsu-api
     volumes:
       - static_volume:/app/staticfiles
     env_file:
