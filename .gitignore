@@ -29,6 +29,7 @@ db.sqlite3
 media
 .venv
 .env*
+api/nginx/certs
 
 # ALEX Client files
 client/certs/

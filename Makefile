@@ -8,6 +8,7 @@ all: deploy
 
 cert:
 	./client/scripts/generate-dev-cert.sh
+	./api/nginx/generate-dev-cert.sh
 
 export:
 	docker build -t $(BUILDER) -f Dockerfile.builder .
