@@ -2,18 +2,21 @@
 COMPOSE = docker compose
 BUILDER = catjitsu-builder
 
-.PHONY: all cert export build deploy up up-d down clean fclean re logs ps
+.PHONY: all cert export build deploy up up-d down clean fclean re logs ps tos-pp
 
 all: deploy
 
 cert:
 	./client/scripts/generate-dev-cert.sh
 
+tos-pp:
+
 export:
 	docker build -t $(BUILDER) -f Dockerfile.builder .
 	docker run --rm \
 		-v "$(PWD)":/workspace \
 		$(BUILDER)
+	./scripts/copy-docs.sh
 
 build: cert
 	$(COMPOSE) build
