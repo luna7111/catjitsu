@@ -17,6 +17,8 @@ var api_host
 var api_port = "8000"
 var websocket_url
 var api_base
+
+var api_working = false
 var logged_in = false
 
 var token = ""
@@ -39,7 +41,8 @@ var default_profile = {
 
 var default_config = {
 	volume = 50,
-	language = "English"
+	language = "English",
+	screenreader = true
 }
 
 var profile = {
@@ -51,7 +54,8 @@ var profile = {
 
 var config = {
 	volume = 50,
-	language = "English"
+	language = "English",
+	screenreader = true
 }
 
 
@@ -68,10 +72,16 @@ func _ready() -> void:
 	get_user_config()
 	get_user_profile()
 	update_config()
+	update_voices()
+
+func update_voices():
 	var tts_all_voices = DisplayServer.tts_get_voices_for_language(TranslationServer.get_locale())
 	if not tts_all_voices.is_empty():
 		tts_voice = tts_all_voices[0]
 		tts_avaiable = true
+	else:
+		tts_avaiable = false
+		print("VOICES BAD :(")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

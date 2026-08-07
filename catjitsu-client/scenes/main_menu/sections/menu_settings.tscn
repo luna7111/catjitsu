@@ -50,12 +50,11 @@ popup/item_2/text = "LANGUAGE_FRENCH"
 popup/item_2/id = 2
 
 [node name="ScreenReaderMenu" type="HBoxContainer" parent="MarginContainer/Buttons" unique_id=597324483]
-visible = false
 layout_mode = 2
 
 [node name="ScreenreaderTag" type="Label" parent="MarginContainer/Buttons/ScreenReaderMenu" unique_id=1204792413]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 6
 text = "SCREENREADER_TAG"
 
 [node name="CheckButton" type="CheckButton" parent="MarginContainer/Buttons/ScreenReaderMenu" unique_id=358573859]
@@ -110,5 +109,11 @@ focus_mode = 2
 [node name="UpdatePreferences" type="HTTPRequest" parent="HTTP" unique_id=2050512411]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="MarginContainer/Buttons/LanguageMenu/LanguageOptions" to="." method="_on_language_options_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/Buttons/ScreenReaderMenu/CheckButton" to="." method="_on_check_button_focus_entered"]
+[connection signal="toggled" from="MarginContainer/Buttons/ScreenReaderMenu/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="focus_entered" from="MarginContainer/Buttons/VolumeMenu/VolumeSlider" to="." method="_on_volume_slider_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/Buttons/ApplyButton" to="." method="_on_apply_button_focus_entered"]
 [connection signal="pressed" from="MarginContainer/Buttons/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="focus_entered" from="MarginContainer/Buttons/BackButton" to="." method="_on_back_button_focus_entered"]
 [connection signal="pressed" from="MarginContainer/Buttons/BackButton" to="." method="_on_back_button_pressed"]

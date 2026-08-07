@@ -61,7 +61,13 @@ corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gl82e"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2k5y2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qs2s3"]
+bg_color = Color(1, 1, 1, 0.41568628)
+border_color = Color(0.98039216, 0.9019608, 0.9490196, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ggae"]
 
@@ -172,7 +178,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_wyc3a")
 CheckButton/icons/checked = ExtResource("2_gl82e")
 CheckButton/icons/unchecked = ExtResource("2_6oill")
 CheckButton/styles/disabled = SubResource("StyleBoxEmpty_gl82e")
-CheckButton/styles/focus = SubResource("StyleBoxEmpty_2k5y2")
+CheckButton/styles/focus = SubResource("StyleBoxFlat_qs2s3")
 CheckButton/styles/hover = SubResource("StyleBoxEmpty_7ggae")
 CheckButton/styles/hover_mirrored = SubResource("StyleBoxEmpty_lqjfx")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_xqqc0")
