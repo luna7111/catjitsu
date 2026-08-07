@@ -71,4 +71,5 @@ focus_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="selection_changed" from="MarginContainer/VBoxContainer/AvatarSelection" to="." method="_on_avatar_selection_selection_changed"]
+[connection signal="focus_entered" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_focus_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

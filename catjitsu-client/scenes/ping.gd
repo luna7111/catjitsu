@@ -17,5 +17,7 @@ func _process(delta: float) -> void:
 func _ping(result, response_code, headers, body):
 	if Global.api_working == false and response_code != 0:
 		Global.scene_manager.emit_signal("api_up")
+		Global.api_working = true
 	if Global.api_working == true and response_code == 0:
 		Global.scene_manager.emit_signal("api_down")
+		Global.api_working = false

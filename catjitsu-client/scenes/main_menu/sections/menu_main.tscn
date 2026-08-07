@@ -151,6 +151,7 @@ focus_neighbor_top = NodePath("../Settings")
 focus_neighbor_bottom = NodePath("../Multiplayer")
 focus_next = NodePath("../Multiplayer")
 focus_previous = NodePath("../Settings")
+accessibility_name = "SINGLEPLAYER_BUTTON"
 theme = ExtResource("3_bd5dx")
 text = "SINGLEPLAYER_BUTTON"
 
@@ -161,6 +162,7 @@ focus_neighbor_top = NodePath("../Singleplayer")
 focus_neighbor_bottom = NodePath("../Profile")
 focus_next = NodePath("../Profile")
 focus_previous = NodePath("../Singleplayer")
+accessibility_name = "MULTIPLAYER_BUTTON"
 theme = ExtResource("3_bd5dx")
 text = "MULTIPLAYER_BUTTON"
 
@@ -215,7 +217,11 @@ focus_mode = 2
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/Buttons/Singleplayer" to="." method="_on_singleplayer_focus_entered"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Singleplayer" to="." method="_on_singleplayer_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/Buttons/Multiplayer" to="." method="_on_multiplayer_focus_entered"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Multiplayer" to="." method="_on_multiplayer_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/Buttons/Profile" to="." method="_on_profile_focus_entered"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Profile" to="." method="_on_profile_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/Buttons/Settings" to="." method="_on_settings_focus_entered"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Buttons/Settings" to="." method="_on_settings_pressed"]

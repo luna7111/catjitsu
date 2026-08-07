@@ -9,7 +9,7 @@ WAITING_INTRA_MSG	Waiting for 42 Intra Login…	Esperando inicio de sesión…
 CHECK_BROWSER_MSG	Please check your browser	Comprueba el navegador	
 REGISTER_TAG	Register	Registrarse	
 LOGIN_TAG	Log in	Iniciar sesión	
-USERAME_TAG	Username	Usuario	
+USERNAME_TAG	Username	Usuario	
 PASSWORD_TAG	Password	Contraseña	
 TOS_BUTTON	Terms of service	Terminos de servicio	
 			
@@ -31,7 +31,7 @@ APPLY_BUTTON	Apply	Aplicar	Apply f
 LANGUAGE_ENGLISH	English	Inglés	Anglais
 LANGUAGE_SPANISH	Spanish	Español	Spaniel
 LANGUAGE_FRENCH	French	Francés	Français
-			
+SCREENREADER_TAG	Screenreader	Lector de pantalla	
 MULTIPLAYER			
 CREATE_ROOM_BUTTON	Create room	Crear sala	Create room f
 JOIN_ROOM_BUTTON	Join Room	Unirse a una sala	Join room f

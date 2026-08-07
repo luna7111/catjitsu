@@ -73,3 +73,9 @@ func _on_avatar_selection_selection_changed() -> void:
 	var item_id = profile_selection.selected
 	Global.profile.avatar = profile_selection.get_item_text(item_id)
 	avatar_selection_changed.emit()
+
+
+func _on_back_button_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($MarginContainer/VBoxContainer/BackButton.text), Global.tts_voice)

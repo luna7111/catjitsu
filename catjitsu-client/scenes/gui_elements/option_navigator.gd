@@ -54,16 +54,18 @@ func _on_next_pressed() -> void:
 		selected = 0
 	update_text()
 	selection_changed.emit()
-	if DisplayServer.accessibility_screen_reader_active():
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader:
+		DisplayServer.tts_stop()
 		DisplayServer.tts_speak(TranslationServer.tr($Display.text), Global.tts_voice)
 
 
 func _on_focus_entered() -> void:
-	if DisplayServer.accessibility_screen_reader_active():
-		DisplayServer.tts_speak(TranslationServer.tr("Select skin, use left or right to change"), Global.tts_voice)
-		DisplayServer.tts_speak(TranslationServer.tr($Display.text), Global.tts_voice)
 	$Previous.add_theme_color_override("font_color", "bc2851")
 	$Next.add_theme_color_override("font_color", "bc2851")
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($Display.text), Global.tts_voice)
+
 
 
 func _on_focus_exited() -> void:
