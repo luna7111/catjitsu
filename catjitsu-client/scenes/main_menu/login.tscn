@@ -5,6 +5,8 @@
 [ext_resource type="Theme" uid="uid://bqxnag2rlymbi" path="res://themes/Default.tres" id="2_061kd"]
 [ext_resource type="Script" uid="uid://bkc53vdnl1s2a" path="res://scenes/main_menu/login_options.gd" id="2_blsv8"]
 [ext_resource type="Script" uid="uid://drjtpv12vivm3" path="res://scenes/main_menu/login_42_panel.gd" id="5_cgmhl"]
+[ext_resource type="Script" uid="uid://q8ntsyfcffvu" path="res://scenes/main_menu/register_panel.gd" id="6_rktrv"]
+[ext_resource type="Script" uid="uid://cnk4iglh408l2" path="res://scenes/main_menu/login_panel.gd" id="6_u05ya"]
 
 [node name="Login" type="Control" unique_id=129878198]
 layout_mode = 3
@@ -16,6 +18,7 @@ grow_vertical = 2
 script = ExtResource("1_061kd")
 
 [node name="LoginOptions" type="MarginContainer" parent="." unique_id=1013145333]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +29,7 @@ theme_override_constants/margin_top = 384
 script = ExtResource("2_blsv8")
 
 [node name="Logo" type="Sprite2D" parent="LoginOptions" unique_id=1593965926]
-position = Vector2(960, 384)
+position = Vector2(960, 300)
 texture = ExtResource("1_5w227")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoginOptions" unique_id=1339197336]
@@ -37,14 +40,27 @@ theme_override_constants/separation = 32
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LoginOptions/VBoxContainer" unique_id=1241021805]
 layout_mode = 2
+theme = ExtResource("2_061kd")
 theme_override_constants/separation = 16
 
 [node name="Login" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=1805959836]
 layout_mode = 2
+focus_neighbor_left = NodePath("../Register")
+focus_neighbor_top = NodePath("../../SkipLogin")
+focus_neighbor_right = NodePath("../Register")
+focus_neighbor_bottom = NodePath("../../LoginIntra")
+focus_next = NodePath("../Register")
+focus_previous = NodePath("../../SkipLogin")
 text = "LOGIN_BUTTON"
 
 [node name="Register" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=222153644]
 layout_mode = 2
+focus_neighbor_left = NodePath("../Login")
+focus_neighbor_top = NodePath("../../SkipLogin")
+focus_neighbor_right = NodePath("../Login")
+focus_neighbor_bottom = NodePath("../../LoginIntra")
+focus_next = NodePath("../../LoginIntra")
+focus_previous = NodePath("../Login")
 text = "REGISTER_BUTTON"
 
 [node name="LoginIntra" type="Button" parent="LoginOptions/VBoxContainer" unique_id=1582211784]
@@ -52,11 +68,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath("../SkipLogin")
+focus_neighbor_top = NodePath("../HBoxContainer/Login")
 focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../SkipLogin")
 focus_next = NodePath("../SkipLogin")
-focus_previous = NodePath("../SkipLogin")
+focus_previous = NodePath("../HBoxContainer/Register")
 accessibility_name = "Login with 42 Intra"
 theme = ExtResource("2_061kd")
 text = "Continue with 42 Intra"
@@ -68,8 +84,8 @@ size_flags_vertical = 4
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../LoginIntra")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../LoginIntra")
-focus_next = NodePath("../LoginIntra")
+focus_neighbor_bottom = NodePath("../HBoxContainer/Login")
+focus_next = NodePath("../HBoxContainer/Login")
 focus_previous = NodePath("../LoginIntra")
 theme = ExtResource("2_061kd")
 text = "Play offline"
@@ -78,12 +94,12 @@ text = "Play offline"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-focus_neighbor_left = NodePath("../VBoxContainer/LoginIntra")
-focus_neighbor_top = NodePath("../VBoxContainer/LoginIntra")
-focus_neighbor_right = NodePath("../VBoxContainer/LoginIntra")
-focus_neighbor_bottom = NodePath("../VBoxContainer/LoginIntra")
-focus_next = NodePath("../VBoxContainer/LoginIntra")
-focus_previous = NodePath("../VBoxContainer/LoginIntra")
+focus_neighbor_left = NodePath("../VBoxContainer/HBoxContainer/Login")
+focus_neighbor_top = NodePath("../VBoxContainer/HBoxContainer/Login")
+focus_neighbor_right = NodePath("../VBoxContainer/HBoxContainer/Login")
+focus_neighbor_bottom = NodePath("../VBoxContainer/HBoxContainer/Login")
+focus_next = NodePath("../VBoxContainer/HBoxContainer/Login")
+focus_previous = NodePath("../VBoxContainer/HBoxContainer/Login")
 focus_mode = 2
 
 [node name="Login42Panel" type="MarginContainer" parent="." unique_id=2098489762]
@@ -155,10 +171,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_061kd")
 theme_override_constants/margin_left = 600
 theme_override_constants/margin_top = 300
 theme_override_constants/margin_right = 600
 theme_override_constants/margin_bottom = 300
+script = ExtResource("6_rktrv")
 
 [node name="Panel" type="Panel" parent="RegisterPanel" unique_id=1294588257]
 layout_mode = 2
@@ -166,9 +184,9 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="RegisterPanel" unique_id=1081639037]
 layout_mode = 2
 theme_override_constants/margin_left = 70
-theme_override_constants/margin_top = 70
+theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 70
-theme_override_constants/margin_bottom = 70
+theme_override_constants/margin_bottom = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RegisterPanel/MarginContainer" unique_id=2102718420]
 layout_mode = 2
@@ -176,7 +194,7 @@ layout_mode = 2
 [node name="RegisterTag" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1419015227]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Register"
+text = "REGISTER_TAG"
 horizontal_alignment = 1
 
 [node name="HSeparator3" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=428146829]
@@ -189,6 +207,17 @@ text = "USERNAME_TAG"
 
 [node name="Username" type="LineEdit" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1834472334]
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../HBoxContainer/RegisterButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Password")
+focus_next = NodePath("../Password")
+focus_previous = NodePath("../HBoxContainer/RegisterButton")
+
+[node name="UsernameReason" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1124527117]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.21176471, 0.28235295, 1)
+theme_override_font_sizes/font_size = 24
 
 [node name="HSeparator2" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=2057954815]
 layout_mode = 2
@@ -200,7 +229,18 @@ text = "PASSWORD_TAG"
 
 [node name="Password" type="LineEdit" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=1506971578]
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Username")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../HBoxContainer/RegisterButton")
+focus_next = NodePath("../HBoxContainer/BackButton")
+focus_previous = NodePath("../Username")
 secret = true
+
+[node name="PasswordReason" type="Label" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=150335333]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.21176471, 0.28235295, 1)
+theme_override_font_sizes/font_size = 24
 
 [node name="HSeparator" type="HSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer" unique_id=2133553372]
 layout_mode = 2
@@ -212,6 +252,12 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1709593908]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../RegisterButton")
+focus_neighbor_top = NodePath("../../Password")
+focus_neighbor_right = NodePath("../RegisterButton")
+focus_neighbor_bottom = NodePath("../../Username")
+focus_next = NodePath("../RegisterButton")
+focus_previous = NodePath("../../Password")
 text = "BACK_BUTTON"
 
 [node name="Separator" type="VSeparator" parent="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=769037603]
@@ -221,26 +267,39 @@ theme_override_constants/separation = 32
 [node name="RegisterButton" type="Button" parent="RegisterPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=374507107]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../BackButton")
+focus_neighbor_top = NodePath("../../Password")
+focus_neighbor_right = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../../Username")
+focus_next = NodePath("../../Username")
+focus_previous = NodePath("../BackButton")
 text = "REGISTER_BUTTON"
 
 [node name="Dummy" type="Control" parent="RegisterPanel" unique_id=1651955146]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+focus_neighbor_left = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_neighbor_top = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_neighbor_right = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_neighbor_bottom = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_next = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_previous = NodePath("../MarginContainer/VBoxContainer/Username")
 focus_mode = 2
 
 [node name="LoginPanel" type="MarginContainer" parent="." unique_id=1449085151]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_061kd")
 theme_override_constants/margin_left = 600
 theme_override_constants/margin_top = 300
 theme_override_constants/margin_right = 600
 theme_override_constants/margin_bottom = 300
+script = ExtResource("6_u05ya")
 
 [node name="Panel" type="Panel" parent="LoginPanel" unique_id=304404711]
 layout_mode = 2
@@ -248,9 +307,9 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="LoginPanel" unique_id=1404259935]
 layout_mode = 2
 theme_override_constants/margin_left = 70
-theme_override_constants/margin_top = 70
+theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 70
-theme_override_constants/margin_bottom = 70
+theme_override_constants/margin_bottom = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LoginPanel/MarginContainer" unique_id=689498236]
 layout_mode = 2
@@ -271,6 +330,12 @@ text = "USERNAME_TAG"
 
 [node name="Username" type="LineEdit" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=1743491770]
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../RegisterPanel/MarginContainer/VBoxContainer/Username")
+focus_neighbor_top = NodePath("../HBoxContainer/LoginButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Password")
+focus_next = NodePath("../Password")
+focus_previous = NodePath("../HBoxContainer/LoginButton")
 
 [node name="HSeparator2" type="HSeparator" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=253238133]
 layout_mode = 2
@@ -282,7 +347,18 @@ text = "PASSWORD_TAG"
 
 [node name="Password" type="LineEdit" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=2021200227]
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Username")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../HBoxContainer/LoginButton")
+focus_next = NodePath("../HBoxContainer/BackButton")
+focus_previous = NodePath("../Username")
 secret = true
+
+[node name="LoginReason" type="Label" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=326528846]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.21176471, 0.28235295, 1)
+theme_override_font_sizes/font_size = 24
 
 [node name="HSeparator" type="HSeparator" parent="LoginPanel/MarginContainer/VBoxContainer" unique_id=1983139599]
 layout_mode = 2
@@ -294,6 +370,12 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1459273862]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../LoginButton")
+focus_neighbor_top = NodePath("../../Password")
+focus_neighbor_right = NodePath("../LoginButton")
+focus_neighbor_bottom = NodePath("../../Username")
+focus_next = NodePath("../LoginButton")
+focus_previous = NodePath("../../Password")
 text = "BACK_BUTTON"
 
 [node name="Separator" type="VSeparator" parent="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=184118770]
@@ -303,12 +385,24 @@ theme_override_constants/separation = 32
 [node name="LoginButton" type="Button" parent="LoginPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=115012773]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../BackButton")
+focus_neighbor_top = NodePath("../../Password")
+focus_neighbor_right = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../../Username")
+focus_next = NodePath("../../Username")
+focus_previous = NodePath("../BackButton")
 text = "LOGIN_BUTTON"
 
 [node name="Dummy" type="Control" parent="LoginPanel" unique_id=1877076855]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+focus_neighbor_left = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_neighbor_top = NodePath("../../RegisterPanel/MarginContainer/VBoxContainer/Username")
+focus_neighbor_right = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_neighbor_bottom = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_next = NodePath("../MarginContainer/VBoxContainer/Username")
+focus_previous = NodePath("../MarginContainer/VBoxContainer/Username")
 focus_mode = 2
 
 [node name="HTTP" type="Node" parent="." unique_id=543820286]
