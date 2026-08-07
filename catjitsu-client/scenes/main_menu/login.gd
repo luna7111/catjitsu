@@ -6,6 +6,8 @@ var client_authorised = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
+	Global.config = Global.default_config
+	
 	Global.scene_manager.api_up.connect(_show_login_buttons)
 	Global.scene_manager.api_down.connect(_hide_login_buttons)
 	
@@ -55,7 +57,6 @@ func _on_skip_login_pressed() -> void:
 	Global.logged_in = false
 	
 	Global.profile = Global.default_profile
-	Global.config = Global.default_config
 	
 	Global.scene_manager.switch_scene("res://scenes/main_menu/menu_home.tscn", false)
 
@@ -287,3 +288,22 @@ func _on_login_42_panel_visibility_changed() -> void:
 		DisplayServer.tts_stop()
 		DisplayServer.tts_speak(TranslationServer.tr($Login42Panel/MarginContainer/VBoxContainer/WaitingIntra.text), Global.tts_voice)
 		DisplayServer.tts_speak(TranslationServer.tr($Login42Panel/MarginContainer/VBoxContainer/CheckBrowser.text), Global.tts_voice)
+
+
+func _on_tos_pressed() -> void:
+	OS.shell_open("https://" + Global.hostname + ":" + Global.game_port + "/TOS.html")
+
+
+func _on_pp_pressed() -> void:
+	OS.shell_open("https://" + Global.hostname + ":" + Global.game_port + "/PP.html")
+
+
+func _on_language_item_selected(index: int) -> void:
+	match index:
+		0:
+			Global.config.language = "English"
+		1:
+			Global.config.language = "Spanish"
+		2:
+			Global.config.language = "French"
+	Global.update_translations()

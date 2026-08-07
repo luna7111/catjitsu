@@ -6,7 +6,8 @@ CERT_DIR="./client/certs"
 
 mkdir -p "$CERT_DIR"
 
-IP=$(hostname -I | awk '{print $1}')
+#IP=$(hostname -I | awk '{print $1}')
+IP=127.0.0.1
 
 echo "Generating development certificate for $IP"
 

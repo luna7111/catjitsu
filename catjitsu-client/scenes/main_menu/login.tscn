@@ -8,6 +8,19 @@
 [ext_resource type="Script" uid="uid://q8ntsyfcffvu" path="res://scenes/main_menu/register_panel.gd" id="6_rktrv"]
 [ext_resource type="Script" uid="uid://cnk4iglh408l2" path="res://scenes/main_menu/login_panel.gd" id="6_u05ya"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rktrv"]
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.06666667)
+shadow_size = 8
+
 [node name="Login" type="Control" unique_id=129878198]
 layout_mode = 3
 anchors_preset = 15
@@ -24,7 +37,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 384
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 50
 script = ExtResource("2_blsv8")
 
 [node name="Logo" type="Sprite2D" parent="LoginOptions" unique_id=1593965926]
@@ -50,19 +66,19 @@ alignment = 1
 
 [node name="Login" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=1805959836]
 layout_mode = 2
-focus_neighbor_left = NodePath("../Register")
-focus_neighbor_top = NodePath("../../SkipLogin")
+focus_neighbor_left = NodePath("../../../Language")
+focus_neighbor_top = NodePath("../../../Language")
 focus_neighbor_right = NodePath("../Register")
 focus_neighbor_bottom = NodePath("../../LoginIntra")
 focus_next = NodePath("../Register")
-focus_previous = NodePath("../../SkipLogin")
+focus_previous = NodePath(".")
 accessibility_name = "LOGIN_BUTTON"
 text = "LOGIN_BUTTON"
 
 [node name="Register" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=222153644]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Login")
-focus_neighbor_top = NodePath("../../SkipLogin")
+focus_neighbor_top = NodePath("../../../Language")
 focus_neighbor_right = NodePath("../Login")
 focus_neighbor_bottom = NodePath("../../LoginIntra")
 focus_next = NodePath("../../LoginIntra")
@@ -91,8 +107,8 @@ size_flags_vertical = 4
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../LoginIntra")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../HBoxContainer/Login")
-focus_next = NodePath("../HBoxContainer/Login")
+focus_neighbor_bottom = NodePath("../../Language")
+focus_next = NodePath("../../HBoxContainer/TOS")
 focus_previous = NodePath("../LoginIntra")
 theme = ExtResource("2_061kd")
 text = "PLAY_OFFLINE"
@@ -108,6 +124,59 @@ focus_neighbor_bottom = NodePath("../VBoxContainer/HBoxContainer/Login")
 focus_next = NodePath("../VBoxContainer/HBoxContainer/Login")
 focus_previous = NodePath("../VBoxContainer/HBoxContainer/Login")
 focus_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LoginOptions" unique_id=1375715179]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 16
+
+[node name="TOS" type="Button" parent="LoginOptions/HBoxContainer" unique_id=1608496160]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_neighbor_left = NodePath("../../Language")
+focus_neighbor_top = NodePath("../../VBoxContainer/SkipLogin")
+focus_neighbor_right = NodePath("../PP")
+focus_neighbor_bottom = NodePath("../../VBoxContainer/HBoxContainer/Login")
+focus_next = NodePath("../PP")
+focus_previous = NodePath("../../VBoxContainer/SkipLogin")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_rktrv")
+text = "TOS_BUTTON"
+
+[node name="PP" type="Button" parent="LoginOptions/HBoxContainer" unique_id=1324933459]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_neighbor_left = NodePath("../TOS")
+focus_neighbor_top = NodePath("../../VBoxContainer/SkipLogin")
+focus_neighbor_right = NodePath("../../Language")
+focus_neighbor_bottom = NodePath("../../VBoxContainer/HBoxContainer/Login")
+focus_next = NodePath("../../Language")
+focus_previous = NodePath("../TOS")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_rktrv")
+text = "PP_BUTTON"
+
+[node name="Language" type="OptionButton" parent="LoginOptions" unique_id=1373139709]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+focus_neighbor_left = NodePath("../HBoxContainer/PP")
+focus_neighbor_top = NodePath("../VBoxContainer/SkipLogin")
+focus_neighbor_right = NodePath("../HBoxContainer/TOS")
+focus_neighbor_bottom = NodePath("../VBoxContainer/HBoxContainer/Login")
+focus_next = NodePath("../VBoxContainer/HBoxContainer/Login")
+focus_previous = NodePath("../HBoxContainer/PP")
+selected = 0
+item_count = 3
+popup/item_0/text = "LANGUAGE_ENGLISH"
+popup/item_0/id = 0
+popup/item_1/text = "LANGUAGE_SPANISH"
+popup/item_1/id = 1
+popup/item_2/text = "LANGUAGE_FRENCH"
+popup/item_2/id = 2
 
 [node name="Login42Panel" type="MarginContainer" parent="." unique_id=2098489762]
 visible = false
@@ -434,6 +503,9 @@ focus_mode = 2
 [connection signal="pressed" from="LoginOptions/VBoxContainer/LoginIntra" to="." method="_on_login_intra_pressed"]
 [connection signal="focus_entered" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_focus_entered"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]
+[connection signal="pressed" from="LoginOptions/HBoxContainer/TOS" to="." method="_on_tos_pressed"]
+[connection signal="pressed" from="LoginOptions/HBoxContainer/PP" to="." method="_on_pp_pressed"]
+[connection signal="item_selected" from="LoginOptions/Language" to="." method="_on_language_item_selected"]
 [connection signal="visibility_changed" from="Login42Panel" to="." method="_on_login_42_panel_visibility_changed"]
 [connection signal="visibility_changed" from="Login42Panel" to="Login42Panel" method="_on_visibility_changed"]
 [connection signal="focus_entered" from="Login42Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_focus_entered"]
