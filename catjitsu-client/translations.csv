@@ -12,28 +12,29 @@ LOGIN_TAG	Log in	Iniciar sesión
 USERNAME_TAG	Username	Usuario	
 PASSWORD_TAG	Password	Contraseña	
 TOS_BUTTON	Terms of service	Terminos de servicio	
+PP_BUTTON	Privacy policy	Politica de privacidad	
 			
 MAIN MENU			
-BACK_BUTTON	Back	Atrás	Arriere
+BACK_BUTTON	Back	Atrás	Retour
 MULTIPLAYER_BUTTON	Multiplayer	Multijugador	Multijoueur
-SINGLEPLAYER_BUTTON	Singleplayer	Un jugador	Singleplayer f
+SINGLEPLAYER_BUTTON	Singleplayer	Un jugador	Un seul joueur
 PROFILE_BUTTON	Profile	Perfil	Profil
 SETTINGS_BUTTON	Settings	Ajustes	Paramètres
 SANDBOX_BUTTON	Sandbox	Sandbox	Sandbox
 EXIT_BUTTON	Exit	Salir	Sortir
 			
 SETTINGS			
-VOLUME_TAG	Volume	Volumen	Volume f
-MUSIC_TAG	Music	Musica	Music f
-SFX_TAG	Sound effects	Efectos de sonido	SFX f
+VOLUME_TAG	Volume	Volumen	Volume
+MUSIC_TAG	Music	Musica	Musique
+SFX_TAG	Sound effects	Efectos de sonido	Effets sonores
 LANGUAGE_TAG	Language	Idioma	Langue
-APPLY_BUTTON	Apply	Aplicar	Apply f
+APPLY_BUTTON	Apply	Aplicar	Appliquer
 LANGUAGE_ENGLISH	English	Inglés	Anglais
-LANGUAGE_SPANISH	Spanish	Español	Spaniel
+LANGUAGE_SPANISH	Spanish	Español	Espagnol
 LANGUAGE_FRENCH	French	Francés	Français
-SCREENREADER_TAG	Screenreader	Lector de pantalla	
+SCREENREADER_TAG	Screenreader	Lector de pantalla	Lecteur d’écran
 MULTIPLAYER			
-CREATE_ROOM_BUTTON	Create room	Crear sala	Create room f
-JOIN_ROOM_BUTTON	Join Room	Unirse a una sala	Join room f
-ROOM_CODE_TAG	Room code	Código de la sala	Room code f
-NO_ROOM_NOTIFY	This room doesn’t exist	La sala no existe	Room doesn’t exist f
+CREATE_ROOM_BUTTON	Create room	Crear sala	Créer partie
+JOIN_ROOM_BUTTON	Join Room	Unirse a una sala	Rejoindre partie
+ROOM_CODE_TAG	Room code	Código de la sala	Code de partie
+NO_ROOM_NOTIFY	This room doesn’t exist	La sala no existe	La partie n’existe pas

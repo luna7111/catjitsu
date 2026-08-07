@@ -17,7 +17,6 @@ export:
 	docker run --rm \
 		-v "$(PWD)":/workspace \
 		$(BUILDER)
-	./scripts/copy-docs.sh
 
 build: cert
 	$(COMPOSE) build

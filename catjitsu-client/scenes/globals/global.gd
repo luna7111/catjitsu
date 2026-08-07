@@ -15,6 +15,7 @@ var host
 var hostname
 var api_host
 var api_port = "8001"
+var game_port = "8443"
 var websocket_url
 var api_base
 
@@ -135,6 +136,7 @@ func configure_network() -> void:
 
 	else:
 		host = "localhost:9000"
+		hostname = "localhost"
 		api_host = "http://localhost:" + api_port
 		websocket_url = "ws://localhost:9000"
 		api_base = "http://localhost:9000/api"
