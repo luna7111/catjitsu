@@ -10,7 +10,7 @@ services:
       - ./api/.env.prod
 
   nginx:
-    image: nginx:latest
+    image: nginx:alpine
     container_name: frontend-proxy
     ports:
       - "8001:443"

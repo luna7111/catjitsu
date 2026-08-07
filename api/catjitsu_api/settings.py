@@ -151,5 +151,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Remove these settings when the frontend is served from the same origin as the API.
 cors_origins = os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "")
 CORS_ALLOWED_ORIGINS = [
-    origin.strip() for origin in cors_origins.split(",") if origin.strip()
+    # origin.strip() for origin in cors_origins.split(",") if origin.strip()
+    "https://10.12.19.1",
+    "https://10.12.19.1:8060",
+    "https://10.12.19.1:8080",
+    "https://10.12.19.1:8001",
 ]
