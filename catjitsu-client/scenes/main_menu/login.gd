@@ -226,7 +226,14 @@ func _populate_player_data(result, response_code, headers, body):
 	
 	Global.config.volume = int(json.get("volume", ""))
 	Global.config.screenreader = json.get("screenreader", "")
-	Global.config.language = json.get("language", "")
+	if not $RegisterPanel.visible:
+		Global.config.language = json.get("language", "")
+	else:
+		var request_headers = ["Content-Type: application/json", "Authorization: Token " + Global.token]
+		var url = Global.api_host + "/player/" + str(Global.profile.id).pad_decimals(0) + "/preferences"
+		var request_body = "{\"language\": \"" + Global.config.language + "\"}"
+		
+		$HTTP/UpdateLanguage.request(url, request_headers, HTTPClient.METHOD_PUT, body)
 	
 	Global.logged_in = true
 	print("LOGGED IN")

@@ -494,6 +494,8 @@ focus_mode = 2
 
 [node name="GetPlayerData" type="HTTPRequest" parent="HTTP" unique_id=292336278]
 
+[node name="UpdateLanguage" type="HTTPRequest" parent="HTTP" unique_id=1037922200]
+
 [connection signal="visibility_changed" from="LoginOptions" to="LoginOptions" method="_on_visibility_changed"]
 [connection signal="focus_entered" from="LoginOptions/VBoxContainer/HBoxContainer/Login" to="." method="_on_login_focus_entered"]
 [connection signal="pressed" from="LoginOptions/VBoxContainer/HBoxContainer/Login" to="." method="_on_login_pressed"]
