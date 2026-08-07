@@ -80,6 +80,7 @@ func update_voices():
 		tts_voice = tts_all_voices[0]
 		tts_avaiable = true
 	else:
+		tts_avaiable = false
 		print("VOICES BAD :(")
 
 
