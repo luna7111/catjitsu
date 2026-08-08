@@ -26,24 +26,31 @@ network:
 
 build: cert
 	$(COMPOSE) build
+	$(COMPOSE) -f api/docker-compose.yml build
 
 deploy: export build network
+	docker compose -f api/docker-compose.yml up -d
 	$(COMPOSE) up
 
 deploy-d: export build network
+	docker compose -f api/docker-compose.yml up -d
 	$(COMPOSE) up -d
 
 up: build network
+	docker compose -f api/docker-compose.yml up -d
 	$(COMPOSE) up
 
 up-d: build network
+	docker compose -f api/docker-compose.yml up -d
 	$(COMPOSE) up -d
 
 down:
 	$(COMPOSE) down
+	docker compose -f api/docker-compose.yml down
 
 clean:
 	$(COMPOSE) down --remove-orphans --volumes
+	docker compose -f api/docker-compose.yml down --remove-orphans --volumes
 	docker builder prune -f
 	rm -rf client/certs
 	rm -rf client/web
@@ -59,3 +66,4 @@ logs:
 
 ps:
 	$(COMPOSE) ps
+	docker compose -f api/docker-compose.yml ps
