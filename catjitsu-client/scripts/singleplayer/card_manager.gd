@@ -150,3 +150,7 @@ func select_card(card):
 	selected_card = card
 	if selected_card:
 		highlight_card(selected_card, true)
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr(str(card.points)), Global.tts_voice)
+		DisplayServer.tts_speak(TranslationServer.tr(card.type), Global.tts_voice)

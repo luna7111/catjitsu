@@ -251,7 +251,7 @@ func _on_login_pressed() -> void:
 
 func _show_login_buttons():
 	$LoginOptions/VBoxContainer/HBoxContainer.show()
-	$LoginOptions/VBoxContainer/LoginIntra.show()
+	#$LoginOptions/VBoxContainer/LoginIntra.show()
 	$LoginOptions/VBoxContainer/ServerMsg.hide()
 
 func _hide_login_buttons():
@@ -314,3 +314,23 @@ func _on_language_item_selected(index: int) -> void:
 		2:
 			Global.config.language = "French"
 	Global.update_translations()
+
+
+func _on_screenreader_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		Global.config.screenreader = true
+		Global.update_voices()
+	else:
+		Global.config.screenreader = false
+
+
+func _on_screenreader_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($LoginOptions/HBoxContainer3/HBoxContainer2/Label.text), Global.tts_voice)
+
+
+func _on_language_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr("LANGUAGE_TAG"), Global.tts_voice)

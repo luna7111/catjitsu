@@ -1,4 +1,5 @@
 # Remove sudo for 42 school pc
+HOST_IP := $(shell hostname -I | awk '{print $$1}')
 COMPOSE = docker compose
 BUILDER = catjitsu-builder
 
@@ -19,19 +20,19 @@ export:
 		$(BUILDER)
 
 build: cert
-	$(COMPOSE) build
+	HOST_IP=$(HOST_IP) $(COMPOSE) build
 
 deploy: export build
-	$(COMPOSE) up
+	HOST_IP=$(HOST_IP) $(COMPOSE) up
 
 deploy-d: export build
-	$(COMPOSE) up -d
+	HOST_IP=$(HOST_IP) $(COMPOSE) up -d
 
 up: build
-	$(COMPOSE) up
+	HOST_IP=$(HOST_IP) $(COMPOSE) up
 
 up-d: build
-	$(COMPOSE) up -d
+	HOST_IP=$(HOST_IP) $(COMPOSE) up -d
 
 down:
 	$(COMPOSE) down

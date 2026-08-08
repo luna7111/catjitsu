@@ -3,6 +3,7 @@ extends Node
 @onready var opponent = $Opponent
 @onready var player = $Player
 @onready var battle_manager = $BattleLogic/BattleManager
+@onready var result_label = $Player/Result
 
 func _ready():
 	battle_manager.opponent = opponent
@@ -19,9 +20,18 @@ func _on_decks_received(my_deck, opponent_deck):
 	opponent.setup(opponent_deck)
 
 # When backend is implemented, make a NetworkAPI call to result
-func _on_game_finished():
+func _on_game_finished(result):
 	#NetworkAPI.report_match_finished(result)
 	#multiplayer.multiplayer_peer.close()
+	match result:
+		"Player":
+			result_label.text = "You win!"
+		"Opponent":
+			result_label.text = "You lose!"
+		"Tie":
+			result_label.text = "It's a tie!"
+	result_label.show()
+	
 	get_tree().get_multiplayer().multiplayer_peer.close()
 	Global.scene_manager.switch_scene(
 		"res://scenes/scene_manager.tscn",
