@@ -96,7 +96,7 @@ For the frontend, we decided to develop a fully featured multiplayer card game t
 
 In addition to its game development features, Godot includes a High-Level Multiplayer API, which greatly simplifies the implementation of multiplayer systems. To handle real-time communication between players, we chose **WebSockets** as the networking protocol, with a dedicated multiplayer server also developed in Godot.
 
-ADD HERE -> BACKEND DEVELOPMENT
+The API serves as the central bridge between the client application and the backend database, handling user authentication, player profile management, and game state validation. Built with Django REST Framework, it processes incoming HTTP requests, enforces security policies (DRF Token authentication and CORS rules), and safely exposes endpoints for the Godot WebAssembly frontend to query and interact with persistent data.
 
 ## Database Schema
 
@@ -212,9 +212,12 @@ ADD HERE -> BACKEND FEATURES
 - [RFC 6455 - The WebSocket Protocol](https://datatracker.ietf.org/doc/html/rfc6455)
 - [MDN - WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
 - [Godot Docs - Using WebSockets](https://docs.godotengine.org/en/stable/tutorials/networking/websocket.html)
+- doc de django
+- doc de drf auth
 ##### Videos
 - [Godot High Level Multiplayer and WebSockets connection - Davies dev](https://www.youtube.com/watch?v=RQKodnluOp8&list=PLylNHWOqRhsGCmeOcKOPnbMRKSNqqQycM)
-
+- video crear nuevo proyecto drinks
+- video levantar django con nginx
 ADD HERE -> Rest of backend documentation
 
 ### AI Usage
