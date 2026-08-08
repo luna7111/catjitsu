@@ -17,6 +17,8 @@ services:
       - static_volume:/app/staticfiles
     env_file:
       - .env.prod
+    networks:
+      - catjitsu-network
 
   frontend-proxy:
     image: nginx:latest
@@ -27,7 +29,13 @@ services:
       - static_volume:/static:ro
     depends_on:
       - django-web
+    networks:
+      - catjitsu-network
 
 volumes:
   static_volume:
   # postgres_data:
+
+networks:
+  catjitsu-network:
+    external: true

@@ -156,7 +156,8 @@ func _on_register_enter_button_pressed() -> void:
 	var request_body = "{\"username\": \""+ username + "\", \"password\": \"" + password + "\"}"
 	print(request_body)
 	var request_headers = ["Content-Type: application/json"]
-	$HTTP/Register.request(Global.api_host + "/register/", request_headers, HTTPClient.METHOD_POST, request_body)
+	#$HTTP/Register.request(Global.api_host + "/register/", request_headers, HTTPClient.METHOD_POST, request_body)
+	$HTTP/Register.request(Global.api_base + "/register/", request_headers, HTTPClient.METHOD_POST, request_body)
 
 
 func _on_login_button_pressed() -> void:

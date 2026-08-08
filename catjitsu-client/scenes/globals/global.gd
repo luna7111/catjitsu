@@ -119,7 +119,8 @@ func configure_network() -> void:
 		var protocol = JavaScriptBridge.eval("window.location.protocol")
 		host = JavaScriptBridge.eval("window.location.host")
 		hostname = JavaScriptBridge.eval("window.location.hostname")
-		api_host = protocol + "//" + hostname + ":" + api_port
+		#api_host = protocol + "//" + hostname + ":" + api_port
+		api_host = protocol + "//" + hostname + ":" + game_port + "/api"
 
 		var ws_protocol := "ws"
 		if protocol == "https:":

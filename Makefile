@@ -1,8 +1,10 @@
 # Remove sudo for 42 school pc
+
 COMPOSE = docker compose
 BUILDER = catjitsu-builder
+NETWORK_NAME := catjitsu-network
 
-.PHONY: all cert export build deploy up up-d down clean fclean re logs ps tos-pp
+.PHONY: all cert tos-pp export network build deploy deploy-d up up-d down clean fclean re logs ps
 
 all: deploy
 
@@ -17,19 +19,24 @@ export:
 		-v "$(PWD)":/workspace \
 		$(BUILDER)
 
+network:
+	@docker network inspect $(NETWORK_NAME) >/dev/null 2>&1 || \
+		docker network create $(NETWORK_NAME)
+	@echo "Docker network '$(NETWORK_NAME)' is ready."
+
 build: cert
 	$(COMPOSE) build
 
-deploy: export build
+deploy: export build network
 	$(COMPOSE) up
 
-deploy-d: export build
+deploy-d: export build network
 	$(COMPOSE) up -d
 
-up: build
+up: build network
 	$(COMPOSE) up
 
-up-d: build
+up-d: build network
 	$(COMPOSE) up -d
 
 down:

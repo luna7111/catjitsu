@@ -9,6 +9,8 @@ services:
     container_name: catjitsu-server
     ports:
       - "9000:8080"
+    networks:
+      - catjitsu-network
 
   client:
     image: catjitsu-client
@@ -19,3 +21,9 @@ services:
       - "8443:443"
     depends_on:
       - server
+    networks:
+      - catjitsu-network
+
+networks:
+  catjitsu-network:
+    external: true
