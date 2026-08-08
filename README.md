@@ -100,7 +100,9 @@ The API serves as the central bridge between the client application and the back
 
 ## Database Schema
 
-ADD HERE -> DATABASE SCHEMA
+<p align="center">
+  <img src="api/database_schema.png" alt="database schema">
+</p>
 
 ## Features List
 
