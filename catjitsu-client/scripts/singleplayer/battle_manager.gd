@@ -9,7 +9,7 @@ var opponent_card_on_slot
 var player_card_on_slot
 
 # Aftermath
-signal game_finished
+signal game_finished(result)
 
 # Battle Logic
 var battle_timer
@@ -130,17 +130,18 @@ func end_turn():
 			player_elements += 1
 		if opponent_points[key]:
 			opponent_elements +=1
-		if (player_points[key] == 3 or player_elements == 3
-		or opponent_points[key] == 3 or opponent_elements == 3) :
-			print("Game Over!")
-			game_finished.emit()
+		if (player_points[key] == 3 or player_elements == 3):
+			print("Player wins!")
+			game_finished.emit("Player")
 			return
-			#get_tree().quit()
+		elif (opponent_points[key] == 3 or opponent_elements == 3):
+			print("Opponent!")
+			game_finished.emit("Opponent")
+			return
 		elif !player.has_cards_on_hand():
 			print("Player has not cards!")
-			game_finished.emit()
+			game_finished.emit("Tie")
 			return
-			#get_tree().quit()
 	
 	# Reset turn
 	opponent_card_on_slot = null

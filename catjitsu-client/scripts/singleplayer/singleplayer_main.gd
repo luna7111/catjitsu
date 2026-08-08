@@ -24,6 +24,7 @@ const DEFAULT_DECK = [
 @onready var opponent = $Opponent
 @onready var player = $Player
 @onready var battle_manager = $BattleLogic/BattleManager
+@onready var result_label = $Player/Result
 
 func _ready():
 	var lowpass_effect: AudioEffect = AudioServer.get_bus_effect(1, 0)
@@ -44,7 +45,16 @@ func _ready():
 	opponent_deck.shuffle()
 	opponent.setup(opponent_deck)
 
-func _on_game_finished():
+func _on_game_finished(result):
+	match result:
+		"Player":
+			result_label.text = "You win!"
+		"Opponent":
+			result_label.text = "You lose!"
+		"Tie":
+			result_label.text = "It's a tie!"
+	result_label.show()
+	await get_tree().create_timer(2.0).timeout
 	Global.scene_manager.switch_scene(
 		"res://scenes/main_menu/menu_home.tscn",
 		false
