@@ -64,7 +64,7 @@ func _on_input_mode_changed(mode: Variant, previous: Variant) -> void:
 				$Dummy.release_focus()
 		Global.InputMode.KEYBOARD:
 			print("keyboard")
-			if (previous == Global.InputMode.MOUSE):
+			if (previous == Global.InputMode.MOUSE and not $MarginContainer/HBoxContainer/VBoxContainer/LineEdit.has_focus()):
 				$Dummy.grab_focus()
 		Global.InputMode.CONTOLLER:
 			print("Controller")
@@ -76,3 +76,39 @@ func _on_visibility_changed() -> void:
 	if visible and Global.current_input_mode != Global.InputMode.MOUSE:
 		$Dummy.grab_focus()
 		print("AAA")
+
+
+func _on_create_room_button_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($MarginContainer/HBoxContainer/VBoxContainer2/CreateRoomButton.text), Global.tts_voice)
+
+
+func _on_copy_button_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($MarginContainer/HBoxContainer/VBoxContainer2/CopyButton.text), Global.tts_voice)
+
+
+func _on_play_game_button_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($MarginContainer/HBoxContainer/PlayGameButton.text), Global.tts_voice)
+
+
+func _on_line_edit_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($MarginContainer/HBoxContainer/VBoxContainer/LineEdit.placeholder_text), Global.tts_voice)
+
+
+func _on_join_room_button_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($MarginContainer/HBoxContainer/VBoxContainer/JoinRoomButton.text), Global.tts_voice)
+
+
+func _on_back_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($Back.text), Global.tts_voice)

@@ -43,7 +43,7 @@ var default_profile = {
 var default_config = {
 	volume = 50,
 	language = "English",
-	screenreader = true
+	screenreader = false
 }
 
 var profile = {
@@ -56,7 +56,7 @@ var profile = {
 var config = {
 	volume = 50,
 	language = "English",
-	screenreader = true
+	screenreader = false
 }
 
 
@@ -80,6 +80,7 @@ func update_voices():
 	if not tts_all_voices.is_empty():
 		tts_voice = tts_all_voices[0]
 		tts_avaiable = true
+		print("VOICES GOOD :)")
 	else:
 		tts_avaiable = false
 		print("VOICES BAD :(")

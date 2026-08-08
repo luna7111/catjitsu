@@ -66,8 +66,8 @@ alignment = 1
 
 [node name="Login" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=1805959836]
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../Language")
-focus_neighbor_top = NodePath("../../../Language")
+focus_neighbor_left = NodePath("../../../HBoxContainer3/Language")
+focus_neighbor_top = NodePath("../../../HBoxContainer3/Language")
 focus_neighbor_right = NodePath("../Register")
 focus_neighbor_bottom = NodePath("../../LoginIntra")
 focus_next = NodePath("../Register")
@@ -78,7 +78,7 @@ text = "LOGIN_BUTTON"
 [node name="Register" type="Button" parent="LoginOptions/VBoxContainer/HBoxContainer" unique_id=222153644]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Login")
-focus_neighbor_top = NodePath("../../../Language")
+focus_neighbor_top = NodePath("../../../HBoxContainer3/Language")
 focus_neighbor_right = NodePath("../Login")
 focus_neighbor_bottom = NodePath("../../LoginIntra")
 focus_next = NodePath("../../LoginIntra")
@@ -107,7 +107,7 @@ size_flags_vertical = 4
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../LoginIntra")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../../Language")
+focus_neighbor_bottom = NodePath("../../HBoxContainer3/Language")
 focus_next = NodePath("../../HBoxContainer/TOS")
 focus_previous = NodePath("../LoginIntra")
 theme = ExtResource("2_061kd")
@@ -136,7 +136,7 @@ theme_override_constants/separation = 16
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-focus_neighbor_left = NodePath("../../Language")
+focus_neighbor_left = NodePath("../../HBoxContainer3/Language")
 focus_neighbor_top = NodePath("../../VBoxContainer/SkipLogin")
 focus_neighbor_right = NodePath("../PP")
 focus_neighbor_bottom = NodePath("../../VBoxContainer/HBoxContainer/Login")
@@ -152,24 +152,44 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 focus_neighbor_left = NodePath("../TOS")
 focus_neighbor_top = NodePath("../../VBoxContainer/SkipLogin")
-focus_neighbor_right = NodePath("../../Language")
+focus_neighbor_right = NodePath("../../HBoxContainer3/Language")
 focus_neighbor_bottom = NodePath("../../VBoxContainer/HBoxContainer/Login")
-focus_next = NodePath("../../Language")
+focus_next = NodePath("../../HBoxContainer3/Language")
 focus_previous = NodePath("../TOS")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_rktrv")
 text = "PP_BUTTON"
 
-[node name="Language" type="OptionButton" parent="LoginOptions" unique_id=1373139709]
+[node name="HBoxContainer3" type="HBoxContainer" parent="LoginOptions" unique_id=2072233649]
 layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 8
-focus_neighbor_left = NodePath("../HBoxContainer/PP")
-focus_neighbor_top = NodePath("../VBoxContainer/SkipLogin")
-focus_neighbor_right = NodePath("../HBoxContainer/TOS")
-focus_neighbor_bottom = NodePath("../VBoxContainer/HBoxContainer/Login")
-focus_next = NodePath("../VBoxContainer/HBoxContainer/Login")
-focus_previous = NodePath("../HBoxContainer/PP")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LoginOptions/HBoxContainer3" unique_id=1128485270]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="LoginOptions/HBoxContainer3/HBoxContainer2" unique_id=2085719878]
+layout_mode = 2
+text = "SCREENREADER_TAG"
+
+[node name="Screenreader" type="CheckButton" parent="LoginOptions/HBoxContainer3/HBoxContainer2" unique_id=1478035114]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource("2_061kd")
+
+[node name="Language" type="OptionButton" parent="LoginOptions/HBoxContainer3" unique_id=1373139709]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+focus_neighbor_left = NodePath("../../HBoxContainer/PP")
+focus_neighbor_top = NodePath("../../VBoxContainer/SkipLogin")
+focus_neighbor_right = NodePath("../../HBoxContainer/TOS")
+focus_neighbor_bottom = NodePath("../../VBoxContainer/HBoxContainer/Login")
+focus_next = NodePath("../../VBoxContainer/HBoxContainer/Login")
+focus_previous = NodePath("../../HBoxContainer/PP")
 selected = 0
 item_count = 3
 popup/item_0/text = "LANGUAGE_ENGLISH"
@@ -508,7 +528,8 @@ focus_mode = 2
 [connection signal="pressed" from="LoginOptions/VBoxContainer/SkipLogin" to="." method="_on_skip_login_pressed"]
 [connection signal="pressed" from="LoginOptions/HBoxContainer/TOS" to="." method="_on_tos_pressed"]
 [connection signal="pressed" from="LoginOptions/HBoxContainer/PP" to="." method="_on_pp_pressed"]
-[connection signal="item_selected" from="LoginOptions/Language" to="." method="_on_language_item_selected"]
+[connection signal="toggled" from="LoginOptions/HBoxContainer3/HBoxContainer2/Screenreader" to="." method="_on_screenreader_toggled"]
+[connection signal="item_selected" from="LoginOptions/HBoxContainer3/Language" to="." method="_on_language_item_selected"]
 [connection signal="visibility_changed" from="Login42Panel" to="." method="_on_login_42_panel_visibility_changed"]
 [connection signal="visibility_changed" from="Login42Panel" to="Login42Panel" method="_on_visibility_changed"]
 [connection signal="focus_entered" from="Login42Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_focus_entered"]

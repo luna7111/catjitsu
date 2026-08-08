@@ -129,7 +129,13 @@ focus_previous = NodePath("../MarginContainer/HBoxContainer/VBoxContainer2/Creat
 focus_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="MarginContainer/HBoxContainer/VBoxContainer2/CreateRoomButton" to="." method="_on_create_room_button_focus_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/CreateRoomButton" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="MarginContainer/HBoxContainer/VBoxContainer2/CopyButton" to="." method="_on_copy_button_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/HBoxContainer/PlayGameButton" to="." method="_on_play_game_button_focus_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/PlayGameButton" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="MarginContainer/HBoxContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/HBoxContainer/VBoxContainer/JoinRoomButton" to="." method="_on_join_room_button_focus_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/JoinRoomButton" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="Back" to="." method="_on_back_focus_entered"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

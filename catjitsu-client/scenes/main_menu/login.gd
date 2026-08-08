@@ -314,3 +314,11 @@ func _on_language_item_selected(index: int) -> void:
 		2:
 			Global.config.language = "French"
 	Global.update_translations()
+
+
+func _on_screenreader_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		Global.config.screenreader = true
+		Global.update_voices()
+	else:
+		Global.config.screenreader = false

@@ -25,6 +25,11 @@ general/text_to_speech=true
 Global="*uid://bfaw8ae7rte40"
 NetworkAPI="*uid://b6hy6pvr8c3h"
 
+[debug]
+
+settings/physics_interpolation/enable_warnings=false
+gdscript/warnings/enable=false
+
 [display]
 
 window/size/viewport_width=1920

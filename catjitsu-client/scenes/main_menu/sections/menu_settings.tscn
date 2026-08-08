@@ -60,6 +60,7 @@ text = "SCREENREADER_TAG"
 [node name="CheckButton" type="CheckButton" parent="MarginContainer/Buttons/ScreenReaderMenu" unique_id=358573859]
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("1_rrw0a")
 
 [node name="VolumeMenu" type="HBoxContainer" parent="MarginContainer/Buttons" unique_id=825482989]
 layout_mode = 2
