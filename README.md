@@ -21,7 +21,7 @@ Here are some of the key features of this project:
 - Single-player card game built with the Godot open-source game engine
 - Multiplayer card game featuring private rooms with room codes, powered by WebSockets and a Godot Linux dedicated server
 - Player avatar customization and configurable settings
-- ADD HERE -> BACKEND DATABASE MICROSERVICES
+- Backend database and microservices: Django-based backend with database storage and containerized services for the API and dedicated game server.
 
 ## Instructions
 
@@ -96,7 +96,9 @@ For the frontend, we decided to develop a fully featured multiplayer card game t
 
 In addition to its game development features, Godot includes a High-Level Multiplayer API, which greatly simplifies the implementation of multiplayer systems. To handle real-time communication between players, we chose **WebSockets** as the networking protocol, with a dedicated multiplayer server also developed in Godot.
 
-ADD HERE -> BACKEND DEVELOPMENT
+For the backend, we chose **Django** as the main web framework. It provides the REST API used by the web client to handle server-side functionality and persistent application data. Django's structure also allows us to separate the backend logic from the game server, keeping responsibilities clearly divided between the web API and the real-time multiplayer service.
+
+The backend is containerized using **Docker**, with the different services running independently and communicating through the appropriate network protocols. This architecture makes the application easier to deploy and maintain while allowing the game server and web API to scale or evolve independently.
 
 ## Database Schema
 
@@ -113,8 +115,8 @@ ADD HERE -> BACKEND DEVELOPMENT
 - **Multiple language support:** play the game in English, Spanish, or French.
 - **Accessibility options:** screen reader support, keyboard navigation, and assistive technologies.
 - **Multiple input methods:** play using a mouse, keyboard, or controller.
-
-ADD HERE -> BACKEND FEATURES
+- **Containerized backend services**: Django API and supporting services can be deployed independently using Docker
+- **Stored player data**: store and manage player accounts, profiles, and game-related data through the backend.
 
 ## Modules
 
@@ -124,7 +126,7 @@ ADD HERE -> BACKEND FEATURES
 
 - **Use a framework for both the frontend and backend** [acaro-su, acastrov, gtaza-ca, kde-la-c, ldel-val]: Godot Engine is used as the frontend framework for the game, while Django is used as the backend framework for the API and server-side functionality.
 - **Implement real-time features using WebSockets or similar technology** [acaro-su, acastrov]: Real-time multiplayer communication using WebSockets through Godot's High-Level Multiplayer API.
-- **A public API to interact with the database with a secured API key, rate limiting, documentation, and at least 5 endpoints** [gtaza-ca, kde-la-c, ldel-val]: ADD HERE -> API
+- **A public API to interact with the database with a secured API key, rate limiting, documentation, and at least 5 endpoints** [gtaza-ca, kde-la-c, ldel-val]:The project includes a Django REST API that provides controlled access to persistent application data through multiple endpoints. API access is protected through authentication mechanisms, with rate limiting applied to prevent abuse. The API is documented to make its endpoints and expected requests easier to understand and consume.
 
 #### Minor
 
@@ -142,14 +144,6 @@ ADD HERE -> BACKEND FEATURES
 
 - **Support for multiple languages (at least 3 languages)** [gtaza-ca, kde-la-c, ldel-val]: Support for English, French, and Spanish through Godot's internationalization (i18n) system.
 - **Support for additional browsers** [acastrov, ldel-val]: Compatibility with Google Chrome, Mozilla Firefox, and Safari.
-
----
-
-### User Management
-
-#### Minor
-
-- **Implement remote authentication with OAuth 2.0 (Google, GitHub, 42, etc.)** [gtaza-ca, kde-la-c, ldel-val]: ADD HERE -> OAuth 42 implementation
 
 ---
 
@@ -173,9 +167,9 @@ ADD HERE -> BACKEND FEATURES
 ## Point Calculation
 
 - **Major modules:** 9 (18 points)
-- **Minor modules:** 4 (4 points)
+- **Minor modules:** 3 (3 points)
 
-**Total:** **22 points**
+**Total:** **21 points**
 
 ## Individual Contributions
 
