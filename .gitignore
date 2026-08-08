@@ -33,3 +33,6 @@ media
 client/certs/
 client/web/
 server/build/
+
+#Api env
+api/.env.prod
