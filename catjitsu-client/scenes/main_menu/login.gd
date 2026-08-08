@@ -251,7 +251,7 @@ func _on_login_pressed() -> void:
 
 func _show_login_buttons():
 	$LoginOptions/VBoxContainer/HBoxContainer.show()
-	$LoginOptions/VBoxContainer/LoginIntra.show()
+	#$LoginOptions/VBoxContainer/LoginIntra.show()
 	$LoginOptions/VBoxContainer/ServerMsg.hide()
 
 func _hide_login_buttons():

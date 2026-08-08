@@ -87,6 +87,7 @@ accessibility_name = "REGISTER_BUTTON"
 text = "REGISTER_BUTTON"
 
 [node name="LoginIntra" type="Button" parent="LoginOptions/VBoxContainer" unique_id=1582211784]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
