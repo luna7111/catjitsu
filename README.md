@@ -100,7 +100,9 @@ ADD HERE -> BACKEND DEVELOPMENT
 
 ## Database Schema
 
-ADD HERE -> DATABASE SCHEMA
+<p align="center">
+  <img src="api/database_schema.png" alt="database schema">
+</p>
 
 ## Features List
 
