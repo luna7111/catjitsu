@@ -35,3 +35,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("6_p4to6")
 metadata/_edit_use_anchors_ = true
+
+[node name="Result" type="Label" parent="." unique_id=67476966]
+offset_left = 678.0
+offset_top = 413.0
+offset_right = 1246.0
+offset_bottom = 601.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+vertical_alignment = 1
