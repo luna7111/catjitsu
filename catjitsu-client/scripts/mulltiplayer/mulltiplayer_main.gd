@@ -31,6 +31,7 @@ func _on_game_finished(result):
 		"Tie":
 			result_label.text = "It's a tie!"
 	result_label.show()
+	await get_tree().create_timer(2.0).timeout	
 	
 	get_tree().get_multiplayer().multiplayer_peer.close()
 	Global.scene_manager.switch_scene(
