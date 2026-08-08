@@ -14,7 +14,7 @@ var tts_avaiable: bool = false
 var host
 var hostname
 var api_host
-var api_port = "8000"
+var api_port = "8001"
 var game_port = "8443"
 var websocket_url
 var api_base
@@ -119,7 +119,7 @@ func configure_network() -> void:
 		var protocol = JavaScriptBridge.eval("window.location.protocol")
 		host = JavaScriptBridge.eval("window.location.host")
 		hostname = JavaScriptBridge.eval("window.location.hostname")
-		api_host = protocol + "//" + hostname + ":" + api_port
+		api_host = "https://" + hostname + ":" + api_port
 
 		var ws_protocol := "ws"
 		if protocol == "https:":

@@ -1,5 +1,26 @@
 services:
 
+  api:
+    build:
+      context: ./api
+    container_name: catjitsu-api
+    volumes:
+      - static_volume:/app/staticfiles
+    env_file:
+      - ./api/.env.prod
+
+  nginx:
+    image: nginx:alpine
+    container_name: frontend-proxy
+    ports:
+      - "8001:443"
+    volumes:
+      - ./api/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/static:ro
+      - ./api/nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - api
+
   server:
     image: catjitsu-server
     environment:
@@ -9,6 +30,8 @@ services:
     container_name: catjitsu-server
     ports:
       - "9000:8080"
+    depends_on:
+      - nginx
 
   client:
     image: catjitsu-client
@@ -19,3 +42,6 @@ services:
       - "8443:443"
     depends_on:
       - server
+
+volumes:
+  static_volume:

@@ -33,8 +33,12 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin/
 WORKDIR /app
  
 # Copy application code
-COPY --chown=appuser:appuser . .
+COPY --chown=appuser:appuser ./catjitsu_api/ ./catjitsu_api/
+COPY --chown=appuser:appuser ./entrypoint.prod.sh ./entrypoint.prod.sh
+COPY --chown=appuser:appuser ./manage.py ./manage.py
  
+# RUN export IP_ADDRESS=$(hostname -I | awk '{print $1}')
+
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1 
