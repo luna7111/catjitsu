@@ -322,3 +322,15 @@ func _on_screenreader_toggled(toggled_on: bool) -> void:
 		Global.update_voices()
 	else:
 		Global.config.screenreader = false
+
+
+func _on_screenreader_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr($LoginOptions/HBoxContainer3/HBoxContainer2/Label.text), Global.tts_voice)
+
+
+func _on_language_focus_entered() -> void:
+	if DisplayServer.accessibility_screen_reader_active() and Global.config.screenreader and Global.tts_avaiable:
+		DisplayServer.tts_stop()
+		DisplayServer.tts_speak(TranslationServer.tr("LANGUAGE_TAG"), Global.tts_voice)
