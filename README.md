@@ -21,7 +21,7 @@ Here are some of the key features of this project:
 - Single-player card game built with the Godot open-source game engine
 - Multiplayer card game featuring private rooms with room codes, powered by WebSockets and a Godot Linux dedicated server
 - Player avatar customization and configurable settings
-- ADD HERE -> BACKEND DATABASE MICROSERVICES
+- Backend database and microservices: Django-based backend with database storage and containerized services for the API and dedicated game server.
 
 ## Instructions
 
@@ -96,7 +96,9 @@ For the frontend, we decided to develop a fully featured multiplayer card game t
 
 In addition to its game development features, Godot includes a High-Level Multiplayer API, which greatly simplifies the implementation of multiplayer systems. To handle real-time communication between players, we chose **WebSockets** as the networking protocol, with a dedicated multiplayer server also developed in Godot.
 
-The API serves as the central bridge between the client application and the backend database, handling user authentication, player profile management, and game state validation. Built with Django REST Framework, it processes incoming HTTP requests, enforces security policies (DRF Token authentication and CORS rules), and safely exposes endpoints for the Godot WebAssembly frontend to query and interact with persistent data.
+For the backend, we chose **Django** as the main web framework. It provides the REST API used by the web client to handle server-side functionality and persistent application data. Django's structure also allows us to separate the backend logic from the game server, keeping responsibilities clearly divided between the web API and the real-time multiplayer service.
+
+The backend is containerized using **Docker**, with the different services running independently and communicating through the appropriate network protocols. This architecture makes the application easier to deploy and maintain while allowing the game server and web API to scale or evolve independently.
 
 ## Database Schema
 
@@ -113,8 +115,8 @@ The API serves as the central bridge between the client application and the back
 - **Multiple language support:** play the game in English, Spanish, or French.
 - **Accessibility options:** screen reader support, keyboard navigation, and assistive technologies.
 - **Multiple input methods:** play using a mouse, keyboard, or controller.
-
-ADD HERE -> BACKEND FEATURES
+- **Containerized backend services**: Django API and supporting services can be deployed independently using Docker
+- **Stored player data**: store and manage player accounts, profiles, and game-related data through the backend.
 
 ## Modules
 
@@ -122,13 +124,13 @@ ADD HERE -> BACKEND FEATURES
 
 #### Major
 
-- **Use a framework for both the frontend and backend** [acaro-su, acastrov, gtaza-ca, kde-la-c, ldel-val]: Use of the Godot game engine as the frontend framework and Django as the backend framework. ADD HERE -> Lets talk about this one
+- **Use a framework for both the frontend and backend** [acaro-su, acastrov, gtaza-ca, kde-la-c, ldel-val]: Godot Engine is used as the frontend framework for the game, while Django is used as the backend framework for the API and server-side functionality.
 - **Implement real-time features using WebSockets or similar technology** [acaro-su, acastrov]: Real-time multiplayer communication using WebSockets through Godot's High-Level Multiplayer API.
-- **A public API to interact with the database with a secured API key, rate limiting, documentation, and at least 5 endpoints** [gtaza-ca, kde-la-c, ldel-val]: ADD HERE -> API
+- **A public API to interact with the database with a secured API key, rate limiting, documentation, and at least 5 endpoints** [gtaza-ca, kde-la-c, ldel-val]:The project includes a Django REST API that provides controlled access to persistent application data through multiple endpoints. API access is protected through authentication mechanisms, with rate limiting applied to prevent abuse. The API is documented to make its endpoints and expected requests easier to understand and consume.
 
 #### Minor
 
-- **Custom-made design system with reusable components, including a proper color palette, typography, and icons (minimum: 10 reusable components)** [ldel-val]: ADD HERE -> GODOT CUSTOM THEMES
+- **Custom-made design system with reusable components, including a proper color palette, typography, and icons (minimum: 10 reusable components)** [ldel-val]: A custom Godot Theme is used to provide a consistent visual design across the game, defining shared colors, typography, and styling for UI controls. The theme is reused across multiple interface components such as buttons, panels, labels, input fields, menus, and other game UI elements.
 
 ---
 
@@ -141,15 +143,7 @@ ADD HERE -> BACKEND FEATURES
 #### Minor
 
 - **Support for multiple languages (at least 3 languages)** [gtaza-ca, kde-la-c, ldel-val]: Support for English, French, and Spanish through Godot's internationalization (i18n) system.
-- **Support for additional browsers** [acastrov, ldel-val]: Compatibility with Google Chrome, Mozilla Firefox, and Safari.
-
----
-
-### User Management
-
-#### Minor
-
-- **Implement remote authentication with OAuth 2.0 (Google, GitHub, 42, etc.)** [gtaza-ca, kde-la-c, ldel-val]: ADD HERE -> OAuth 42 implementation
+- **Support for additional browsers** [acastrov, ldel-val]: Compatibility with Google Chrome, Mozilla Firefox.
 
 ---
 
@@ -157,7 +151,7 @@ ADD HERE -> BACKEND FEATURES
 
 #### Major
 
-- **Introduce an AI Opponent for games** [acastrov, ldel-val]: ADD HERE -> Will see, will see >:")
+- **Introduce an AI Opponent for games** [acastrov, ldel-val]: The opponent uses a deterministic decision-making system with controlled variation. Its actions are selected according to the current game state and available cards, giving it consistent behavior while introducing enough randomness to prevent every match from playing out identically.
 
 ---
 
@@ -167,16 +161,15 @@ ADD HERE -> BACKEND FEATURES
 
 - **Implement a complete web-based game where users can play against each other** [acaro-su, acastrov, ldel-val]: Complete multiplayer gameplay implemented with Godot's frontend and High-Level Multiplayer API over WebSockets.
 - **Remote players — Enable two players on separate computers to play the same game in real-time** [acaro-su, acastrov]: Room-based multiplayer system allowing two players on different computers to play in real time over the same local network.
-- **Implement advanced 3D graphics using a library like Three.js or Babylon.js** [ldel-val]: ADD HERE -> Tell them about them cats!
-
+- **Implement advanced 3D graphics using a library like Three.js or Babylon.js** [ldel-val]: CatJitsu uses Godot's 3D engine to create and render the game's cat-themed 3D environments, characters, animations, and visual effects, providing an interactive 3D experience rather than relying on a purely 2D interface.
 ---
 
 ## Point Calculation
 
 - **Major modules:** 9 (18 points)
-- **Minor modules:** 4 (4 points)
+- **Minor modules:** 3 (3 points)
 
-**Total:** **22 points**
+**Total:** **21 points**
 
 ## Individual Contributions
 
@@ -193,34 +186,31 @@ ADD HERE -> BACKEND FEATURES
 ## Resources
 
 ### Frontend
-#### Godot
-##### Documentation
+#### Documentation
 - [Godot Docs](https://docs.godotengine.org/en/stable/#)
 - [Exporting for the Web - Godot Docs](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html)
   
-##### Tutorials
+#### Tutorials
 - [Card Game Godot 4.3 COMPLETE TUTORIAL - Barry's Dev Hell (playlist)](https://www.youtube.com/playlist?list=PLNWIwxsLZ-LMYzxHlVb7v5Xo5KaUV7Tq1)
 - [Dedicated Multiplayer - Game Development Center (playlist)](https://www.youtube.com/playlist?list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s)
 
-##### Videos
+#### Videos
 - [Godot Multiplayer Tutorial: The Quick and Easy High-Level API - IcyEngine](https://www.youtube.com/watch?v=YnfsyZJRsL8)
 
 ### Backend
-#### WebSocket
-##### Articles
+#### Articles
 - [WebSocket and Its Difference from HTTP](https://www.geeksforgeeks.org/web-tech/what-is-web-socket-and-how-it-is-different-from-the-http/)
 - [WebSocket Explained: What It Is and How It WorksWebSocket Explained: What It Is and How It Works](https://medium.com/@omargoher/websocket-explained-what-it-is-and-how-it-works-b9eafefe28d7)
-##### Documentation
+#### Documentation
 - [RFC 6455 - The WebSocket Protocol](https://datatracker.ietf.org/doc/html/rfc6455)
 - [MDN - WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
 - [Godot Docs - Using WebSockets](https://docs.godotengine.org/en/stable/tutorials/networking/websocket.html)
-- doc de django
-- doc de drf auth
-##### Videos
+- [Django Docs](https://docs.djangoproject.com/en/6.1/)
+- [Data Rest Framework Authentication Docs](https://www.django-rest-framework.org/api-guide/authentication/)
+#### Videos
 - [Godot High Level Multiplayer and WebSockets connection - Davies dev](https://www.youtube.com/watch?v=RQKodnluOp8&list=PLylNHWOqRhsGCmeOcKOPnbMRKSNqqQycM)
-- video crear nuevo proyecto drinks
-- video levantar django con nginx
-ADD HERE -> Rest of backend documentation
+- [Docker + Django: Containerize the Right Way with Nginx, Postgresql & Gunicorn](https://www.youtube.com/watch?v=1v3lqIITRJA)
+- [Django REST Framework - Build an API from Scratch](https://www.youtube.com/watch?v=i5JykvxUk_A)
 
 ### AI Usage
 
