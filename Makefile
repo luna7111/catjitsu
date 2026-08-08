@@ -3,6 +3,7 @@
 COMPOSE = docker compose
 BUILDER = catjitsu-builder
 NETWORK_NAME := catjitsu-network
+HOST_IP := $(shell hostname -I | awk '{print $$1}')
 
 .PHONY: all cert tos-pp export network build deploy deploy-d up up-d down clean fclean re logs ps
 
@@ -29,12 +30,12 @@ build: cert
 	$(COMPOSE) -f api/docker-compose.yml build
 
 deploy: export build network
-	docker compose -f api/docker-compose.yml up -d
-	$(COMPOSE) up
+	HOST_IP=$(HOST_IP) docker compose -f api/docker-compose.yml up -d
+	HOST_IP=$(HOST_IP) $(COMPOSE) up
 
 deploy-d: export build network
-	docker compose -f api/docker-compose.yml up -d
-	$(COMPOSE) up -d
+	HOST_IP=$(HOST_IP) docker compose -f api/docker-compose.yml up -d
+	HOST_IP=$(HOST_IP) $(COMPOSE) up -d
 
 up: build network
 	docker compose -f api/docker-compose.yml up -d
