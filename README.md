@@ -122,13 +122,13 @@ ADD HERE -> BACKEND FEATURES
 
 #### Major
 
-- **Use a framework for both the frontend and backend** [acaro-su, acastrov, gtaza-ca, kde-la-c, ldel-val]: Use of the Godot game engine as the frontend framework and Django as the backend framework. ADD HERE -> Lets talk about this one
+- **Use a framework for both the frontend and backend** [acaro-su, acastrov, gtaza-ca, kde-la-c, ldel-val]: Godot Engine is used as the frontend framework for the game, while Django is used as the backend framework for the API and server-side functionality.
 - **Implement real-time features using WebSockets or similar technology** [acaro-su, acastrov]: Real-time multiplayer communication using WebSockets through Godot's High-Level Multiplayer API.
 - **A public API to interact with the database with a secured API key, rate limiting, documentation, and at least 5 endpoints** [gtaza-ca, kde-la-c, ldel-val]: ADD HERE -> API
 
 #### Minor
 
-- **Custom-made design system with reusable components, including a proper color palette, typography, and icons (minimum: 10 reusable components)** [ldel-val]: ADD HERE -> GODOT CUSTOM THEMES
+- **Custom-made design system with reusable components, including a proper color palette, typography, and icons (minimum: 10 reusable components)** [ldel-val]: A custom Godot Theme is used to provide a consistent visual design across the game, defining shared colors, typography, and styling for UI controls. The theme is reused across multiple interface components such as buttons, panels, labels, input fields, menus, and other game UI elements.
 
 ---
 
@@ -157,7 +157,7 @@ ADD HERE -> BACKEND FEATURES
 
 #### Major
 
-- **Introduce an AI Opponent for games** [acastrov, ldel-val]: ADD HERE -> Will see, will see >:")
+- **Introduce an AI Opponent for games** [acastrov, ldel-val]: The opponent uses a deterministic decision-making system with controlled variation. Its actions are selected according to the current game state and available cards, giving it consistent behavior while introducing enough randomness to prevent every match from playing out identically.
 
 ---
 
@@ -167,8 +167,7 @@ ADD HERE -> BACKEND FEATURES
 
 - **Implement a complete web-based game where users can play against each other** [acaro-su, acastrov, ldel-val]: Complete multiplayer gameplay implemented with Godot's frontend and High-Level Multiplayer API over WebSockets.
 - **Remote players — Enable two players on separate computers to play the same game in real-time** [acaro-su, acastrov]: Room-based multiplayer system allowing two players on different computers to play in real time over the same local network.
-- **Implement advanced 3D graphics using a library like Three.js or Babylon.js** [ldel-val]: ADD HERE -> Tell them about them cats!
-
+- **Implement advanced 3D graphics using a library like Three.js or Babylon.js** [ldel-val]: CatJitsu uses Godot's 3D engine to create and render the game's cat-themed 3D environments, characters, animations, and visual effects, providing an interactive 3D experience rather than relying on a purely 2D interface.
 ---
 
 ## Point Calculation
